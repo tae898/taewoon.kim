@@ -20,8 +20,8 @@ author: Taewoon Kim
 ###############################################
 
 navbar-links:
-  # About Me: "aboutme"
-  # Blog: blog
+  # About: about
+  Blog: blog
   Projects:
     - Large Langauge Models: /projects/llm
     - Computer Vision: /projects/computer-vision
@@ -259,6 +259,7 @@ date_format: "%B %-d, %Y"
 #################################################################################
 # --- You don't need to touch anything below here (but you can if you want) --- #
 #################################################################################
+
 
 # Output options (more information on Jekyll's site)
 # timezone: "America/Toronto"
