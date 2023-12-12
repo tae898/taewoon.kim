@@ -1,9 +1,10 @@
 ---
 layout: page
 title: Large Language Models
+subtitle: It's all about predicting the next word given the history of words.
 cover-img: /assets/img/projects/llm.png
 thumbnail-img: /assets/img/projects/llm.png
-tags: [llm, AI, large language model]
+tags: [llm, AI, large language model, machine learning, deep learning]
 author: Taewoon Kim
 ---
 
