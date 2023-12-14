@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: project
 title: Computer Vision
 subtitle: Making the machine see the world as we do!
 cover-img: /assets/img/projects/computer-vision.png

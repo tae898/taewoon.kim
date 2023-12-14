@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: project
 title: A Machine With Human-Like Memory Systems
 subtitle: A machine with a symbolic memory system (knowledge graph) trained with reinforcement learning.
 cover-img: /assets/img/projects/human-memory.png

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: project
 title: Large Language Models
 subtitle: It's all about predicting the next word given the history of words.
 cover-img: /assets/img/projects/llm.png

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: project
 title: Tracking Glass Bottles With Letter in the Sea
 subtitle: QR-code based tracking. Anyone can participate in this project!
 cover-img: /assets/img/projects/glass-track.png
