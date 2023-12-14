@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: page
 title: A Machine With Human-Like Memory Systems
 subtitle: A machine with a symbolic memory system (knowledge graph) trained with reinforcement learning.
 cover-img: /assets/img/projects/human-memory.png
@@ -14,6 +14,7 @@ tags:
     deep learning,
   ]
 author: Taewoon Kim
+comments: true
 ---
 
 # [A Machine With Human-Like Memory Systems](https://arxiv.org/abs/2204.01611)

@@ -1,11 +1,12 @@
 ---
-layout: project
+layout: page
 title: Computer Vision
 subtitle: Making the machine see the world as we do!
 cover-img: /assets/img/projects/computer-vision.png
 thumbnail-img: /assets/img/projects/computer-vision.png
 tags: [computer vision, AI, machine learning, deep learning]
 author: Taewoon Kim
+comments: true
 ---
 
 # [Generalizing MLPs with dropouts, batch normalization, and skip connections](https://arxiv.org/abs/2108.08186)

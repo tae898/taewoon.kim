@@ -1,11 +1,12 @@
 ---
-layout: project
+layout: page
 title: Large Language Models
 subtitle: It's all about predicting the next word given the history of words.
 cover-img: /assets/img/projects/llm.png
 thumbnail-img: /assets/img/projects/llm.png
 tags: [llm, AI, large language model, machine learning, deep learning]
 author: Taewoon Kim
+comments: true
 ---
 
 # [Multitask Prompted Training Enables Zero-Shot Task Generalization](https://arxiv.org/abs/2110.08207)
