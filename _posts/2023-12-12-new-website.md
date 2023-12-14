@@ -2,8 +2,8 @@
 layout: post
 title: My new website
 subtitle: My boring old website had to be gone.
-cover-img: /assets/img/posts/new-website.png
-thumbnail-img: /assets/img/posts/new-website.png
+cover-img: /assets/img/posts/2023-12-12/new-website.png
+thumbnail-img: /assets/img/posts/2023-12-12/new-website.png
 tags: [website]
 author: Taewoon Kim
 ---
