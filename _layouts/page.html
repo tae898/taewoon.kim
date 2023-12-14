@@ -25,7 +25,8 @@ layout: base
         </div>
       {% endif %}
 
-      {% include comments.html %}
+      <!-- {% include comments.html %} -->  <!-- this only works for posts, not pages -->
+      {% include disqus.html %}
     </div>
   </div>
 </main>
