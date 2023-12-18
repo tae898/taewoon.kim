@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Computer Vision
-subtitle: Making the machine see the world as we do!
+subtitle: Making the machines see the world as we do!
 cover-img: /assets/img/projects/computer-vision.png
 thumbnail-img: /assets/img/projects/computer-vision.png
 tags: [computer vision, AI, machine learning, deep learning]
