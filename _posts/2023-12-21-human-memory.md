@@ -2,8 +2,8 @@
 layout: post
 title: A Machine With Human-Like Memory Systems
 subtitle: Can machines can think like humans?
-cover-img: /assets/img/projects/human-memory.png
-thumbnail-img: /assets/img/projects/human-memory.png
+cover-img: /assets/img/posts/2023-12-21/knowledge-graph-vs-neural-network.png
+thumbnail-img: /assets/img/posts/2023-12-21/knowledge-graph-vs-neural-network.png
 tags:
   [
     reinforcement learning,
@@ -49,7 +49,3 @@ At the moment the work is purely academic. The works are being published in acad
 conferences. But I believe in the next upcoming years, I can scale this up and make it
 even production ready, so that everyone can use it. Maybe it'll be running on your smartphones!
 All my works are open-sourced. You can find them in [my GitHub](https://github.com/tae898).
-
-The difference between the knowledge captured by knowledge grpahs and artificial neural networks
-is illustarted by [DALL-E!](https://openai.com/dall-e-3)
-![Knowledge Graph vs Neural Network](/assets/img/posts/2023-12-21/knowledge-graph-vs-neural-network.png)
