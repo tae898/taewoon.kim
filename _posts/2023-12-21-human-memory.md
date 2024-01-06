@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A Machine With Human-Like Memory Systems
-subtitle: Can machines can think like humans?
+subtitle: Can machines think like humans?
 cover-img: /assets/img/posts/2023-12-21/knowledge-graph-vs-neural-network.png
 thumbnail-img: /assets/img/posts/2023-12-21/knowledge-graph-vs-neural-network.png
 tags:
