@@ -46,6 +46,6 @@ can harm its generalization capability. So I eased some of them, and let RL lear
 Sometimes we also call something like this [Neuro-symbolic AI](https://en.wikipedia.org/wiki/Neuro-symbolic_AI).
 
 At the moment the work is purely academic. The works are being published in academic
-conferences. But I believe in the next upcoming years, I can scale this up and make it
+conferences. But I believe that in the next upcoming years, I can scale this up and make it
 even production ready, so that everyone can use it. Maybe it'll be running on your smartphones!
 All my works are open-sourced. You can find them in [my GitHub](https://github.com/tae898).
