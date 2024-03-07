@@ -14,7 +14,10 @@ First written on 04 March 2024.
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [Stage 1: Understanding how humans work and see if machines can do the same.](#stage-1-understanding-how-humans-work-and-see-if-machines-can-do-the-same)
+- [Motivation](#motivation)
+- [Human memory system](#human-memory-system)
+- [Incoprating the human memory system in AI](#incoprating-the-human-memory-system-in-ai)
+- [Stage 1: Understanding how humans work and see if machines can do the same](#stage-1-understanding-how-humans-work-and-see-if-machines-can-do-the-same)
   - [How humans work](#how-humans-work)
   - [What's missing in the current literature](#whats-missing-in-the-current-literature)
   - [Fundamental components in my machine](#fundamental-components-in-my-machine)
@@ -28,18 +31,73 @@ First written on 04 March 2024.
 - [Cite this project](#cite-this-project)
 - [References](#references)
 
+## Motivation
+
 I've always been fascinated with intelligent machines. They have the power to augment
 our lives. They become more powerful if we can talk to them in a natural language. This
 became reality with [ChatGPT](https://openai.com/blog/chatgpt) (OpenAI 2022). ChatGPT is
 by no means perfect. Everytime you start a new conversation, it starts from scratch,
 meaning that it does not remember who you are. OpenAI is trying to tackle this problem
 with its ["memory"](https://openai.com/blog/memory-and-new-controls-for-chatgpt) (OpenAI
-2024), which seems to be another prompt engineering based feature. I think a better
-appraoch is to design an AI with its memories at its core. That's why I want to share my
-project "A Machine With Human-Like Memory Systems" with you. This project comes in four
-stages.
+2024), which seems to be another prompt engineering based feature. A more effective
+strategy would be to prioritize the development of an AI with its memory capabilities as
+the foundational element. That's why I started my project "A Machine With Human-Like
+Memory Systems".
 
-## Stage 1: Understanding how humans work and see if machines can do the same.
+## Human memory system
+
+![alt text](<memory hierarchy.png>)
+
+Let's first try to understand how human memory systems work. Above is the human memory
+hierarchy. At the heart of this system are two critical components: short-term (or
+working) memory and long-term memory, each playing unique roles in the cognition
+process.
+
+**Short-term Memory (STM) or Working Memory**: This stage temporarily holds and
+processes a limited amount of information, typically for about 20 to 30 seconds. It's
+not just a passive storage space but an active workshop where information is manipulated
+for various cognitive tasks, such as problem-solving, language comprehension, and
+planning. Working memory is where conscious thought primarily occurs, integrating new
+sensory inputs with information retrieved from long-term memory to make sense of the
+world around us.
+
+**Long-term Memory (LTM)**: Information that is deemed important or is repeatedly
+rehearsed in short-term memory can be transferred to long-term memory, where it can
+remain for days, years, or even a lifetime. Long-term memory is vast and can store a
+huge quantity of information. It is divided into explicit (or declarative) memory, which
+includes memories that can be consciously recalled, such as facts and events, and
+implicit (or non-declarative) memory, for the skills and habits we've acquired, the
+phenomena of priming, and our emotional responses. Priming is an aspect of implicit
+memory that deals with the unconscious influence of an earlier presented stimulus on the
+response to a later stimulus. Emotional conditioning is another facet of implicit
+memory, involving the learning of emotional responses to certain stimuli. Through
+experiences, certain neutral stimuli can become associated with emotional responses,
+shaping our preferences, fears, and even our interpersonal relationships.
+
+What's not included in the above hierarchy is **sensory memory (information)**. Sensory
+memory acts as the initial stage in our memory system, capturing all the information
+from our environment through our senses. It quickly filters through this vast amount of
+data to decide what is important enough to pass on to our short-term memory. This
+process is like a brief moment of consideration before some of this sensory information
+is selected for further attention and use. Therefore, sensory memory is directly linked
+to short-term memory as it serves as the gateway, ensuring that only the most relevant
+information makes it to the next stage where we can consciously work with it. The reason
+why it's not included is that I model this memory differently from short-term and
+long-term memories for my AI .
+
+## Incoprating the human memory system in AI
+
+
+**Graphs to represent memory**: foo
+
+**
+
+
+As mentioned in the [Motivation](#motivation), I want to prioritize the development 
+of an AI with its memory capabilities as the foundational element. 
+
+
+## Stage 1: Understanding how humans work and see if machines can do the same
 
 ### How humans work
 
@@ -47,66 +105,103 @@ Cognitive science has studied the human brain and its memory systems. They have 
 with a human memory hierarchy. It looks like the image below
 
 - The memory systems closely follow those of humans.
-  - The memory hierarchy of my machine should resemble that of humans. This might be a too strict of of a restriction, but I believe in the end this will really pay off.
+  - The memory hierarchy of my machine should resemble that of humans. This might be a
+    too strict of of a restriction, but I believe in the end this will really pay off.
 
 ### What's missing in the current literature
 
-- This stage aims to search existing literatures and see what is missing. It also studies some scientific contributions in its early phase.
+- This stage aims to search existing literatures and see what is missing. It also
+  studies some scientific contributions in its early phase.
 - The existing literature is quite sparse.
-  - There is this community called “cognitive architecture” https://en.m.wikipedia.org/wiki/Cognitive_architecture
-  - Machine learning communities, especially reinforcement learning, use some memory systems to learn the policies of interest.
-    - I like what they are doing. But I want to do more than just learning the functions. I want to see these functions actually being used for real world tasks, e.g., communication with humans.
+  - There is this community called “cognitive architecture”
+    https://en.m.wikipedia.org/wiki/Cognitive_architecture
+  - Machine learning communities, especially reinforcement learning, use some memory
+    systems to learn the policies of interest.
+    - I like what they are doing. But I want to do more than just learning the
+      functions. I want to see these functions actually being used for real world tasks,
+      e.g., communication with humans.
 
 ### Fundamental components in my machine
 
 - The format of the memory systems is a graph.
-  - Graph structured data has been well studied in computer science and I can take advantage of it.
-  - If the graph is too big to be loaded into RAM, we can take advantage of graph databases to store them in storage.
-  - Graph neural networks (GNNs) in geometric deep learning have become a very powerful tool to learn from graphs. This includes node classification, link prediction, etc.
-  - Graph structured data can easily be turned into a knowledge graph. The knowledge graph community has been doing this for a while and it supports many things such as logical inferences. They have also built large free public knowledge bases which my machine can use as a prior. One more nice thing is that updating the memory of the agent can theoretically be done by simply modifying an entity in the graph.
-  - This graph is potentially a multi-modal graph, that doesn't just include string values.
-- The policies (functions) are learned with data. I don't want to use heuristics for them. As we humans have learned them, the machine should be able to learn them too.
+  - Graph structured data has been well studied in computer science and I can take
+    advantage of it.
+  - If the graph is too big to be loaded into RAM, we can take advantage of graph
+    databases to store them in storage.
+  - Graph neural networks (GNNs) in geometric deep learning have become a very powerful
+    tool to learn from graphs. This includes node classification, link prediction, etc.
+  - Graph structured data can easily be turned into a knowledge graph. The knowledge
+    graph community has been doing this for a while and it supports many things such as
+    logical inferences. They have also built large free public knowledge bases which my
+    machine can use as a prior. One more nice thing is that updating the memory of the
+    agent can theoretically be done by simply modifying an entity in the graph.
+  - This graph is potentially a multi-modal graph, that doesn't just include string
+    values.
+- The policies (functions) are learned with data. I don't want to use heuristics for
+  them. As we humans have learned them, the machine should be able to learn them too.
   - Encoding sensory information into short-term memory.
   - Memory management policy. This agent learns how to remember things.
-  - Memory retrieval policy. The agent learns what to retrieve to perform a given task, e.g., question answering.
-  - Exploration policy. My machine is curious. It explores the world by itself without being told to do so. Exploration comes with a cost.
+  - Memory retrieval policy. The agent learns what to retrieve to perform a given task,
+    e.g., question answering.
+  - Exploration policy. My machine is curious. It explores the world by itself without
+    being told to do so. Exploration comes with a cost.
 
 ### Scientific / engineering contributions
 
 - Encoding sensory information into short-term memory.
-  - The “sensory information” here is basically is raw multimodal data in deep learning, e.g., natural language, audio, image, video, time-series, tables, etc.
+  - The “sensory information” here is basically is raw multimodal data in deep learning,
+    e.g., natural language, audio, image, video, time-series, tables, etc.
   - The short-term memory has to be a graph, as mentioned!
-  - This might be tackled in my PhD. Since this is already a really big topic, a small fraction of it can be tackled in my PhD.
+  - This might be tackled in my PhD. Since this is already a really big topic, a small
+    fraction of it can be tackled in my PhD.
 - Learning the memory management policy.
-  - This can be broken down to several contributions, and that’s basically what I did for my PhD thesis.
-    - What to do with a short-term memory. Move it to the episodic? semantic? or forget it?
-    - What to do with episodic and semantic memories. Merge them? Move one to another? etc.
+  - This can be broken down to several contributions, and that’s basically what I did
+    for my PhD thesis.
+    - What to do with a short-term memory. Move it to the episodic? semantic? or forget
+      it?
+    - What to do with episodic and semantic memories. Merge them? Move one to another?
+      etc.
   - This was the first thing I tackled in my PhD and even that was hard.
 - Learning the memory retrieval policy.
-  - We humans retrieve information in many situations. It can be emotion based in episodic memory retireval. It can also be context based, and it can also be content based (semantic memory)
-  - I might tackle this in my PhD but not so sure. I've just been using heuristics for this.
-  - Emotion based memory retrieval is very interesting. I am sure that this is not studied a lot. I might do this after my PhD.
+  - We humans retrieve information in many situations. It can be emotion based in
+    episodic memory retireval. It can also be context based, and it can also be content
+    based (semantic memory)
+  - I might tackle this in my PhD but not so sure. I've just been using heuristics for
+    this.
+  - Emotion based memory retrieval is very interesting. I am sure that this is not
+    studied a lot. I might do this after my PhD.
 - Learning the exploration policy.
-  - Adding this policy can complicate things dramatically, but I did tackle a small part of it.
+  - Adding this policy can complicate things dramatically, but I did tackle a small part
+    of it.
 - Learning multiple policies at once.
-  - I will tackle this in my PhD. This is not an easy task. The biggest reason that I am doing this is that this can potentially lead to better generalization than learning policies one at a time. We humans probably learn them simultaneously. Our robots can do this too.
-  - We can formulate this into an MARL problem where each agent is responsible for one policy.
+  - I will tackle this in my PhD. This is not an easy task. The biggest reason that I am
+    doing this is that this can potentially lead to better generalization than learning
+    policies one at a time. We humans probably learn them simultaneously. Our robots can
+    do this too.
+  - We can formulate this into an MARL problem where each agent is responsible for one
+    policy.
 
 ## Stage 2: Scaling things up
 
-- This stage is about scaling things up. This won't be easy, and definitely won't be addressed during my PhD.
-- Graph databases will definitely help me here. I wanna learn them anyways so it'll be helpful.
+- This stage is about scaling things up. This won't be easy, and definitely won't be
+  addressed during my PhD.
+- Graph databases will definitely help me here. I wanna learn them anyways so it'll be
+  helpful.
 
 ### Scientific / engineering contributions
 
-- I am not sure if scaling things up counts as a scientific contribution. But we'll see. I still want to write papers about it.
+- I am not sure if scaling things up counts as a scientific contribution. But we'll see.
+  I still want to write papers about it.
 
 ## Stage 3: Production ready in the digital world
 
-- This stage is production ready phase. Humans will actually interact with the machine, and it'll use all the mentioned policies.
+- This stage is production ready phase. Humans will actually interact with the machine,
+  and it'll use all the mentioned policies.
 - This will involve a lot of software engineering.
   - Many things to be considered here, e.g., cloud, front-end (web based? android app?)
-- Input / output modalities should be considered. The easiest is when both input and output are natural language. I'll probably start with that. But if it can extend to audio and vision, it'll be amazing.
+- Input / output modalities should be considered. The easiest is when both input and
+  output are natural language. I'll probably start with that. But if it can extend to
+  audio and vision, it'll be amazing.
 
 ### Scientific / engineering contributions
 
@@ -114,9 +209,13 @@ with a human memory hierarchy. It looks like the image below
 
 ## Stage 4: Production ready in the real world
 
-- This is the last stage. Now things are ready to be deployed to the real analog physical world.
-- An embodied agent can have different forms, from a 3d-printed toy robot to a full humanoid robot. Of course simpler it is, the better it'll be.
-- Navigation can include procedural (implicit) memories. This type of memory is very different from the explicit memories that I dealt with. It probably doesn’t make sense to model procedural memory with a graph anymore.
+- This is the last stage. Now things are ready to be deployed to the real analog
+  physical world.
+- An embodied agent can have different forms, from a 3d-printed toy robot to a full
+  humanoid robot. Of course simpler it is, the better it'll be.
+- Navigation can include procedural (implicit) memories. This type of memory is very
+  different from the explicit memories that I dealt with. It probably doesn’t make sense
+  to model procedural memory with a graph anymore.
 
 ### Scientific / engineering contributions
 
