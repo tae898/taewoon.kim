@@ -1,6 +1,6 @@
 ---
 layout: page
-title: A Machine With Human-Like Memory Systems (Humemai)
+title: "HumemAI: A Machine With Human-Like Memory Systems"
 subtitle: A machine that can think and talk like us.
 cover-img: /assets/img/projects/human-memory/human-memory.png
 thumbnail-img: /assets/img/projects/human-memory.png
@@ -27,7 +27,7 @@ comments: true
     - [Memory decoding](#memory-decoding)
     - [Emotion](#emotion)
     - [Exploration (curiosity)](#exploration-curiosity)
-- [Science and engineering of Humemai](#science-and-engineering-of-humemai)
+- [Science and engineering of HumemAI](#science-and-engineering-of-humemai)
   - [Stage 1: Learning the essential skills](#stage-1-learning-the-essential-skills)
   - [Stage 2: Scaling things up](#stage-2-scaling-things-up)
   - [Stage 3: Production ready in the digital world](#stage-3-production-ready-in-the-digital-world)
@@ -47,7 +47,7 @@ with its ["memory"](https://openai.com/blog/memory-and-new-controls-for-chatgpt)
 2024), which seems to be another prompt engineering based feature. A more effective
 strategy would be to prioritize the development of an AI with its memory capabilities as
 the foundational element. That's why I started my project **"A Machine With Human-Like
-Memory Systems", a.k.a. Humemai**.
+Memory Systems", a.k.a. HumemAI**.
 
 ## The human memory system
 
@@ -105,7 +105,7 @@ distances or travel times between them as edges. This allows the application to 
 graph algorithms, such as Dijkstra's or A\* search algorithm, to efficiently find the
 shortest path or the fastest route between two points.
 
-So in my project Humemai, I model short-term and long-term memories as graphs. More
+So in my project HumemAI, I model short-term and long-term memories as graphs. More
 specifically, I use a [Knowledge Graph](https://arxiv.org/abs/2003.02320) (Hogan, E. et
 al. 2020) to represent them. In knowledge graphs, nodes represent entities, concepts, or
 events, while edges represent relationships or associations between these nodes. These
@@ -137,7 +137,7 @@ relationships, but also to stay updated with new knowledge, mirroring the learni
 process in humans. Additionally, the structured format of knowledge graphs facilitates
 more accurate and context-aware information retrieval, enhancing the system's ability to
 understand and interpret complex queries or tasks in a manner similar to human cognitive
-processes. In Humemai, I use these public knowledge graphs as semantic memory, as it has
+processes. In HumemAI, I use these public knowledge graphs as semantic memory, as it has
 to do with factual knowledge, rather than personal.
 
 Episodic memory, on the other hand, is built by the agent itself through its
@@ -166,7 +166,7 @@ with episodic memory capabilities, incorporating an emotional component could im
 the system's ability to remember and learn from interactions that have a strong
 emotional context. This could involve analyzing the sentiment of interactions or
 recognizing the emotional states of users to better encode and recall these events,
-thereby making the AI's interactions more personalized and effective. In Humemai,
+thereby making the AI's interactions more personalized and effective. In HumemAI,
 emotion will also be part of the episodic memory graph.
 
 Procedural and priming are not considered at this moment. Procedural might be considered
@@ -214,7 +214,7 @@ beats deep learning when it comes to approximating a funtion whose input modalit
 both human and machine understandable, e.g., text, audio, image, video, time-series,
 table, etc.
 
-In Humemai, these data will be "encoded" as short-term memory. I'm not talking about
+In HumemAI, these data will be "encoded" as short-term memory. I'm not talking about
 something like JPEG here. What I mean is that they will be encoded as a knowledge graph
 and be stored in the agent's short-term memory system. Below is an example.
 
@@ -271,9 +271,9 @@ Just like the Mars Curiosity rover, our agent is also curious. It likes to explo
 world and have new memories. Learning this skill can be encouraged with something like
 entropy maximiation objective.
 
-## Science and engineering of Humemai
+## Science and engineering of HumemAI
 
-There are a lot of science and engineering involved in the project of Humemai.
+There are a lot of science and engineering involved in the project of HumemAI.
 Therefore, I've broken it down into several stages so that we can divide and conquer.
 There is no perfect definition of “done” of each stage. It’s likely that all the stages
 are continuously and repeatedly visited and improved.
@@ -331,11 +331,11 @@ I couldn’t tackle all of them during the time.
 9. Encoding a video into a short-term memory might be as “simple” as processing a
    sequence of frames one by one. But probably not! A video is more than just a stack of
    images.
-10. Memory decoding, in the context of Humemai, is the reverse of memory encoding. That
+10. Memory decoding, in the context of HumemAI, is the reverse of memory encoding. That
     is, this is a skill that turns a knowledge graph into text, image, audio, or a
     video. This is probably very challenging, but we have seen some remarkable decoders
     lately, e.g., diffusion models, LLMs with Transformer decoders, etc., that can
-    generate very nice images and texts. The challenge in Humemai is to condition them
+    generate very nice images and texts. The challenge in HumemAI is to condition them
     with a knowledge graph. LLM based agents are getting more attention. See this blog
     post ["LLM Powered Autonomous
     Agents"](https://lilianweng.github.io/posts/2023-06-23-agent/) (Weng, L. 2023) for
@@ -375,7 +375,7 @@ extend to audio and vision, it'll be amazing.
 In the beginning, I’ll have the humans interact with the agent by solving some kind of
 simple problem together. It’s probably easier when there is an objective, so that the
 both sides don’t end up talking about random stuff. After assessing the human-machine
-interactions, I’ll have a better idea what humans want from Humemai agent, or even what
+interactions, I’ll have a better idea what humans want from HumemAI agent, or even what
 the agent wants from humans. Considering the opinions from the both sides, I’ll add more
 collaborative tasks and conversation topics.
 
@@ -389,7 +389,7 @@ memory. It probably doesn’t make sense to model procedural memory with a graph
 
 ## Conclusion
 
-In conclusion, the journey of developing Humemai, a machine with human-like memory
+In conclusion, the journey of developing HumemAI, a machine with human-like memory
 systems, represents a groundbreaking leap in the realm of artificial intelligence. By
 intricately weaving the complexities of human memory—encompassing short-term, long-term,
 and sensory memories—into the fabric of AI through the use of knowledge graphs and deep
@@ -405,7 +405,7 @@ AI to mimic human memory but has also underscored the importance of a multidisci
 approach that bridges cognitive science, computer science, and engineering.
 
 Through the phased development strategy—from mastering essential skills in controlled
-environments to scaling up for real-world interactions—Humemai promises to revolutionize
+environments to scaling up for real-world interactions—HumemAI promises to revolutionize
 how machines learn, adapt, and interact within their environments. The final goal of
 deploying these AI systems in the physical world as embodied agents will not only expand
 their utility and applicability but also pave the way for more natural, intuitive
@@ -413,7 +413,7 @@ human-machine collaborations.
 
 The implications of this work are vast, with potential applications across education,
 healthcare, customer service, and beyond, offering personalized, empathetic, and
-efficient interactions. As we continue to refine and enhance Humemai, it remains a
+efficient interactions. As we continue to refine and enhance HumemAI, it remains a
 testament to the power of interdisciplinary research and the boundless possibilities of
 AI when modeled after the intricate workings of the human mind.
 
