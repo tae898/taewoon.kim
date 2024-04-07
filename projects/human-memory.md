@@ -47,7 +47,7 @@ with its ["memory"](https://openai.com/blog/memory-and-new-controls-for-chatgpt)
 2024), which seems to be another prompt engineering based feature. A more effective
 strategy would be to prioritize the development of an AI with its memory capabilities as
 the foundational element. That's why I started my project **"A Machine With Human-Like
-Memory Systems", a.k.a. HumemAI**.
+Memory Systems", a.k.a. HumemAI** [https://humem.ai/](https://humem.ai/).
 
 ## The human memory system
 
