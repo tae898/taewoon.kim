@@ -21,7 +21,7 @@ tags:
 author: Taewoon Kim
 ---
 
-The project ["A Machine With Human-Like Memory Systems"](../projects/human-memory) is
+The project ["A Machine With Human-Like Memory Systems"](https://humem.ai) is
 the core of my PhD work. It was heavily inspired by the cognitive science theories,
 such as the ones from [Endel Tulving](https://scholar.google.com/citations?user=OxmLLMEAAAAJ&hl=en).
 It's about developing agents equipped with human-like external memory systems, modeled
