@@ -1,7 +1,7 @@
 ---
 layout: post
-title: A Machine With Human-Like Memory Systems
-subtitle: Can machines think like humans?
+title: A machine with human-like memory systems
+subtitle: Can machines think like us?
 cover-img: /assets/img/posts/2023-12-21/knowledge-graph-vs-neural-network.png
 thumbnail-img: /assets/img/posts/2023-12-21/knowledge-graph-vs-neural-network.png
 tags:
@@ -16,7 +16,7 @@ tags:
     LLM,
     symbolic AI,
     GOFAI,
-    DALL-E
+    humemai
   ]
 author: Taewoon Kim
 ---

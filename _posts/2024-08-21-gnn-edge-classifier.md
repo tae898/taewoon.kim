@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Training a GCN-based Edge Classifier
-subtitle: Exploring the Challenges and Strategies for Effective Edge Classification with Graph Neural Networks (GNNs)
+title: Training a GCN-based edge classifier
+subtitle: Exploring the challenges and strategies for effective edge classification with graph neural networks (GNNs)
 cover-img: /assets/img/posts/2024-08-21/gnn-edge-classifier.png
 thumbnail-img: /assets/img/posts/2024-08-21/gnn-edge-classifier.png
 tags: [knowledge graph, machine learning, deep learning, gnn]
