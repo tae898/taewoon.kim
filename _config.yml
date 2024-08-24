@@ -21,13 +21,15 @@ author: Taewoon Kim
 
 navbar-links:
   # About: about
+  HumemAI: https://humem.ai
   Blog: blog
+  Contact: contact
+  CV: /taewoon-kim-cv.pdf
   # Projects:
   #   - Large Langauge Models: /projects/llm
   #   - Computer Vision: /projects/computer-vision
   #   - "HumemAI: A Machine With Human-Like Memory Systems": /projects/human-memory
   #   # - Tracking Glass Bottles With Letter in the Sea: /projects/glass-track
-  CV: /taewoon-kim-cv.pdf
   # Resources:
   #   - Beautiful Jekyll: "https://beautifuljekyll.com"
   #   - Learn markdown: "https://www.markdowntutorial.com/"
