@@ -9,7 +9,7 @@ author: Taewoon Kim
 # comments: true
 ---
 
-<i class="fas fa-envelope"></i> **Email:**[taewoon@taewoon.kim](mailto:taewoon@taewoon.kim)
+<i class="fas fa-envelope"></i> **Email:** [taewoon@taewoon.kim](mailto:taewoon@taewoon.kim)
 <br>
 <i class="fab fa-linkedin"></i> **LinkedIn:** [tae898](https://linkedin.com/in/tae898)
 <br>
