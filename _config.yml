@@ -274,8 +274,8 @@ timezone: "Europe/Amsterdam"
 markdown: kramdown
 highlighter: rouge
 permalink: /:year-:month-:day-:title/
-paginate: 5
-paginate_path: /blog/page:num/ # only apply to blog
+paginate: 10
+# paginate_path: /blog/page:num/ # only apply to blog
 
 kramdown:
   input: GFM
