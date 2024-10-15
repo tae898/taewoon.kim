@@ -22,7 +22,7 @@ author: Taewoon Kim
 navbar-links:
   # About: about
   HumemAI: https://humem.ai
-  Blog: blog
+  # Blog: blog
   Contact: contact
   CV: /taewoon-kim-cv.pdf
   # Projects:
