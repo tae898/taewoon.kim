@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Contact"
-subtitle: "Feel free to reach out to me"
+subtitle: "I offer B2B services, including full stack AI / ML model development and consulting"
 # cover-img: /assets/img/about/human-memory.png
 # thumbnail-img: /assets/img/about/human-memory.png
 tags: [contact]
