@@ -2,8 +2,8 @@
 layout: post
 title: Can the Transformer be viewed as a special case of a Graph Neural Network (GNN)?
 subtitle: A natural language text can be seen as a knowledge graph
-cover-img: /assets/img/posts/2024-10-16/transformer-gnn.webp
-thumbnail-img: /assets/img/posts/2024-10-16/transformer-gnn.webp
+cover-img: /assets/img/posts/2024-10-15/transformer-gnn.webp
+thumbnail-img: /assets/img/posts/2024-10-15/transformer-gnn.webp
 tags: [GNN, transformer, knowledge graph, NLP, natural language]
 author: Taewoon Kim
 mathjax: true
@@ -184,7 +184,7 @@ consider the following structure. Suppose we have a sentence composed of tokens:
 $$\text{Token}_1$$, $$\text{Token}_2$$, $$\text{Token}_3$$, ..., $$\text{Token}_N$$. The
 sequential nature of the sentence can be represented as a directed graph:
 
-![](/assets/img/posts/2024-10-16/text-as-kg.svg)
+![](/assets/img/posts/2024-10-15/text-as-kg.svg)
 
 For visualization purposes, only the edges from $$\text{Token}_1$$ are shown.
 
