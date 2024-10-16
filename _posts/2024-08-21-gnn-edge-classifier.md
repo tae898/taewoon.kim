@@ -26,16 +26,20 @@ information from its neighbors.
 
 Mathematically, the update rule for a single layer in a GCN can be expressed as:
 
-$$ H^{(l+1)} = \sigma\left( \hat{D}^{-1/2} \hat{A} \hat{D}^{-1/2} H^{(l)} W^{(l)}
-\right) $$
+$$ \boldsymbol{H}^{(l+1)} = \sigma\left( \hat{\boldsymbol{D}}^{-1/2}
+\hat{\boldsymbol{A}} \hat{\boldsymbol{D}}^{-1/2} \boldsymbol{H}^{(l)}
+\boldsymbol{W}^{(l)} \right) $$
 
 Where:
 
-- $$H^{(l)}$$ is the matrix of node features at layer $$l$$.
-- $$\hat{A} = A + I$$ is the adjacency matrix with added self-loops.
-- $$\hat{D}$$ is the diagonal degree matrix of $$\hat{A}$$.
-- $$W^{(l)}$$ is the layer-specific trainable weight matrix.
-- $$\sigma$$ is the activation function, such as ReLU.
+- $$ \boldsymbol{H}^{(l)} $$ is the matrix of node features at layer $$ l $$.
+- $$ \hat{\boldsymbol{A}} = \boldsymbol{A} + \boldsymbol{I} $$ is the adjacency matrix
+  with added self-loops.
+- $$ \hat{\boldsymbol{D}} $$ is the diagonal degree matrix of $$ \hat{\boldsymbol{A}}
+  $$.
+- $$ \boldsymbol{W}^{(l)} $$ is the layer-specific trainable weight matrix.
+- $$ \sigma $$ is the activation function, such as ReLU.
+
 
 ### Initial Approach: Random Node Features
 
