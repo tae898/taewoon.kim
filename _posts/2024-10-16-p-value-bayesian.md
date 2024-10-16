@@ -36,16 +36,70 @@ Let’s take an example where we flip a coin that is very close to fair, with a 
 probability of heads of 0.501. While this is practically a fair coin, let's see how
 p-values behave as we flip it more and more times.
 
-We flip the coin several times: $$ N = 10 $$, $$ N = 100 $$, $$ N = 1000 $$, $$ N =
+We flip the coin several times: $$ N = 100 $$, $$ N = 1000 $$, $$ N =
 10,000 $$, and finally $$ N = 1,000,000 $$. After each set of flips, we count the number
 of heads and calculate the p-value to test whether the coin is significantly different
 from a fair coin (i.e., $$ \theta = 0.5 $$).
 
-Here are the results:
+### Calculating p-Values Using the Gaussian Approximation
 
-- For $$ N = 10 $$, we observed 6 heads and the p-value was **0.754**.
+For large $$ N $$, the binomial distribution can be approximated by a Gaussian (normal)
+distribution due to the Central Limit Theorem. This approximation simplifies the
+calculation of p-values. Here's how we do it:
+
+1. **Define the Parameters:**
+   
+   - **Null Hypothesis:** $$ H_0: \theta = 0.5 $$
+   - **Observed Heads:** $$ x $$
+   - **Number of Trials:** $$ N $$
+
+2. **Calculate the Mean and Standard Deviation:**
+   
+   Under the null hypothesis, the mean ($$ \mu $$) and standard deviation ($$ \sigma $$)
+   of the binomial distribution are:
+   
+   $$ \mu = N \cdot \theta = N \cdot 0.5 $$
+   
+   $$ \sigma = \sqrt{N \cdot \theta \cdot (1 - \theta)} = \sqrt{N \cdot 0.5 \cdot 0.5} =
+   \sqrt{\frac{N}{4}} = \frac{\sqrt{N}}{2} $$
+
+3. **Compute the z-Score:**
+   
+   The z-score measures how many standard deviations the observed value is from the
+   mean:
+   
+   $$ z = \frac{x - \mu}{\sigma} = \frac{x - 0.5N}{\sqrt{0.25N}} = \frac{x -
+   0.5N}{0.5\sqrt{N}} = \frac{2(x - 0.5N)}{\sqrt{N}} $$
+
+4. **Determine the p-Value:**
+   
+   The p-value is the probability of observing a value as extreme as, or more extreme
+   than, the observed value under the null hypothesis. For a two-tailed test:
+   
+   $$ p\text{-value} = 2 \cdot \left(1 - \Phi\left(|z|\right)\right) $$
+
+   Where $$ \Phi $$ is the cumulative distribution function (CDF) of the standard normal
+   distribution.
+
+5. **Example Calculation:**
+   
+   Let's calculate the p-value for $$ N = 1,000,000 $$ and $$ x = 501,000 $$ heads.
+
+   - **Mean:** $$ \mu = 0.5 \times 1,000,000 = 500,000 $$
+   - **Standard Deviation:** $$ \sigma = \frac{\sqrt{1,000,000}}{2} = \frac{1000}{2} =
+     500 $$
+   - **z-Score:** $$ z = \frac{501,000 - 500,000}{500} = \frac{1,000}{500} = 2 $$
+   - **p-Value:** $$ p\text{-value} = 2 \cdot \left(1 - \Phi(2)\right) $$ Using standard
+     normal tables or a calculator, $$ \Phi(2) \approx 0.9772 $$. $$ p\text{-value} = 2
+     \cdot (1 - 0.9772) = 2 \cdot 0.0228 = 0.0456 $$
+
+   This p-value is approximately **0.046**, which is below the "arbitrary" $$ \alpha =
+   0.05 $$ threshold, leading to a "statistically significant" result.
+
+Here are the results for all the sample sizes:
+
 - For $$ N = 100 $$, we observed 51 heads and the p-value was **0.920**.
-- For $$ N = 1000 $$, we observed 501 heads and the p-value was **0.975**.
+- For $$ N = 1,000 $$, we observed 501 heads and the p-value was **0.975**.
 - For $$ N = 10,000 $$, we observed 5010 heads and the p-value was **0.849**.
 - For $$ N = 1,000,000 $$, we observed 501,000 heads and the p-value dropped to
   **0.046**.
@@ -77,49 +131,39 @@ coin’s fairness. Instead of calculating a p-value and making binary decisions,
 methods allow us to update our beliefs about the probability of heads as we observe more
 data.
 
-### Bayesian Updating
+### Calculating $$ \theta $$ Using Bayesian Inference
 
-In Bayesian inference, we update our belief about the probability of heads, $$ \theta
-$$, using observed data. This is done by combining a **prior distribution** (our initial
-belief about $$ \theta $$) with the data to produce a **posterior distribution**—our
-updated belief about $$ \theta $$ after seeing the data.
+In Bayesian inference, we aim to update our belief about the probability of heads,
+denoted by $$ \theta $$, using observed data. This is done through a process known as
+**posterior updating**, where we update our initial belief (the prior distribution)
+after observing new data (the likelihood).
 
-Mathematically, this is done using Bayes' theorem:
+#### Bayesian Updating Formula
+
+Mathematically, we use **Bayes’ Theorem** to calculate the posterior distribution of $$
+\theta $$ after observing a series of coin flips:
 
 $$ P(\theta \mid \text{data}) = \frac{P(\text{data} \mid \theta)
 P(\theta)}{P(\text{data})} $$
 
 Where:
 - $$ P(\theta \mid \text{data}) $$ is the posterior probability distribution for $$
-  \theta $$, the probability of heads,
-- $$ P(\text{data} \mid \theta) $$ is the likelihood of the observed data given $$
-  \theta $$,
-- $$ P(\theta) $$ is the prior probability distribution of $$ \theta $$,
-- $$ P(\text{data}) $$ is the marginal likelihood of the data (a normalizing constant to
-  ensure the posterior is a valid probability distribution).
+  \theta $$, the probability of heads after observing data.
+- $$ P(\text{data} \mid \theta) $$ is the likelihood of observing the number of heads
+  given $$ \theta $$.
+- $$ P(\theta) $$ is the prior probability distribution of $$ \theta $$, our belief
+  before seeing the data.
+- $$ P(\text{data}) $$ is the marginal likelihood of the data, a normalizing constant.
 
-In this context:
-- $$ P(\theta) $$ represents our prior belief about the fairness of the coin before
-  seeing any data,
-- $$ P(\text{data} \mid \theta) $$ is the likelihood of observing the number of heads we
-  got, given the coin’s true probability $$ \theta $$.
+#### Beta Distribution as a Prior
 
-For a Bernoulli process like a coin flip, the posterior distribution for $$ \theta $$
-follows a **Beta distribution**, which is the conjugate prior for the Bernoulli
-likelihood. This means that after observing data, the posterior distribution remains in
-the same family as the prior distribution, making it easy to update.
+For a Bernoulli process like coin flips, we typically use a **Beta distribution** as the
+prior for $$ \theta $$. After observing the data, the posterior distribution of $$
+\theta $$ also follows a Beta distribution, making it easy to update.
 
-### Example: Bayesian Updating in Action
-
-Let's say we start with a uniform prior $$ \text{Beta}(1, 1) $$. After observing each
-set of flips, we update the parameters of the Beta distribution. For example, after $$ N
-= 1000 $$ flips with 501 heads, the posterior distribution would reflect a high
-confidence that the true probability $$ \theta $$ is close to 0.501. As $$ N $$
-increases, the posterior distribution becomes increasingly concentrated around $$ \theta
-= 0.501 $$.
-
-In mathematical terms, the posterior distribution after observing $$ x $$ heads out of
-$$ N $$ flips is:
+Let’s say we start with a uniform prior, $$ \text{Beta}(1, 1) $$, which reflects an
+initial belief that any $$ \theta $$ between 0 and 1 is equally likely. After observing
+$$ x $$ heads out of $$ N $$ flips, we update the parameters of the Beta distribution:
 
 $$ \text{Beta}(\alpha_{\text{posterior}}, \beta_{\text{posterior}}) $$
 
@@ -127,8 +171,22 @@ Where:
 - $$ \alpha_{\text{posterior}} = \alpha_{\text{prior}} + \text{heads observed} $$
 - $$ \beta_{\text{posterior}} = \beta_{\text{prior}} + \text{tails observed} $$
 
-Here, $$ \alpha_{\text{prior}} $$ and $$ \beta_{\text{prior}} $$ come from the Beta
-distribution used as the prior.
+### Example: Bayesian Updating in Action
+
+For example, after observing 501 heads in 1000 flips, we update our Beta prior as
+follows:
+
+- **Prior:** $$ \text{Beta}(1, 1) $$
+- **Observed heads:** 501
+- **Observed tails:** 499
+
+The posterior distribution becomes:
+
+$$ \text{Beta}(1 + 501, 1 + 499) = \text{Beta}(502, 500) $$
+
+As more flips are conducted, the posterior distribution becomes more concentrated around
+$$ \theta = 0.501 $$, reflecting our growing confidence that the true probability of
+heads is very close to 0.501.
 
 ### Bayesian Advantage: Learning the True Distribution
 
@@ -142,9 +200,11 @@ As $$ N $$ increases, our posterior distribution becomes more sharply centered a
 the coin. This is exactly what we expect: with more data, we should get a more accurate
 estimate of the true probability.
 
-Moreover, Bayesian methods allow for other advanced techniques like **Bayesian
-Hypothesis Testing**, which can be used to directly compare hypotheses. But that is a
-topic for a future post.
+So, after all this analysis, we might conclude that $$ \theta $$ is very close to 0.501.
+But wait—does this mean the coin is truly fair? Should we say this is a fair coin then?
+The Bayesian approach allows us to answer this with further analysis, specifically
+through **Bayesian Hypothesis Testing**, which directly compares hypotheses. However,
+that is a topic for a future post.
 
 ## Conclusion: Moving Beyond p-Values
 
