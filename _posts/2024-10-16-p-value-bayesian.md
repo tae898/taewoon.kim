@@ -36,10 +36,10 @@ Let’s take an example where we flip a coin that is very close to fair, with a 
 probability of heads of 0.501. While this is practically a fair coin, let's see how
 p-values behave as we flip it more and more times.
 
-We flip the coin several times: $$ N = 100 $$, $$ N = 1000 $$, $$ N =
-10,000 $$, and finally $$ N = 1,000,000 $$. After each set of flips, we count the number
-of heads and calculate the p-value to test whether the coin is significantly different
-from a fair coin (i.e., $$ \theta = 0.5 $$).
+We flip the coin several times: $$ N = 100 $$, $$ N = 1000 $$, $$ N = 10,000 $$, and
+finally $$ N = 1,000,000 $$. After each set of flips, we count the number of heads and
+calculate the p-value to test whether the coin is significantly different from a fair
+coin (i.e., $$ \theta = 0.5 $$).
 
 ### Calculating p-Values Using the Gaussian Approximation
 
@@ -173,32 +173,60 @@ Where:
 
 ### Example: Bayesian Updating in Action
 
-For example, after observing 501 heads in 1000 flips, we update our Beta prior as
-follows:
+For example, after observing $$N_{\text{heads}}$$ heads in $$N_{\text{flips}}$$ flips,
+we update our Beta prior as follows:
 
 - **Prior:** $$ \text{Beta}(1, 1) $$
-- **Observed heads:** 501
-- **Observed tails:** 499
+- **Observed heads:** $$N_{\text{heads}}$$
+- **Observed tails:** $$N_{\text{tails}}$$ = $$N_{\text{flips}}$$ - $$N_{\text{heads}}$$
 
 The posterior distribution becomes:
 
-$$ \text{Beta}(1 + 501, 1 + 499) = \text{Beta}(502, 500) $$
+$$ \text{Beta}(1 + N_{\text{heads}}, 1 + N_{\text{tails}}) $$
 
-As more flips are conducted, the posterior distribution becomes more concentrated around
-$$ \theta = 0.501 $$, reflecting our growing confidence that the true probability of
-heads is very close to 0.501.
+This updated Beta distribution gives us a refined estimate of the probability of heads,
+$$ \theta $$, while also reflecting the uncertainty around that estimate. As we gather
+more data, the posterior distribution will become narrower, indicating greater certainty
+in our estimate of $$ \theta $$.
 
-### Bayesian Advantage: Learning the True Distribution
+### Visualizing the Posterior Distributions
 
-Unlike the frequentist approach, where the p-value decreases as $$ N $$ increases, the
-Bayesian approach naturally narrows down to the true probability. Instead of using
-arbitrary thresholds, the Bayesian method allows us to learn more about the true
-distribution of the coin's behavior as we collect more data.
+Let’s now visualize how the Bayesian posterior distribution changes as we increase the
+number of coin flips, similar to the frequentist example. Instead of focusing on a
+single point estimate like in the frequentist method, the Bayesian approach updates the
+full distribution of $$ \theta $$, capturing both the estimate and our uncertainty. 
 
-As $$ N $$ increases, our posterior distribution becomes more sharply centered around $$
-\theta = 0.501 $$, indicating that we are increasingly confident in the true fairness of
-the coin. This is exactly what we expect: with more data, we should get a more accurate
-estimate of the true probability.
+The following figure shows how the posterior distribution becomes more concentrated as
+the number of flips increases:
+
+![Posterior Beta Distributions](/assets/img/posts/2024-10-16/beta-plot.png)
+
+In this plot, we can see that:
+
+- For $$ N = 100 $$, the posterior distribution is relatively wide, indicating a fair
+  amount of uncertainty around $$ \theta $$.
+- For $$ N = 1,000 $$, the distribution is narrower, meaning we are more certain about
+  $$ \theta $$.
+- For $$ N = 10,000 $$, the distribution becomes even more concentrated.
+- For $$ N = 1,000,000 $$, the posterior distribution is very sharply centered around $$
+  \theta = 0.501 $$, indicating that we are highly certain about the true probability of
+  heads.
+
+As we collect more data, the posterior distribution approaches a Dirac delta function
+centered around the true value of $$ \theta = 0.501 $$. This illustrates how Bayesian
+inference provides a clearer picture of our growing certainty as the sample size
+increases. Unlike p-values, which can be misleading with large sample sizes, the
+Bayesian approach shows that we are converging to the true value of $$ \theta $$ with
+increasing certainty.
+
+### Key Insight: Certainty Increases with More Data
+
+The crucial difference between the frequentist and Bayesian approaches is this: while
+p-values tend to drop with increasing sample sizes—sometimes leading to statistically
+significant results even for trivial effects—the Bayesian approach directly quantifies
+our certainty about the true value of $$ \theta $$. As the number of observations
+increases, the posterior distribution narrows, signaling that we are more confident in
+our estimate of $$ \theta $$.
 
 So, after all this analysis, we might conclude that $$ \theta $$ is very close to 0.501.
 But wait—does this mean the coin is truly fair? Should we say this is a fair coin then?
@@ -217,6 +245,8 @@ observed data, and as we gather more flips, we get closer to the true probabilit
 heads.
 
 Bayesian methods offer a richer and more nuanced interpretation of data, free from the
-arbitrary thresholds and misleading binary decisions that p-values impose. It's time to
-move beyond p-values and embrace methods that allow us to learn from data in a more
-flexible and informative way.
+arbitrary thresholds and misleading binary decisions that p-values impose. Instead of
+focusing on binary outcomes (significant vs. not significant), the Bayesian approach
+allows us to quantify our uncertainty and increase our confidence as more data is
+gathered. It's time to move beyond p-values and embrace methods that allow us to learn
+from data in a more flexible and informative way.
