@@ -352,7 +352,8 @@ human-like text, their ability to learn from and condition on sequences has
 revolutionized how we approach sequential decision-making.
 
 Looking ahead, hybrid approaches that combine the strengths of behavior cloning and
-reinforcement learning hold immense promise. By starting with high-quality offline data
-and refining through exploration, we can build systems that not only imitate human
-behavior but also push the boundaries of what is possible. The journey is just
-beginning, and the potential for innovation is boundless.
+reinforcement learning hold immense promise, e.g., RLHF (reinforcement learning from
+human feedback). By starting with high-quality offline data and refining through
+exploration, we can build systems that not only imitate human behavior but also push the
+boundaries of what is possible. The journey is just beginning, and the potential for
+innovation is boundless.
