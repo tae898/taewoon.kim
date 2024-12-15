@@ -160,7 +160,7 @@ are complementary, and hybrid methods often combine their strengths.
 Instead of iterative value updates (as in model-free RL) or explicit planning (as in
 model-based RL), we can directly treat the entire sequence
 
-$$ (s*1, a_1, r_2, s_2, \dots, s_T, a_T, r*{T+1}, s\_{T+1}) $$
+$$ (s_1, a_1, r_2, s_2, \dots, s_T, a_T, r_{T+1}, s_{T+1}) $$
 
 as something to be **modeled by a neural network**. This is known as **direct sequence
 learning**. While this can be done using architectures like RNNs, e.g., LSTMs, the
