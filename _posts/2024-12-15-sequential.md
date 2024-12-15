@@ -163,10 +163,12 @@ model-based RL), we can directly treat the entire sequence
 $$ (s_1, a_1, r_2, s_2, \dots, s_T, a_T, r_{T+1}, s_{T+1}) $$
 
 as something to be **modeled by a neural network**. This is known as **direct sequence
-learning**. While this can be done using architectures like RNNs, e.g., LSTMs, the
-**Transformer** has become the dominant choice due to its attention mechanism, which
-allows it to learn relationships across all tokens in a sequence—regardless of their
-distance. This makes Transformers particularly well-suited for long sequences.
+learning**. While this can be done using architectures like RNNs, e.g.,
+[LSTMs](https://dl.acm.org/doi/10.1162/neco.1997.9.8.1735), the
+[**Transformer**](https://arxiv.org/abs/1706.03762) has become the dominant choice due
+to its attention mechanism, which allows it to learn relationships across all tokens in
+a sequence—regardless of their distance. This makes Transformers particularly
+well-suited for long sequences.
 
 ### Why Gumbel-Softmax?
 
@@ -180,10 +182,11 @@ where $$ \mathbf{z} $$ represents the logits from the network. However, sampling
 categorical distribution is not differentiable, or from any distribution in general,
 which makes it difficult to train neural networks with backpropagation.
 
-The **Gumbel-Softmax trick** addresses this by providing a differentiable approximation
-to categorical sampling. It works similarly to the **reparameterization trick** used in
-variational autoencoders (VAEs), but it applies to **categorical distributions** rather
-than Gaussians. Concretely:
+The [**Gumbel-Softmax trick**](https://arxiv.org/abs/1611.01144) addresses this by
+providing a differentiable approximation to categorical sampling. It works similarly to
+the **reparameterization trick** used in [variational autoencoders
+(VAEs)](https://arxiv.org/abs/1312.6114), but it applies to **categorical
+distributions** rather than Gaussians. Concretely:
 
 $$
 y_i = \frac{\exp\Big((\log(\pi_i) + g_i) / \tau\Big)} {\sum_j \exp\Big((\log(\pi_j) +
@@ -276,9 +279,8 @@ For instance:
   The goal token helps the model generate a trajectory aligned with the desired
   objective.
 
-- In LLMs, training involves predicting the next token in a text sequence. For example,
-  we can prepend instructions to condition the model's generation. Consider the input
-  prompt:
+- In LLMs, we can prepend instructions to condition the model's generation. Consider the
+  input prompt:
 
   $$
   \text{“Translate the following Korean sentence to English: ‘서울은 한국의
