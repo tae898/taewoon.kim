@@ -39,27 +39,39 @@ Where:
 - $$ \boldsymbol{W}^{(l)} $$ is the layer-specific trainable weight matrix.
 - $$ \sigma $$ is the activation function, such as ReLU.
 
-### Spatial vs. Spectral Methods in PyTorch Geometric
+### From Spectral to Spatial: Modern GCN Implementations
 
-It's important to note that while the original GCN paper by Kipf & Welling can be viewed
-as deriving from a spectral perspective (using the graph Laplacian), **the PyTorch
-Geometric implementation (`GCNConv`) adopts a spatial, message-passing approach.** In
-this spatial formulation, each node's representation is updated based on the features of
-its neighbors, without explicitly computing the Laplacian's eigenvalues or eigenvectors.
+The original GCN framework proposed by [Kipf & Welling (2017)](https://arxiv.org/abs/1609.02907)
+is often described in a **spectral** context, leveraging the eigen-decomposition of the
+graph Laplacian. However, many modern implementations, including the PyTorch Geometric
+library, adopt a **spatial (message-passing) approach**. This involves:
 
-**Why is this done?**  
-1. **Scalability**: Computing and storing eigenvectors (as in purely spectral methods)
-   can be expensive for large graphs. Spatial methods rely on localized computations
-   using direct adjacency information, making them more scalable.
-2. **Flexibility**: Message passing allows for easy integration of additional node- and
-   edge-level features.  
-3. **Efficiency**: By avoiding eigen-decomposition and instead performing neighbor
-   aggregation (via adjacency lookups), the implementation can handle large and dynamic
-   graphs with far less overhead.
+1. **Neighbor-Based Aggregation**: Each node’s representation is updated by directly 
+   summing (or aggregating) features from its neighbors,
+2. **Localized Computations**: We never explicitly compute or store the Laplacian’s 
+   eigenvectors,
+3. **Scalability and Efficiency**: The spatial approach is typically more scalable for 
+   large, complex, or dynamic graphs.
 
-With this in mind, PyTorch Geometric's GCNs operate in a **spatial** manner: they work
-locally, passing messages from neighbors and updating node embeddings, rather than using
-global spectral transformations.
+A common way to express this **spatial message-passing** formulation is via the
+node-wise update:
+
+$$ \boldsymbol{h}_i^{(k+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i)} \boldsymbol{W}
+\boldsymbol{h}_j^{(k)} + \boldsymbol{b} \right), $$
+
+where:
+
+- $$ \boldsymbol{h}_i^{(k)} $$ is the feature vector of node $$ i $$ at layer $$ k $$,
+- $$ \mathcal{N}(i) $$ denotes the set of neighbors of node $$ i $$,
+- $$ \boldsymbol{W} $$ and $$ \boldsymbol{b} $$ are learned parameters (weight matrix and bias),
+- $$ \sigma $$ is an activation function (e.g., ReLU),
+- The adjacency matrix $$ \boldsymbol{A} $$ encodes edges and thus determines which
+  neighbors are aggregated at each step.
+
+By avoiding costly spectral operations, **spatial GCNs** can handle large datasets more
+flexibly and often integrate additional node- or edge-level features without changing
+the core algorithm.
+
 
 ### Initial Approach: Random Node Features
 
