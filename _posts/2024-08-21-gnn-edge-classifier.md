@@ -35,11 +35,31 @@ Where:
 - $$ \boldsymbol{H}^{(l)} $$ is the matrix of node features at layer $$ l $$.
 - $$ \hat{\boldsymbol{A}} = \boldsymbol{A} + \boldsymbol{I} $$ is the adjacency matrix
   with added self-loops.
-- $$ \hat{\boldsymbol{D}} $$ is the diagonal degree matrix of $$ \hat{\boldsymbol{A}}
-  $$.
+- $$ \hat{\boldsymbol{D}} $$ is the diagonal degree matrix of $$ \hat{\boldsymbol{A}} $$.
 - $$ \boldsymbol{W}^{(l)} $$ is the layer-specific trainable weight matrix.
 - $$ \sigma $$ is the activation function, such as ReLU.
 
+### Spatial vs. Spectral Methods in PyTorch Geometric
+
+It's important to note that while the original GCN paper by Kipf & Welling can be viewed
+as deriving from a spectral perspective (using the graph Laplacian), **the PyTorch
+Geometric implementation (`GCNConv`) adopts a spatial, message-passing approach.** In
+this spatial formulation, each node's representation is updated based on the features of
+its neighbors, without explicitly computing the Laplacian's eigenvalues or eigenvectors.
+
+**Why is this done?**  
+1. **Scalability**: Computing and storing eigenvectors (as in purely spectral methods)
+   can be expensive for large graphs. Spatial methods rely on localized computations
+   using direct adjacency information, making them more scalable.
+2. **Flexibility**: Message passing allows for easy integration of additional node- and
+   edge-level features.  
+3. **Efficiency**: By avoiding eigen-decomposition and instead performing neighbor
+   aggregation (via adjacency lookups), the implementation can handle large and dynamic
+   graphs with far less overhead.
+
+With this in mind, PyTorch Geometric's GCNs operate in a **spatial** manner: they work
+locally, passing messages from neighbors and updating node embeddings, rather than using
+global spectral transformations.
 
 ### Initial Approach: Random Node Features
 
@@ -76,8 +96,13 @@ indices as-is, without any adjustments. The idea here is to have a consistent no
 representation across all graphs.
 
 However, **this approach doesn't work!** The loss (cross entropy loss) doesn't go down at
-all. If you decrease the batch size, the loss does start go down, but very slowly.
+all. If you decrease the batch size, the loss does start to go down, but very slowly.
 What's happening here?
+
+Essentially, by combining all graphs into one, the model can no longer distinguish which
+edges belong to which original graph. The node embeddings across different graphs may
+interfere with each other if they share node indices. This confusion leads to poor
+training signals and stalls the improvement of the model.
 
 ### Code
 
