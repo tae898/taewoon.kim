@@ -5,7 +5,7 @@ subtitle: "Offline RL, Behavior Cloning, and The Magic of Sequence Modeling"
 cover-img: /assets/img/posts/2024-12-15/sequential-decision.webp
 thumbnail-img: /assets/img/posts/2024-12-15/sequential-decision.webp
 tags:
-  [transformers, offline-rl, sequence-modeling, decision-transformer, gumble-softmax]
+  [transformers, offline-rl, sequence-modeling, decision-transformer]
 author: Taewoon Kim
 mathjax: true
 ---
@@ -79,11 +79,11 @@ when rewards are sparse or delayed.
 The goal of reinforcement learning is to solve the **sequential decision-making
 problem** by maximizing the **expected cumulative discounted rewards**:
 
-$$ \max_{a_1, \ldots, a_T} \mathbb{E}\left[\sum_{t=1}^T \gamma^t r_t \right], $$
+$$ \max_{a_0, \ldots, a_{T-1}} \mathbb{E}\left[\sum_{t=0}^{T-1} \gamma^t r_{t+1} \right], $$
 
 where:
 
-- $$r_t$$: Reward at time step $$t$$,
+- $$r_{t+1}$$: Reward at time step $$t+1$$, received after taking action $$a_t$$,
 - $$\gamma \in [0, 1)$$: Discount factor that prioritizes immediate rewards over future
   ones, and
 - $$T$$: Horizon of the decision-making problem.
@@ -91,27 +91,49 @@ where:
 This objective can be tackled using two primary approaches: **model-free methods** and
 **model-based methods**.
 
-### Model-Free Methods: Learning with the Bellman Equation
+### Model-Free Methods: A Comprehensive Overview
 
-In **model-free RL**, the agent directly learns a policy or value function from
-interactions with the environment without explicitly modeling its dynamics. The key tool
-here is the **Bellman equation**, which provides a recursive decomposition of the value
-function:
+**Model-free reinforcement learning** focuses on learning optimal policies or value
+functions directly from interactions with the environment, without building an explicit
+model of the environment's dynamics. This approach is broadly categorized into two main
+types:
 
-$$ V(s) = \mathbb{E}\big[r(s, a) + \gamma V(s')\big], $$
+1. **Value-Based Methods**:
+   - **Q-Learning**: Learns the value of taking a specific action in a specific state.
+     The agent learns a Q-function, $$Q(s, a)$$, which estimates the expected cumulative
+     reward of taking action $$a$$ in state $$s$$ and following the optimal policy thereafter.
+   - **Deep Q-Networks (DQN)**: Utilizes neural networks to approximate the Q-function,
+     enabling the handling of high-dimensional state spaces.
 
-where:
+2. **Policy-Based Methods**:
+   - **Policy Gradient**: Directly parameterizes and optimizes the policy $$\pi(a \mid s)$$
+     by maximizing the expected cumulative reward. Unlike value-based methods, policy
+     gradients do not require the Bellman equation and can naturally handle continuous
+     action spaces.
+   - **REINFORCE Algorithm**: A basic policy gradient method that updates policy parameters
+     in the direction that increases the probability of actions that lead to higher rewards.
 
-- $$V(s)$$: The value of state $$s$$, representing the expected cumulative reward
-  starting from $$s$$,
-- $$r(s, a)$$: The immediate reward for taking action $$a$$ in state $$s$$,
-- $$s'$$: The next state after taking action $$a$$ in state $$s$$, and
-- $$\gamma$$: The discount factor.
+3. **Actor-Critic Methods**:
+   - Combines value-based and policy-based approaches by having an **actor** (policy)
+     and a **critic** (value function). The critic evaluates the action taken by the actor,
+     providing feedback to improve the policy.
+   - Examples include **Advantage Actor-Critic (A2C)** and **Proximal Policy Optimization
+     (PPO)**.
 
-The Bellman equation allows the agent to iteratively approximate the value of states or
-state-action pairs (e.g., in Q-learning) and improve its policy to maximize rewards.
-This is the foundation of **model-free methods**, which focus on learning optimal
-policies or value functions directly from sampled trajectories.
+**Advantages of Model-Free Methods**:
+- **Simplicity**: Do not require modeling the environment's dynamics.
+- **Flexibility**: Can handle a wide range of environments, including those with complex or
+  unknown dynamics.
+- **Direct Optimization**: Policy-based methods can directly optimize the expected reward
+  without intermediate value estimates.
+
+**Challenges of Model-Free Methods**:
+- **Sample Inefficiency**: Often require a large number of interactions with the
+  environment to learn effective policies.
+- **Stability and Convergence**: Training can be unstable, especially with function
+  approximators like neural networks.
+- **Exploration**: Balancing exploration and exploitation can be difficult, potentially
+  leading to suboptimal policies if not managed properly.
 
 ### Model-Based Methods: Learning a World Model
 
@@ -129,10 +151,8 @@ where:
 Using this world model, the agent can simulate trajectories and evaluate actions,
 enabling explicit **planning** to solve the same objective:
 
-$$
-\max_{a_1, \ldots, a_T} \mathbb{E}\left[\sum_{t=1}^T \gamma^t r_t \right] \quad
-\text{subject to} \quad P(s_{t+1}, r_{t+1} \mid s_t, a_t).
-$$
+$$ \max_{a_0, \ldots, a_{T-1}} \mathbb{E}\left[\sum_{t=0}^{T-1} \gamma^t r_{t+1} \right], $$
+
 
 By leveraging the learned model, the agent predicts the outcomes of sequences of actions
 and selects the optimal policy.
@@ -140,20 +160,21 @@ and selects the optimal policy.
 ### Model-Free vs. Model-Based
 
 Both model-free and model-based approaches aim to maximize the same objective: the
-expected cumulative discounted rewards. The key difference lies in how they approach the
-problem:
+expected cumulative discounted rewards. The key differences lie in their methodologies
+and trade-offs:
 
-| Aspect         | Model-Free RL                                           | Model-Based RL                               |
-| -------------- | ------------------------------------------------------- | -------------------------------------------- |
-| **Approach**   | Directly learn a policy or value function               | Learn environment dynamics and rewards       |
-| **Tool**       | Bellman equation                                        | World model with planning                    |
-| **Advantages** | Simple, robust, and requires no explicit dynamics model | Enables lookahead and efficient planning     |
-| **Challenges** | Requires large amounts of data and exploration          | Sensitive to inaccuracies in the world model |
+| Aspect             | Model-Free RL                                           | Model-Based RL                               |
+| ------------------ | ------------------------------------------------------- | -------------------------------------------- |
+| **Approach**       | Directly learn a policy or value function               | Learn environment dynamics and rewards       |
+| **Tool**           | Q-Learning, Policy Gradients, Actor-Critic methods      | World model with planning                    |
+| **Advantages**     | Simpler implementation, robust to model inaccuracies    | Enables lookahead, can be more sample-efficient |
+| **Challenges**     | Sample inefficient, can be unstable during training     | Requires accurate model, can be complex to train |
 
-Model-free methods rely on directly optimizing the Bellman equation through sampling and
-experience, while model-based methods first learn an approximation of the environment
-(state transitions and rewards) to simulate and plan optimal strategies. Both approaches
-are complementary, and hybrid methods often combine their strengths.
+Model-free methods rely on directly optimizing policies or value functions through
+experience, while model-based methods first build an approximation of the environment
+to facilitate planning. Both approaches have their strengths and weaknesses, and often
+hybrid methods that combine elements of both are employed to leverage their respective
+advantages.
 
 ## Direct Sequence Learning with Transformers
 
@@ -162,52 +183,23 @@ model-based RL), we can directly treat the entire sequence
 
 $$ (s_1, a_1, r_2, s_2, \dots, s_T, a_T, r_{T+1}, s_{T+1}) $$
 
-as something to be **modeled by a neural network**. This is known as **direct sequence
-learning**. While this can be done using architectures like RNNs, e.g.,
+as something to be **modeled by a neural network**. While this can be done using
+architectures like RNNs, e.g.,
 [LSTMs](https://dl.acm.org/doi/10.1162/neco.1997.9.8.1735), the
-[**Transformer**](https://arxiv.org/abs/1706.03762) has become the dominant choice due
-to its attention mechanism, which allows it to learn relationships across all tokens in
-a sequence—regardless of their distance. This makes Transformers particularly
-well-suited for long sequences.
+[**Transformer**](https://arxiv.org/abs/1706.03762) has become the dominant choice not
+only because of its powerful attention mechanism, which captures dependencies across all
+tokens in a sequence regardless of their distance, but also due to its ability to be
+trained in parallel. Unlike RNNs, which require sequential processing and
+backpropagation through time in training, Transformers can handle entire sequences
+simultaneously. This parallelism leads to significantly more efficient training and
+makes Transformers particularly well-suited for handling long sequences.
 
-### Why Gumbel-Softmax?
-
-When feedback (or reward) is only available at the **end** of a trajectory, yet actions
-must be sampled along the way, we face a unique challenge. Actions can be modeled as a
-**categorical distribution**:
-
-$$ p(a \mid s) = \text{Softmax}(\mathbf{z}), $$
-
-where $$ \mathbf{z} $$ represents the logits from the network. However, sampling from a
-categorical distribution is not differentiable, or from any distribution in general,
-which makes it difficult to train neural networks with backpropagation.
-
-The [**Gumbel-Softmax trick**](https://arxiv.org/abs/1611.01144) addresses this by
-providing a differentiable approximation to categorical sampling. It works similarly to
-the **reparameterization trick** used in [variational autoencoders
-(VAEs)](https://arxiv.org/abs/1312.6114), but it applies to **categorical
-distributions** rather than Gaussians. Concretely:
-
-$$
-y_i = \frac{\exp\Big((\log(\pi_i) + g_i) / \tau\Big)} {\sum_j \exp\Big((\log(\pi_j) +
-g_j) / \tau\Big)},
-$$
-
-where:
-
-- $$ g_i \sim \text{Gumbel}(0,1) $$ is Gumbel noise,
-- $$ \pi_i $$ is the probability of action $$ i $$,
-- $$ \tau $$ is a temperature parameter controlling the smoothness of the approximation.
-
-This enables **backpropagation through sampling**, which is critical for reinforcement
-learning in settings where actions need to be sampled during training.
 
 ### Behavior Cloning: A Simpler Approach
 
 For methods like [**Decision Transformer**](https://arxiv.org/abs/2106.01345) and
 **Large Language Models (LLMs)**, we take a simpler approach. Instead of relying on
-reinforcement learning techniques or reparameterization (e.g., Gumbel-Softmax) to
-optimize a reward objective, these models assume access to **large amounts of
+reinforcement learning techniques or reparameterization to optimize a reward objective, these models assume access to **large amounts of
 high-quality offline data**. The objective then shifts from **reward maximization** to
 **maximum likelihood**, as in supervised learning. This process is called **behavior
 cloning**, where the model learns to imitate the sequences in the dataset.
@@ -234,7 +226,7 @@ the offline dataset.
 #### Illustration: Learning Only from Offline Data
 
 In reinforcement learning, agents typically explore a wide range of states and actions.
-In the pervious image, all the nodes are white, representing valid states, and all edges
+In the previous image, all the nodes were white, representing valid states, and all edges
 represent valid actions that the agent could theoretically explore.
 
 However, in behavior cloning, the agent does not explore the environment. Instead, it
@@ -251,7 +243,7 @@ generalize beyond the trajectories available in the offline data.
 
 #### Key Points:
 
-- There is **no sampling** during training (no Gumbel-Softmax or categorical sampling).
+- There is **no sampling** during training.
 - The model directly learns from the offline data using teacher forcing, where ground
   truth actions are provided at every step as input, allowing it to learn to imitate the
   sequences in the dataset, instead of using the sampled actions.
@@ -264,8 +256,9 @@ Transformers excel at learning sequences due to their self-attention mechanism, 
 allows them to capture dependencies across tokens, no matter how far apart they are.
 Once trained, these models can be **prompted** to generate desired sequences:
 
-- **Decision Transformer**: Adds a **goal token** at the start of the input to guide the
-  generation of a trajectory that achieves a specific outcome.
+- [**Decision Transformer**](https://arxiv.org/abs/2106.01345): Adds a **goal token** at
+  the start of the input to guide the generation of a trajectory that achieves a
+  specific outcome.
 - **Large Language Models (LLMs)**: Use massive **prompt tuning** to condition the model
   on specific instructions or contexts, enabling it to generate coherent and desired
   outputs.
