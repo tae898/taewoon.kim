@@ -72,9 +72,9 @@ tokens, the number of possible n-grams is $$ V^n $$, which quickly becomes infea
 for even moderate values of $$n$$. For example, if $$V = 50,000$$ (a typical vocabulary
 size for large-scale models):
 
-- **Bigrams (\(n=2\))** → \(50,000^2 = 2.5 \times 10^9\) possible bigrams.
-- **Trigrams (\(n=3\))** → \(50,000^3 = 1.25 \times 10^{14}\) possible trigrams.
-- **4-grams (\(n=4\))** → \(50,000^4 = 6.25 \times 10^{18}\), an astronomically large
+- **Bigrams ($$n=2$$)** → $$50,000^2 = 2.5 \times 10^9$$ possible bigrams.
+- **Trigrams ($$n=3$$)** → $$50,000^3 = 1.25 \times 10^{14}$$ possible trigrams.
+- **4-grams ($$n=4$$)** → $$50,000^4 = 6.25 \times 10^{18}$$, an astronomically large
   number.
 
 Storing and computing probabilities for every possible n-gram requires enormous memory
