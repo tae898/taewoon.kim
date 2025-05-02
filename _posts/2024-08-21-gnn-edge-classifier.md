@@ -35,10 +35,42 @@ Where:
 - $$ \boldsymbol{H}^{(l)} $$ is the matrix of node features at layer $$ l $$.
 - $$ \hat{\boldsymbol{A}} = \boldsymbol{A} + \boldsymbol{I} $$ is the adjacency matrix
   with added self-loops.
-- $$ \hat{\boldsymbol{D}} $$ is the diagonal degree matrix of $$ \hat{\boldsymbol{A}}
-  $$.
+- $$ \hat{\boldsymbol{D}} $$ is the diagonal degree matrix of $$ \hat{\boldsymbol{A}} $$.
 - $$ \boldsymbol{W}^{(l)} $$ is the layer-specific trainable weight matrix.
 - $$ \sigma $$ is the activation function, such as ReLU.
+
+### From Spectral to Spatial: Modern GCN Implementations
+
+The original GCN framework proposed by [Kipf & Welling (2017)](https://arxiv.org/abs/1609.02907)
+is often described in a **spectral** context, leveraging the eigen-decomposition of the
+graph Laplacian. However, many modern implementations, including the PyTorch Geometric
+library, adopt a **spatial (message-passing) approach**. This involves:
+
+1. **Neighbor-Based Aggregation**: Each node’s representation is updated by directly 
+   summing (or aggregating) features from its neighbors,
+2. **Localized Computations**: We never explicitly compute or store the Laplacian’s 
+   eigenvectors,
+3. **Scalability and Efficiency**: The spatial approach is typically more scalable for 
+   large, complex, or dynamic graphs.
+
+A common way to express this **spatial message-passing** formulation is via the
+node-wise update:
+
+$$ \boldsymbol{h}_i^{(k+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i)} \boldsymbol{W}
+\boldsymbol{h}_j^{(k)} + \boldsymbol{b} \right), $$
+
+where:
+
+- $$ \boldsymbol{h}_i^{(k)} $$ is the feature vector of node $$ i $$ at layer $$ k $$,
+- $$ \mathcal{N}(i) $$ denotes the set of neighbors of node $$ i $$,
+- $$ \boldsymbol{W} $$ and $$ \boldsymbol{b} $$ are learned parameters (weight matrix and bias),
+- $$ \sigma $$ is an activation function (e.g., ReLU),
+- The adjacency matrix $$ \boldsymbol{A} $$ encodes edges and thus determines which
+  neighbors are aggregated at each step.
+
+By avoiding costly spectral operations, **spatial GCNs** can handle large datasets more
+flexibly and often integrate additional node- or edge-level features without changing
+the core algorithm.
 
 
 ### Initial Approach: Random Node Features
@@ -76,8 +108,13 @@ indices as-is, without any adjustments. The idea here is to have a consistent no
 representation across all graphs.
 
 However, **this approach doesn't work!** The loss (cross entropy loss) doesn't go down at
-all. If you decrease the batch size, the loss does start go down, but very slowly.
+all. If you decrease the batch size, the loss does start to go down, but very slowly.
 What's happening here?
+
+Essentially, by combining all graphs into one, the model can no longer distinguish which
+edges belong to which original graph. The node embeddings across different graphs may
+interfere with each other if they share node indices. This confusion leads to poor
+training signals and stalls the improvement of the model.
 
 ### Code
 
