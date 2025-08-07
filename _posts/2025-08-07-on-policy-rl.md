@@ -388,14 +388,22 @@ PPO's design principles directly influence modern LLM fine-tuning:
 - Same trust region principles prevent catastrophic policy changes
 
 **GRPO** (Group Relative Policy Optimization):
-- Eliminates the Critic Model: It removes the need for a separate value/critic model,
-  which is a core part of standard PPO.
-- Uses a Group-Based Baseline: Instead of a learned value function, it calculates the
-  advantage by comparing an output's reward to the average reward of a group of outputs
-  sampled for the same prompt.
-- Maintains Trust Region Stability: It ensures stable updates by using a direct KL
-  divergence penalty, which serves the same purpose as PPO's clipping but is implemented
-  differently.
+
+- A variant of PPO specifically designed for large language model (LLM) fine-tuning
+- **Removes the critic (value function)** entirely — no value network is trained
+- This is because LLM reward signals are:
+  - **Sparse**: only given at the end of a generated sequence
+  - **Delayed**: no intermediate token-level rewards
+  - **Non-Markovian**: token-wise value estimation becomes unreliable. Reward depends on
+    the full output sequence, not just the current token or state. This breaks the
+    assumptions that make value function learning reliable in traditional RL.
+- Instead of estimating advantages with a learned value function, GRPO:
+  - Samples multiple outputs per prompt (a "group")
+  - Uses the group's average reward as a **baseline**
+  - Computes relative advantage: $$\hat{A}_i = \frac{r_i - \bar{r}}{\sigma_r}$$
+- Eliminates the instability and compute overhead of value training
+- Aligns naturally with how reward models are trained (via output comparisons)
+- Achieves strong results in math-heavy domains like **DeepSeekMath**
 
 ---
 
