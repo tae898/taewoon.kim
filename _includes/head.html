@@ -113,6 +113,8 @@
       {%- endif -%}
     {%- elsif page.thumbnail-img -%}
       {{ page.thumbnail-img }}
+    {%- elsif site.share_image -%}
+      {{ site.share_image }}
     {%- elsif site.avatar -%}
       {{ site.avatar }}
     {% endif %}
@@ -148,8 +150,8 @@
   <meta name="twitter:site" content="@{{ site.social-network-links.twitter }}">
   <meta name="twitter:creator" content="@{{ site.social-network-links.twitter }}">
 
-  <meta property="twitter:title" content="{{ title }}">
-  <meta property="twitter:description" content="{{ description }}">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
 
   {% if img != "" %}
   <meta name="twitter:image" content="{{ img | absolute_url }}">

@@ -15,6 +15,10 @@ title: Taewoon Kim
 # Your name to show in the footer
 author: Taewoon Kim
 
+# The full URL of your site (used to build absolute URLs in meta tags)
+url: "https://taewoon.kim"
+baseurl: ""
+
 ###############################################
 # --- List of links in the navigation bar --- #
 ###############################################
@@ -42,6 +46,9 @@ navbar-links:
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
 avatar: "/assets/img/TAE.png"
+
+# Default social share image for link previews (OG/Twitter). Prefer 1200x630.
+share_image: "/assets/img/TAE.png"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
