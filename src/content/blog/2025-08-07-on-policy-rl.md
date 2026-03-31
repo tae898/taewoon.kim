@@ -97,14 +97,16 @@ sequence actually led to the final reward?
 
 REINFORCE solves this with the **Policy Gradient Theorem**:
 
-$$\nabla_\theta J(\pi_\theta) = \mathbb{E}_{\pi_\theta}\left[\sum_{t=0}^{T-1}
-\nabla_\theta \log \pi_\theta(a_t|s_t) \cdot G_t\right]$$
+$$
+\nabla_\theta J(\pi_\theta) = \mathbb{E}_{\pi_\theta}\left[\sum_{t=0}^{T-1}
+\nabla_\theta \log \pi_\theta(a_t|s_t) \cdot G_t\right]
+$$
 
 Where:
-- $$\theta$$ are the policy parameters (neural network weights)
-- $$G_t = \sum_{k=t}^{T-1} \gamma^{k-t} r_{k+1}$$ is the **return-to-go** (future
-  rewards from time $$t$$)
-- $$\nabla_\theta \log \pi_\theta(a_t \mid s_t)$$ is the **score function** (gradient
+- $\theta$ are the policy parameters (neural network weights)
+- $G_t = \sum_{k=t}^{T-1} \gamma^{k-t} r_{k+1}$ is the **return-to-go** (future
+  rewards from time $t$)
+- $\nabla_\theta \log \pi_\theta(a_t \mid s_t)$ is the **score function** (gradient
   direction)
 
 **Intuitive Meaning**: *"Increase the probability of actions that led to high returns,
@@ -115,8 +117,10 @@ decrease the probability of actions that led to low returns."*
 The genius of REINFORCE lies in the **log-derivative trick**, which allows us to compute
 gradients of expectations over trajectories:
 
-$$\nabla_\theta \mathbb{E}_{\tau \sim \pi_\theta}[G(\tau)] = \mathbb{E}_{\tau \sim
-\pi_\theta}[G(\tau) \nabla_\theta \log \pi_\theta(\tau)]$$
+$$
+\nabla_\theta \mathbb{E}_{\tau \sim \pi_\theta}[G(\tau)] = \mathbb{E}_{\tau \sim
+\pi_\theta}[G(\tau) \nabla_\theta \log \pi_\theta(\tau)]
+$$
 
 This transforms an intractable expectation gradient into a **sample-based estimator** we
 can actually compute.
@@ -155,8 +159,10 @@ reduction...
 The key insight for reducing variance: subtract a **baseline** $$b(s_t)$$ that doesn't
 depend on the action:
 
-$$\nabla_\theta J(\pi_\theta) = \mathbb{E}_{\pi_\theta}\left[\sum_{t=0}^{T-1}
-\nabla_\theta \log \pi_\theta(a_t|s_t) \cdot (G_t - b(s_t))\right]$$
+$$
+\nabla_\theta J(\pi_\theta) = \mathbb{E}_{\pi_\theta}\left[\sum_{t=0}^{T-1}
+\nabla_\theta \log \pi_\theta(a_t|s_t) \cdot (G_t - b(s_t))\right]
+$$
 
 **Why this works**: The baseline term has zero expectation but dramatically reduces
 variance by providing a **reference point** for each state.
@@ -341,8 +347,12 @@ PPO solves this with **clipped probability ratios**:
 
 $$r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}$$
 
-**Clipped objective**: $$L^{\text{CLIP}}(\theta) = \mathbb{E}_t[\min(r_t(\theta) A_t,
-\text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t)]$$
+**Clipped objective**:
+
+$$
+L^{\text{CLIP}}(\theta) = \mathbb{E}_t[\min(r_t(\theta) A_t,
+	ext{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t)]
+$$
 
 ### 5.2 Why Clipping Works
 

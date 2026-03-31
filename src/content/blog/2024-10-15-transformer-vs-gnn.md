@@ -38,8 +38,10 @@ the initial layer. The goal of the GNN is to update these node features by aggre
 information from neighboring nodes. For each node, the update rule can be generalized
 as:
 
-$$ \boldsymbol{h}_i^{(k+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i)} \boldsymbol{W}
-\boldsymbol{h}_j^{(k)} + \boldsymbol{b} \right) $$
+$$
+\boldsymbol{h}_i^{(k+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i)} \boldsymbol{W}
+\boldsymbol{h}_j^{(k)} + \boldsymbol{b} \right)
+$$
 
 Where:
 - $$ \boldsymbol{h}_i^{(k)} $$ is the feature vector of node $$ i $$ at layer $$ k $$,
@@ -81,8 +83,10 @@ sequence, we compute attention scores between all token pairs. For each token $$
 its representation $$ \boldsymbol{z}_i $$ at the next layer is computed as a weighted
 sum of all token representations:
 
-$$ \text{Attention}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) = \text{softmax}
-\left( \frac{\boldsymbol{Q} \boldsymbol{K}^T}{\sqrt{d_k}} \right) \boldsymbol{V} $$
+$$
+	ext{Attention}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) = \text{softmax}
+\left( \frac{\boldsymbol{Q} \boldsymbol{K}^T}{\sqrt{d_k}} \right) \boldsymbol{V}
+$$
 
 Where:
 - $$ \boldsymbol{Q} = \boldsymbol{W}_q \boldsymbol{X} $$ (queries),
@@ -99,10 +103,11 @@ be interpreted as a graph where every token can communicate with every other tok
 
 In sequence modeling, the order of the tokens is crucial. Instead of explicitly encoding
 this order using an adjacency matrix (as done in GNNs), the Transformer uses
-**positional embeddings** $$ \boldsymbol{P} $$ to encode the position of each token:
+**positional embeddings** $\boldsymbol{P}$ to encode the position of each token:
 
-$$ \boldsymbol{z}_i = \text{Attention}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) +
-\boldsymbol{P}_i $$
+$$
+\boldsymbol{z}_i = \text{Attention}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) + \boldsymbol{P}_i
+$$
 
 In **standard Transformers**, masking is not inherently required. However, in models
 like **large language models (LLMs)**, we use **decoder-only Transformers** where tokens
@@ -126,34 +131,40 @@ the order of the inputs, treating all tokens symmetrically.
 
 One key observation is that **natural language** can be treated as a form of
 **graph-structured data**. In a sentence, tokens form nodes, and their sequential
-relationships form edges. For instance, a sequence of tokens $$ \text{Token}_1,
-\text{Token}_2, \dots, \text{Token}_N $$ can be visualized as a **directed graph** where
+relationships form edges. For instance, a sequence of tokens $\text{Token}_1,
+	ext{Token}_2, \dots, \text{Token}_N$ can be visualized as a **directed graph** where
 each token is connected to every preceding token:
 
-$$ \text{Token}_1 \rightarrow \text{Token}_2 \rightarrow \dots \rightarrow
-\text{Token}_N $$
+$$
+	ext{Token}_1 \rightarrow \text{Token}_2 \rightarrow \dots \rightarrow \text{Token}_N
+$$
 
-In reality, for token $$ N $$, there are directed edges from each of the previous $$ N-1
-$$ tokens:
+In reality, for token $N$, there are directed edges from each of the previous $N-1$
+tokens:
 
-$$ \text{Token}_1 \rightarrow \text{Token}_N, \quad \text{Token}_2 \rightarrow
-\text{Token}_N, \quad \dots, \quad \text{Token}_{N-1} \rightarrow \text{Token}_N $$
+$$
+	ext{Token}_1 \rightarrow \text{Token}_N, \quad \text{Token}_2 \rightarrow \text{Token}_N, \quad \dots, \quad \text{Token}_{N-1} \rightarrow \text{Token}_N
+$$
 
 In traditional GNNs, such as **R-GCNs**, we might explicitly encode these relationships
 with **multiple adjacency matrices** to represent different types of relationships. For
 example, in a sequence of tokens, we would have separate adjacency matrices to define
 the "1-next," "2-next," ..., "N-next" relationships.
 
-For each relationship type $$ r $$ (e.g., 1-next, 2-next, etc.), we define a separate
-adjacency matrix $$ \boldsymbol{A}^{(r)} $$ that represents the connections for that
+For each relationship type $r$ (e.g., 1-next, 2-next, etc.), we define a separate
+adjacency matrix $\boldsymbol{A}^{(r)}$ that represents the connections for that
 specific relation:
 
-$$ \boldsymbol{A}_{ij}^{(r)} = \begin{cases} 1 & \text{if token } j \text{ has a
-relation } r \text{ with token } i, \\
-0 & \text{otherwise}. \end{cases} $$
+$$
+\boldsymbol{A}_{ij}^{(r)} =
+\begin{cases}
+1 & \text{if token } j \text{ has relation } r \text{ with token } i, \\
+0 & \text{otherwise}
+\end{cases}
+$$
 
-In the case of a sequence, we would have a matrix for each "$$ k $$-next" relation,
-where $$ k $$ defines the step size between tokens in the sequence (1-next, 2-next, ...,
+In the case of a sequence, we would have a matrix for each "$k$-next" relation,
+where $k$ defines the step size between tokens in the sequence (1-next, 2-next, ...,
 N-next).
 
 However, in the Transformer, we do not need this explicit adjacency matrix because

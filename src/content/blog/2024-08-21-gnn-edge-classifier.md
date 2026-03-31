@@ -25,9 +25,11 @@ information from its neighbors.
 
 Mathematically, the update rule for a single layer in a GCN can be expressed as:
 
-$$ \boldsymbol{H}^{(l+1)} = \sigma\left( \hat{\boldsymbol{D}}^{-1/2}
+$$
+\boldsymbol{H}^{(l+1)} = \sigma\left( \hat{\boldsymbol{D}}^{-1/2}
 \hat{\boldsymbol{A}} \hat{\boldsymbol{D}}^{-1/2} \boldsymbol{H}^{(l)}
-\boldsymbol{W}^{(l)} \right) $$
+\boldsymbol{W}^{(l)} \right)
+$$
 
 Where:
 
@@ -55,8 +57,10 @@ library, adopt a **spatial (message-passing) approach**. This involves:
 A common way to express this **spatial message-passing** formulation is via the
 node-wise update:
 
-$$ \boldsymbol{h}_i^{(k+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i)} \boldsymbol{W}
-\boldsymbol{h}_j^{(k)} + \boldsymbol{b} \right), $$
+$$
+\boldsymbol{h}_i^{(k+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i)} \boldsymbol{W}
+\boldsymbol{h}_j^{(k)} + \boldsymbol{b} \right)
+$$
 
 where:
 

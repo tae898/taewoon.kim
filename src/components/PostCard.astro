@@ -11,12 +11,6 @@ const image = getPostImage(post);
 ---
 
 <article class="post-card">
-  {image && (
-    <a class="post-card__media" href={getPostUrl(post.id)}>
-      <img src={image} alt={post.data.title} loading="lazy" />
-    </a>
-  )}
-
   <div class="post-card__body">
     <div class="meta">
       <span>{formatPostDate(post.id)}</span>
@@ -31,6 +25,12 @@ const image = getPostImage(post);
     </div>
 
     <p>{createExcerpt(post.body)}</p>
+
+    {image && (
+      <a class="post-card__media" href={getPostUrl(post.id)}>
+        <img src={image} alt={post.data.title} loading="lazy" />
+      </a>
+    )}
 
     {!!post.data.tags?.length && (
       <div class="tag-list">

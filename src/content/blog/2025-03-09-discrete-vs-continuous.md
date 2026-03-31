@@ -12,7 +12,9 @@ Modern Natural Language Processing (NLP) revolves around **language modeling**â€
 of predicting the next token given the previous ones. Formally, if we have a sequence of
 tokens $$w_1, w_2, \dots, w_{n-1}$$, we want to learn:
 
-$$ P(w_n \mid w_1, w_2, \ldots, w_{n-1}). $$
+$$
+P(w_n \mid w_1, w_2, \ldots, w_{n-1}).
+$$
 
 This post explores **two broad ways** to tackle this problem:
 
@@ -48,15 +50,19 @@ One classic way to capture a language model in a **purely discrete** form is the
 **n-gram** approach. Suppose we have a sequence of words $$w_1, w_2, \dots, w_t$$. We
 assume each word $$w_t$$ depends only on the previous $$(n-1)$$ words:
 
-$$ P(w_t \mid w_1, \ldots, w_{t-1}) \;\approx\; P\bigl(w_t \,\mid\, w_{t-1}, \,w_{t-2},
-\,\dots,\, w_{t-(n-1)}\bigr). $$
+$$
+P(w_t \mid w_1, \ldots, w_{t-1}) \;\approx\; P\bigl(w_t \,\mid\, w_{t-1}, \,w_{t-2},
+\,\dots,\, w_{t-(n-1)}\bigr).
+$$
 
 In practice, we **count** how often each sequence of $$n$$ words appears in our training
 corpus. The **maximum likelihood estimate (MLE)** for the n-gram model is:
 
-$$ P_{\text{MLE}}\bigl(w_t \mid w_{t-1}, \ldots, w_{t-(n-1)}\bigr) \;=\;
+$$
+P_{\text{MLE}}\bigl(w_t \mid w_{t-1}, \ldots, w_{t-(n-1)}\bigr) \;=\;
 \frac{\text{Count}\bigl(w_{t-(n-1)}, \ldots, w_{t-1}, w_t\bigr)}
-{\text{Count}\bigl(w_{t-(n-1)}, \ldots, w_{t-1}\bigr)}. $$
+{\text{Count}\bigl(w_{t-(n-1)}, \ldots, w_{t-1}\bigr)}.
+$$
 
 Why is this MLE? Because under a simplifying assumption that each observed n-gram in the
 training corpus is generated from the same underlying distribution, counting relative
@@ -137,16 +143,20 @@ Modern **deep language models** (e.g., Transformers) embed each word into a **co
 vector space** and learn a **parametric function** $$f_\theta$$ that predicts the
 probability of the next token:
 
-$$ P_\theta(w_n \mid w_1, \ldots, w_{n-1}) \;=\;
+$$
+P_\theta(w_n \mid w_1, \ldots, w_{n-1}) \;=\;
 \frac{\exp\!\Bigl(\mathbf{z}_\theta(w_1,\ldots,w_{n-1}, w_n)\Bigr)} {\sum_{w'}
-\exp\!\Bigl(\mathbf{z}_\theta(w_1,\ldots,w_{n-1}, w')\Bigr)}, $$
+\exp\!\Bigl(\mathbf{z}_\theta(w_1,\ldots,w_{n-1}, w')\Bigr)}
+$$
 
 where $$\mathbf{z}_\theta$$ is a learnable scoring function (often a neural network). We
 fit the modelâ€™s parameters $$\theta$$ by minimizing the **cross-entropy loss** on the
 training data. In expectation form:
 
-$$ \mathcal{L}(\theta) \;=\; \mathbb{E}_{(w_1,\dots,w_n)\,\sim\,\text{data}} \bigl[-\log
-P_\theta(w_n \mid w_1,\dots,w_{n-1})\bigr]. $$
+$$
+\mathcal{L}(\theta) \;=\; \mathbb{E}_{(w_1,\dots,w_n)\,\sim\,\text{data}} \bigl[-\log
+P_\theta(w_n \mid w_1,\dots,w_{n-1})\bigr].
+$$
 
 Minimizing this loss with **gradient descent** is effectively a **continuous search**
 over the high-dimensional parameter space to find $$\theta$$ that best fits the observed

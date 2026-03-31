@@ -1,7 +1,6 @@
 export const site = {
   title: 'Taewoon Kim',
-  description:
-    'AI researcher and engineer writing about machine learning, reinforcement learning, knowledge graphs, and practical systems.',
+  description: 'AI researcher and engineer.',
   author: 'Taewoon Kim',
   url: 'https://taewoon.kim',
   gtag: 'G-8E02EYZXEW',

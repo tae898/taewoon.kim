@@ -25,8 +25,8 @@ Where:
 - $$ p $$ is the p-value,
 - $$ H_0 $$ is the null hypothesis.
 
-If the p-value is less than the predefined significance level (e.g., $$ \alpha = 0.05
-$$), the result is labeled "statistically significant." However, this interpretation has
+If the p-value is less than the predefined significance level (e.g., $\alpha = 0.05$),
+the result is labeled "statistically significant." However, this interpretation has
 led to common misunderstandings.
 
 ## A Simple Example: The Binomial Test
@@ -59,16 +59,19 @@ calculation of p-values. Here's how we do it:
    
    $$ \mu = N \cdot \theta = N \cdot 0.5 $$
    
-   $$ \sigma = \sqrt{N \cdot \theta \cdot (1 - \theta)} = \sqrt{N \cdot 0.5 \cdot 0.5} =
-   \sqrt{\frac{N}{4}} = \frac{\sqrt{N}}{2} $$
+  $$
+  \sigma = \sqrt{N \cdot \theta \cdot (1 - \theta)} = \sqrt{N \cdot 0.5 \cdot 0.5} =
+  \sqrt{\frac{N}{4}} = \frac{\sqrt{N}}{2}
+  $$
 
 3. **Compute the z-Score:**
    
    The z-score measures how many standard deviations the observed value is from the
    mean:
    
-   $$ z = \frac{x - \mu}{\sigma} = \frac{x - 0.5N}{\sqrt{0.25N}} = \frac{x -
-   0.5N}{0.5\sqrt{N}} = \frac{2(x - 0.5N)}{\sqrt{N}} $$
+  $$
+  z = \frac{x - \mu}{\sigma} = \frac{x - 0.5N}{\sqrt{0.25N}} = \frac{x - 0.5N}{0.5\sqrt{N}} = \frac{2(x - 0.5N)}{\sqrt{N}}
+  $$
 
 4. **Determine the p-Value:**
    
@@ -88,9 +91,9 @@ calculation of p-values. Here's how we do it:
    - **Standard Deviation:** $$ \sigma = \frac{\sqrt{1,000,000}}{2} = \frac{1000}{2} =
      500 $$
    - **z-Score:** $$ z = \frac{501,000 - 500,000}{500} = \frac{1,000}{500} = 2 $$
-   - **p-Value:** $$ p\text{-value} = 2 \cdot \left(1 - \Phi(2)\right) $$ Using standard
-     normal tables or a calculator, $$ \Phi(2) \approx 0.9772 $$. $$ p\text{-value} = 2
-     \cdot (1 - 0.9772) = 2 \cdot 0.0228 = 0.0456 $$
+   - **p-Value:** $p\text{-value} = 2 \cdot \left(1 - \Phi(2)\right)$.
+     Using standard normal tables or a calculator, $\Phi(2) \approx 0.9772$.
+     Therefore, $p\text{-value} = 2 \cdot (1 - 0.9772) = 2 \cdot 0.0228 = 0.0456$.
 
    This p-value is approximately **0.046**, which is below the "arbitrary" $$ \alpha =
    0.05 $$ threshold, leading to a "statistically significant" result.
@@ -139,15 +142,16 @@ after observing new data (the likelihood).
 
 #### Bayesian Updating Formula
 
-Mathematically, we use **Bayes’ Theorem** to calculate the posterior distribution of $$
-\theta $$ after observing a series of coin flips:
+Mathematically, we use **Bayes’ Theorem** to calculate the posterior distribution of
+$\theta$ after observing a series of coin flips:
 
-$$ P(\theta \mid \text{data}) = \frac{P(\text{data} \mid \theta)
-P(\theta)}{P(\text{data})} $$
+$$
+P(\theta \mid \text{data}) = \frac{P(\text{data} \mid \theta) P(\theta)}{P(\text{data})}
+$$
 
 Where:
-- $$ P(\theta \mid \text{data}) $$ is the posterior probability distribution for $$
-  \theta $$, the probability of heads after observing data.
+- $P(\theta \mid \text{data})$ is the posterior probability distribution for
+  $\theta$, the probability of heads after observing data.
 - $$ P(\text{data} \mid \theta) $$ is the likelihood of observing the number of heads
   given $$ \theta $$.
 - $$ P(\theta) $$ is the prior probability distribution of $$ \theta $$, our belief

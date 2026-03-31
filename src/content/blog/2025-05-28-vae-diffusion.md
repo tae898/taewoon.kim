@@ -57,13 +57,15 @@ become so powerful and how they relate to their predecessors.
 VAEs aim to learn a generative model of data by introducing **latent variables** that
 capture the underlying structure. Formally, we want to model:
 
-$$ p_\theta(x) = \int p_\theta(x \mid z)\,p(z)\,dz $$
+$$
+p_\theta(x) = \int p_\theta(x \mid z)\,p(z)\,dz
+$$
 
 Where:
-- $$x$$ is our data (e.g., images)  
-- $$z$$ is a latent variable (typically lower-dimensional)  
-- $$p(z)$$ is a simple prior (usually $$\mathcal{N}(0, I)$$)  
-- $$p_\theta(x \mid z)$$ is a neural network "decoder"  
+- $x$ is our data (e.g., images)  
+- $z$ is a latent variable (typically lower-dimensional)  
+- $p(z)$ is a simple prior (usually $\mathcal{N}(0, I)$)  
+- $p_\theta(x \mid z)$ is a neural network "decoder"  
 
 The challenge is that this integral is **intractable** because the decoder is a complex
 neural network. This is where variational inference comes in.
@@ -71,10 +73,12 @@ neural network. This is where variational inference comes in.
 ### 1.2 The ELBO: Training through Variational Inference
 
 To make training feasible, VAEs introduce an **approximate posterior** (encoder)
-$$q_\phi(z \mid x)$$ and optimize the **Evidence Lower BOund (ELBO)**:
+$q_\phi(z \mid x)$ and optimize the **Evidence Lower BOund (ELBO)**:
 
-$$ \log p_\theta(x) \;\ge\; \mathbb{E}_{q_\phi(z \mid x)}\bigl[\log p_\theta(x \mid
-z)\bigr] \;-\; D_{\mathrm{KL}}\bigl(q_\phi(z \mid x)\,\|\,p(z)\bigr) $$
+$$
+\log p_\theta(x) \;\ge\; \mathbb{E}_{q_\phi(z \mid x)}\bigl[\log p_\theta(x \mid
+z)\bigr] \;-\; D_{\mathrm{KL}}\bigl(q_\phi(z \mid x)\,\|\,p(z)\bigr)
+$$
 
 This bound consists of:
 - A **reconstruction term** that ensures the decoded samples look like the input
@@ -84,13 +88,15 @@ This bound consists of:
 
 Our VAE implementation has two key components:
 
-1. **Encoder** $$q_\phi(z \mid x)$$: Maps inputs to latent distribution parameters (mean
+1. **Encoder** $q_\phi(z \mid x)$: Maps inputs to latent distribution parameters (mean
    and variance)  
-2. **Decoder** $$p_\theta(x \mid z)$$: Reconstructs inputs from latent samples
+2. **Decoder** $p_\theta(x \mid z)$: Reconstructs inputs from latent samples
 
 For training, we use the **reparameterization trick** to enable gradient flow:
 
-$$ z = \mu_\phi(x) + \sigma_\phi(x)\,\epsilon,\quad \epsilon\sim\mathcal{N}(0,I) $$
+$$
+z = \mu_\phi(x) + \sigma_\phi(x)\,\epsilon,\quad \epsilon\sim\mathcal{N}(0,I)
+$$
 
 #### The Reparameterization Trick: A Closer Look
 
@@ -101,15 +107,15 @@ non-differentiable, which breaks the computational graph needed for backpropagat
 To solve this, we express sampling as a deterministic function of the distribution
 parameters and an external source of randomness:
 
-1. **Without reparameterization**: $$z \sim q_\phi(z|x) = \mathcal{N}(z; \mu_\phi(x),
-   \sigma^2_\phi(x))$$
-   - This direct sampling breaks gradient flow from $$z$$ back to $$\phi$$.
+1. **Without reparameterization**: $z \sim q_\phi(z|x) = \mathcal{N}(z; \mu_\phi(x),
+   \sigma^2_\phi(x))$
+   - This direct sampling breaks gradient flow from $z$ back to $\phi$.
 
-2. **With reparameterization**: $$z = \mu_\phi(x) + \sigma_\phi(x) \cdot \epsilon$$,
-   where $$\epsilon \sim \mathcal{N}(0,I)$$
-   - The randomness is externalized in $$\epsilon$$
-   - We get the same distribution for $$z$$
-   - The gradient can flow from $$z$$ back to $$\phi$$
+2. **With reparameterization**: $z = \mu_\phi(x) + \sigma_\phi(x) \cdot \epsilon$,
+   where $\epsilon \sim \mathcal{N}(0,I)$
+   - The randomness is externalized in $\epsilon$
+   - We get the same distribution for $z$
+   - The gradient can flow from $z$ back to $\phi$
 
 This technique allows us to optimize the encoder through standard backpropagation, even
 though we're sampling from its output distribution.
@@ -121,14 +127,29 @@ Maximum Likelihood Estimation](https://taewoon.kim/2025-02-05-mle/), different
 likelihood assumptions correspond to different loss functions. Here, we explore
 Bernoulli and Gaussian likelihoods for the decoder:
 
-**Bernoulli Likelihood**:  
-$$ p_\theta(x \mid z) = \prod_{i=1}^D \mathrm{Bernoulli}(x_i;\,\hat x_i) $$ This gives
-the **binary cross-entropy** loss: $$ \log p_\theta(x \mid z) =
-\sum_{i=1}^D\bigl[x_i\log\hat x_i + (1-x_i)\log(1-\hat x_i)\bigr] $$
+**Bernoulli Likelihood**:
 
-**Gaussian Likelihood**:  
-$$ p_\theta(x \mid z) = \mathcal{N}(x;\,\hat x,I) $$ This simplifies to the **mean
-squared error**: $$ \log p_\theta(x \mid z) = -\tfrac12\|x-\hat x\|^2 + \text{const} $$
+$$
+p_\theta(x \mid z) = \prod_{i=1}^D \mathrm{Bernoulli}(x_i;\,\hat x_i)
+$$
+
+This gives the **binary cross-entropy** loss:
+
+$$
+\log p_\theta(x \mid z) = \sum_{i=1}^D\bigl[x_i\log\hat x_i + (1-x_i)\log(1-\hat x_i)\bigr]
+$$
+
+**Gaussian Likelihood**:
+
+$$
+p_\theta(x \mid z) = \mathcal{N}(x;\,\hat x,I)
+$$
+
+This simplifies to the **mean squared error**:
+
+$$
+\log p_\theta(x \mid z) = -\tfrac12\|x-\hat x\|^2 + \text{const}
+$$
 
 ### 1.5 Architecture Comparison: MLP vs CNN
 
@@ -144,74 +165,94 @@ spatial structure of the input data.
 
 What if, instead of learning an encoder, we use a **fixed corruption process**?
 
-$$ x_1 = \sqrt{\alpha}\,x_0 \;+\;\sqrt{1-\alpha}\,\epsilon,\quad
-\epsilon\sim\mathcal{N}(0,I) $$
+$$
+x_1 = \sqrt{\alpha}\,x_0 \;+\;\sqrt{1-\alpha}\,\epsilon,\quad
+\epsilon\sim\mathcal{N}(0,I)
+$$
 
-This creates a "latent" $$x_1$$ by adding controlled Gaussian noise to the original
-image $$x_0$$.
+This creates a "latent" $x_1$ by adding controlled Gaussian noise to the original
+image $x_0$.
 
 ### 2.2 The Simplified ELBO
 
-We can still derive an ELBO, but now with a fixed "encoder" $$q(x_1 \mid x_0)$$:
+We can still derive an ELBO, but now with a fixed "encoder" $q(x_1 \mid x_0)$:
 
-$$ \mathcal{L}_{\mathrm{ELBO}} = \mathbb{E}_{q(x_1 \mid x_0)}\bigl[\log p_\theta(x_0
-\mid x_1)\bigr] \;-\; D_{\mathrm{KL}}\bigl(q(x_1 \mid x_0)\,\|\,p(x_1)\bigr) $$
+$$
+\mathcal{L}_{\mathrm{ELBO}} = \mathbb{E}_{q(x_1 \mid x_0)}\bigl[\log p_\theta(x_0
+\mid x_1)\bigr] \;-\; D_{\mathrm{KL}}\bigl(q(x_1 \mid x_0)\,\|\,p(x_1)\bigr)
+$$
 
 The KL term becomes a constant w.r.t. the model parameters, so training focuses on the
 reconstruction term.
 
 ### 2.3 From Reconstruction to Noise Prediction
 
-A key insight: instead of directly predicting $$x_0$$ from $$x_1$$, we predict the
-**noise** $$\epsilon$$ that was added:
+A key insight: instead of directly predicting $x_0$ from $x_1$, we predict the
+**noise** $\epsilon$ that was added:
 
-$$ \epsilon \approx \epsilon_\theta(x_1) $$
+$$
+\epsilon \approx \epsilon_\theta(x_1)
+$$
 
 This yields the **noise prediction objective**:
 
-$$ \mathcal{L}_{\mathrm{simple}} = \mathbb{E}_{x_0,\epsilon}\bigl\|\epsilon -
-\epsilon_\theta(x_1)\bigr\|^2 $$
+$$
+\mathcal{L}_{\mathrm{simple}} = \mathbb{E}_{x_0,\epsilon}\bigl\|\epsilon -
+\epsilon_\theta(x_1)\bigr\|^2
+$$
 
 To understand why this works, recall our forward process:
 
-$$ x_1 = \sqrt{\alpha}\,x_0 \;+\;\sqrt{1-\alpha}\,\epsilon,\quad
-\epsilon\sim\mathcal{N}(0,I) $$
+$$
+x_1 = \sqrt{\alpha}\,x_0 \;+\;\sqrt{1-\alpha}\,\epsilon,\quad
+\epsilon\sim\mathcal{N}(0,I)
+$$
 
-We can solve for $$x_0$$ in terms of $$x_1$$ and $$\epsilon$$:
+We can solve for $x_0$ in terms of $x_1$ and $\epsilon$:
 
-$$ x_0 = \frac{x_1 - \sqrt{1-\alpha}\,\epsilon}{\sqrt{\alpha}} $$
+$$
+x_0 = \frac{x_1 - \sqrt{1-\alpha}\,\epsilon}{\sqrt{\alpha}}
+$$
 
-Now, instead of our model predicting $$x_0$$ directly, we train it to predict the noise
-$$\epsilon$$ that was added. Let's denote our model's noise prediction as
-$$\hat{\epsilon} = \epsilon_\theta(x_1)$$.
+Now, instead of our model predicting $x_0$ directly, we train it to predict the noise
+$\epsilon$ that was added. Let's denote our model's noise prediction as
+$\hat{\epsilon} = \epsilon_\theta(x_1)$.
 
-We can use this predicted noise to estimate $$x_0$$:
+We can use this predicted noise to estimate $x_0$:
 
-$$ \hat{x}_0 = \frac{x_1 - \sqrt{1-\alpha}\,\hat{\epsilon}}{\sqrt{\alpha}} $$
+$$
+\hat{x}_0 = \frac{x_1 - \sqrt{1-\alpha}\,\hat{\epsilon}}{\sqrt{\alpha}}
+$$
 
-If we assume our decoder models a Gaussian likelihood $$p_\theta(x_0 \mid x_1) =
-\mathcal{N}(x_0; \mu_\theta(x_1), \sigma^2 I)$$, then maximizing the log-likelihood
+If we assume our decoder models a Gaussian likelihood $p_\theta(x_0 \mid x_1) =
+\mathcal{N}(x_0; \mu_\theta(x_1), \sigma^2 I)$, then maximizing the log-likelihood
 means minimizing:
 
-$$ \|\hat{x}_0 - x_0\|^2 $$
+$$
+\|\hat{x}_0 - x_0\|^2
+$$
 
 Substituting our expressions:
 
-$$ \begin{aligned} \|\hat{x}_0 - x_0\|^2 &= \left\|\frac{x_1 -
-\sqrt{1-\alpha}\,\hat{\epsilon}}{\sqrt{\alpha}} - \frac{x_1 -
-\sqrt{1-\alpha}\,\epsilon}{\sqrt{\alpha}}\right\|^2 \\
+$$
+\begin{aligned}
+\|\hat{x}_0 - x_0\|^2 &= \left\|\frac{x_1 - \sqrt{1-\alpha}\,\hat{\epsilon}}{\sqrt{\alpha}} - \frac{x_1 - \sqrt{1-\alpha}\,\epsilon}{\sqrt{\alpha}}\right\|^2 \\
 &= \frac{1}{\alpha}\left\|\sqrt{1-\alpha}(\epsilon - \hat{\epsilon})\right\|^2 \\
-&= \frac{1-\alpha}{\alpha}\left\|\epsilon - \hat{\epsilon}\right\|^2 \end{aligned} $$
+&= \frac{1-\alpha}{\alpha}\left\|\epsilon - \hat{\epsilon}\right\|^2
+\end{aligned}
+$$
 
-This is proportional to $$\|\epsilon - \hat{\epsilon}\|^2$$, which is our noise
-prediction loss. Since $$\frac{1-\alpha}{\alpha}$$ is constant with respect to our model
+This is proportional to $\|\epsilon - \hat{\epsilon}\|^2$, which is our noise
+prediction loss. Since $\frac{1-\alpha}{\alpha}$ is constant with respect to our model
 parameters, we can simplify to:
 
-$$ \mathcal{L}_{\mathrm{simple}} = \mathbb{E}_{x_0,\epsilon}\bigl\|\epsilon -
-\epsilon_\theta(x_1)\bigr\|^2 $$
+$$
+\mathcal{L}_{\mathrm{simple}} = \mathbb{E}_{x_0,\epsilon}\bigl\|\epsilon -
+\epsilon_\theta(x_1)\bigr\|^2
+$$
 
-Thus, predicting the noise $$\epsilon$$ is mathematically equivalent to predicting
-$$x_0$$, but often leads to more stable training.
+Thus, predicting the noise $\epsilon$ is mathematically equivalent to predicting
+$x_0$, but often leads to more stable training.
 
 ### 2.4 Limitations of One-Step Models
 
@@ -219,36 +260,36 @@ One-step denoising proves challenging:
 
 1. **Jumping from noise to signal** in a single step is hard — errors compound.
 2. **Signal vs. prior trade-off**:
-   - High $$\alpha$$ → more signal, but $$x_1$$ deviates from a true Gaussian prior.
-   - Low $$\alpha$$ → matches Gaussian prior, but little signal remains.
+  - High $\alpha$ → more signal, but $x_1$ deviates from a true Gaussian prior.
+  - Low $\alpha$ → matches Gaussian prior, but little signal remains.
 3. Although the U-net can better generate realistic images than the simple CNN, it still
    struggles.
 
 #### Experimental Evidence
 
 In our notebook experiments, we tested both a simple CNN and a U-Net architecture across
-various values of $$\alpha$$ (the noise control parameter):
+various values of $\alpha$ (the noise control parameter):
 
-- With $$\alpha = 1.0$$ (no noise):
+- With $\alpha = 1.0$ (no noise):
   - The model sees perfect inputs but must predict zero noise
   - Training becomes unstable or trivial
   - No generalization possible
 
-- With $$\alpha = 0.9$$ (low noise):
-  - The model sees $$x_1 \approx 0.95 \, x_0 + 0.31 \, \epsilon$$
+- With $\alpha = 0.9$ (low noise):
+  - The model sees $x_1 \approx 0.95 \, x_0 + 0.31 \, \epsilon$
   - Very little corruption, easy to memorize inputs
 
-- With $$\alpha = 0.5$$ (moderate noise):
-  - The model sees $$x_1 \approx 0.707 \, x_0 + 0.707 \, \epsilon$$
+- With $\alpha = 0.5$ (moderate noise):
+  - The model sees $x_1 \approx 0.707 \, x_0 + 0.707 \, \epsilon$
   - Half signal, half noise
 
-- With $$\alpha = 0.1$$ (high noise):
-  - The model sees $$x_1 \approx 0.316 \, x_0 + 0.949 \, \epsilon$$
+- With $\alpha = 0.1$ (high noise):
+  - The model sees $x_1 \approx 0.316 \, x_0 + 0.949 \, \epsilon$
   - Strong corruption, mostly noise
   - U-Net begins to generate recognizable digits, showing its power in denoising
 
-- With $$\alpha = 0.0$$ (pure noise):
-  - The model sees $$x_1 = \epsilon$$ (pure noise)
+- With $\alpha = 0.0$ (pure noise):
+  - The model sees $x_1 = \epsilon$ (pure noise)
   - No signal at all from the original image
   - Both architectures fail completely
 
@@ -256,15 +297,15 @@ This demonstrates a fundamental tension: **architecture matters significantly**.
 U-Net's skip connections and multi-scale processing allow it to extract meaningful
 signal from heavy noise, while simple CNNs cannot.
 
-Moreover, there's an inherent trade-off: for the corrupted input $$x_1 = \sqrt{\alpha}
-x_0 + \sqrt{1 - \alpha} \epsilon$$, the distribution only resembles a standard Gaussian
-$$\mathcal{N}(0, I)$$ when $$\alpha$$ approaches 0, but then the model sees almost no
-signal from $$x_0$$.
+Moreover, there's an inherent trade-off: for the corrupted input $x_1 = \sqrt{\alpha}
+x_0 + \sqrt{1 - \alpha} \epsilon$, the distribution only resembles a standard Gaussian
+$\mathcal{N}(0, I)$ when $\alpha$ approaches 0, but then the model sees almost no
+signal from $x_0$.
 
 So in our notebook, we introduced a "hack", where we didn't sample directly from a
-standard Gaussian, but instead from the empirical distribution of $$x_1$$ with
+standard Gaussian, but instead from the empirical distribution of $x_1$ with
 precomputed mean and standard deviation. However, this approach is somewhat ad-hoc and
-doesn't guarantee that $$x_1$$ follows a true Gaussian distribution.
+doesn't guarantee that $x_1$ follows a true Gaussian distribution.
 
 These challenges explain why single-step models struggle, and why **multi-step
 diffusion** offers a more effective approach by breaking the problem into many simpler
@@ -276,33 +317,38 @@ denoising steps.
 
 ### 3.1 Forward Process: Gradual Noising
 
-Diffusion models add noise over $$T$$ steps:
+Diffusion models add noise over $T$ steps:
 
-$$ q(x_t \mid x_{t-1}) = \mathcal{N}\bigl(x_t;\,\sqrt{1-\beta_t}\,x_{t-1},\,\beta_t
-I\bigr) $$
+$$
+q(x_t \mid x_{t-1}) = \mathcal{N}\bigl(x_t;\,\sqrt{1-\beta_t}\,x_{t-1},\,\beta_t I\bigr)
+$$
 
-A closed-form sample from $$x_0$$ is
+A closed-form sample from $x_0$ is
 
-$$ x_t = \sqrt{\bar\alpha_t}\,x_0 \;+\;\sqrt{1-\bar\alpha_t}\,\epsilon,\quad
-\bar\alpha_t = \prod_{i=1}^t(1-\beta_i),\;\epsilon\sim\mathcal{N}(0,I). $$
+$$
+x_t = \sqrt{\bar\alpha_t}\,x_0 \;+\;\sqrt{1-\bar\alpha_t}\,\epsilon,\quad
+\bar\alpha_t = \prod_{i=1}^t(1-\beta_i),\;\epsilon\sim\mathcal{N}(0,I).
+$$
 
 #### Beta Schedules: The Key to Controlled Noise Addition
 
-The choice of $$\beta_t$$ schedule significantly impacts model performance:
+The choice of $\beta_t$ schedule significantly impacts model performance:
 
-**Linear schedule** is the most straightforward one, where $$\beta_t$$ increases
-linearly from $$\beta_{\text{min}}$$ to $$\beta_{\text{max}}$$. It's simple but can lead
+**Linear schedule** is the most straightforward one, where $\beta_t$ increases
+linearly from $\beta_{\text{min}}$ to $\beta_{\text{max}}$. It's simple but can lead
 to either too little noise in early steps or too much in later steps
 
-The schedule directly controls how quickly information about $$x_0$$ is lost during the
+The schedule directly controls how quickly information about $x_0$ is lost during the
 forward process, which affects how difficult each denoising step will be during
 generation.
 
 ### 3.2 Reverse Process: Learning to Denoise
 
-We learn $$p_\theta(x_{t-1}\mid x_t)$$ and define
+We learn $p_\theta(x_{t-1}\mid x_t)$ and define
 
-$$ p_\theta(x_{0:T}) = p(x_T)\,\prod_{t=1}^T p_\theta(x_{t-1}\mid x_t). $$
+$$
+p_\theta(x_{0:T}) = p(x_T)\,\prod_{t=1}^T p_\theta(x_{t-1}\mid x_t).
+$$
 
 ### 3.3 ELBO for Diffusion Models
 
@@ -377,22 +423,32 @@ timesteps.
 
 ### 3.5 The Sampling Process
 
-**Initialize**:  
-$$ x_T \sim \mathcal{N}(0, I) $$
+**Initialize**:
+
+$$
+x_T \sim \mathcal{N}(0, I)
+$$
 
 **Iterative denoising** 
 
-for $$ t = T, \dots, 1 $$:
+for $t = T, \dots, 1$:
 
-$$ \begin{aligned} \hat{\epsilon} &= \epsilon_\theta(x_t, t) \\
-\mu_\theta(x_t, t) &= \frac{1}{\sqrt{1 - \beta_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 -
-\bar{\alpha}_t}} \, \hat{\epsilon} \right) \\
+$$
+\begin{aligned}
+\hat{\epsilon} &= \epsilon_\theta(x_t, t) \\
+\mu_\theta(x_t, t) &= \frac{1}{\sqrt{1 - \beta_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \, \hat{\epsilon} \right) \\
 x_{t-1} &= \mu_\theta(x_t, t) + \sqrt{\beta_t} \cdot z_t, \quad z_t \sim \begin{cases}
 \mathcal{N}(0, I), & \text{if } t > 1 \\
-0, & \text{if } t = 1 \end{cases} \end{aligned} $$
+0, & \text{if } t = 1
+\end{cases}
+\end{aligned}
+$$
 
-**Rescale** to image range:  
-$$ x_0^{(\mathrm{image})} = \frac{x_0 + 1}{2} \in [0, 1] $$
+**Rescale** to image range:
+
+$$
+x_0^{(\mathrm{image})} = \frac{x_0 + 1}{2} \in [0, 1]
+$$
 
 #### Sampling Techniques and Considerations
 
@@ -440,7 +496,7 @@ Key insights:
 
 Diffusion models can be viewed as a special type of hierarchical VAE where:
 
-1. The latent variables form a Markov chain: $$z_1, z_2, ..., z_T$$
+1. The latent variables form a Markov chain: $z_1, z_2, ..., z_T$
 2. The inference model (encoder) is fixed rather than learned
 3. The generative model (decoder) is trained to reverse this fixed process
 
@@ -472,8 +528,10 @@ Perhaps most surprisingly, despite being derived from the complex-looking ELBO, 
 final training objective for diffusion models is remarkably simple. It's essentially
 just mean squared error between predicted and actual noise:
 
-$$ \mathcal{L}_{\mathrm{simple}} = \mathbb{E}_{t, x_0, \epsilon}\bigl\|\epsilon -
-\epsilon_\theta(x_t, t)\bigr\|^2 $$
+$$
+\mathcal{L}_{\mathrm{simple}} = \mathbb{E}_{t, x_0, \epsilon}\bigl\|\epsilon -
+\epsilon_\theta(x_t, t)\bigr\|^2
+$$
 
 This resembles a standard supervised learning setup with MSE loss. By removing the need
 for a learned encoder, diffusion models avoid many complexities of traditional VAEs,
