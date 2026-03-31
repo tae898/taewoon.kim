@@ -1,0 +1,20 @@
+---
+import { site } from '../site';
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <small>{site.author}</small>
+      <p>{site.description}</p>
+    </div>
+
+    <div class="social-list">
+      {site.social.map((item) => (
+        <a class="tag" href={item.href} target="_blank" rel="noreferrer">
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</footer>

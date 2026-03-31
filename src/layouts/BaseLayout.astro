@@ -1,0 +1,63 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../site';
+import '../styles/global.css';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+};
+
+const { title, description = site.description, image = site.socialImage } = Astro.props;
+const pageTitle = title ? `${title} | ${site.title}` : site.title;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const socialImage = new URL(image, site.url).toString();
+const analyticsScript = site.gtag
+  ? `window.dataLayer = window.dataLayer || [];
+function gtag(){ window.dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', ${JSON.stringify(site.gtag)});`
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    {site.gtag && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.gtag}`}></script>
+        <script is:inline set:html={analyticsScript}></script>
+      </>
+    )}
+  </head>
+  <body>
+    <Header />
+    <main class="page shell">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

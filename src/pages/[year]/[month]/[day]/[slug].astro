@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { formatPostDate, getPostImage, parsePostId } from '../../../../utils/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => {
+    const { year, month, day, slug } = parsePostId(post.id);
+
+    return {
+      params: { year, month, day, slug },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const image = getPostImage(post);
+---
+
+<BaseLayout title={post.data.title} description={post.data.subtitle} image={image}>
+  <article class="prose">
+    <header class="post-hero">
+      <a class="tag" href="/blog/">Back to blog</a>
+      <div>
+        <div class="eyebrow">{formatPostDate(post.id)}</div>
+        <h1>{post.data.title}</h1>
+        {post.data.subtitle && <p class="lede">{post.data.subtitle}</p>}
+        <div class="meta-list">
+          <span class="tag">{post.data.author}</span>
+          {(post.data.tags ?? []).map((tag) => (
+            <a class="tag" href={`/tags/#${tag.toLowerCase().replace(/\s+/g, '-')}`}>{tag}</a>
+          ))}
+        </div>
+      </div>
+      {image && <img src={image} alt={post.data.title} />}
+    </header>
+
+    <Content />
+  </article>
+</BaseLayout>

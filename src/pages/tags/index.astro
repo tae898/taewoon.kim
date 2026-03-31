@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatPostDate, getAllTags, getPostUrl, sortPosts } from '../../utils/blog';
+
+const posts = sortPosts(await getCollection('blog'));
+const tags = getAllTags(posts);
+---
+
+<BaseLayout title="Tags" description="Browse posts by topic.">
+  <header class="page-header">
+    <div class="eyebrow">Browse</div>
+    <h1>Tags</h1>
+    <p>Browse the archive by topic instead of date.</p>
+  </header>
+
+  <section class="tag-panel panel" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+    <div class="tag-list">
+      {tags.map((tag) => (
+        <a class="tag" href={`#${tag.toLowerCase().replace(/\s+/g, '-')}`}>{tag}</a>
+      ))}
+    </div>
+  </section>
+
+  <div class="grid">
+    {tags.map((tag) => (
+      <section class="panel" id={tag.toLowerCase().replace(/\s+/g, '-')} style="padding: 1.5rem;">
+        <h2>{tag}</h2>
+        <ul>
+          {posts
+            .filter((post) => (post.data.tags ?? []).includes(tag))
+            .map((post) => (
+              <li>
+                <a href={getPostUrl(post.id)}>{post.data.title}</a> <span class="meta-copy">{formatPostDate(post.id)}</span>
+              </li>
+            ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
