@@ -1,22 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../site';
 ---
 
 <BaseLayout
   title="Contact"
-  description="I offer B2B services, including full stack AI and ML model development and consulting."
+  description="I work on AI research, engineering, and consulting, and I am open to consulting and project work."
 >
   <section class="panel prose" style="padding: 1.75rem;">
     <header class="page-header">
       <div class="eyebrow">Contact</div>
-      <h1>Let’s talk.</h1>
-      <p>I offer B2B services, including full stack AI / ML model development and consulting.</p>
+      <h1>Get in touch.</h1>
+      <p>I work on AI research, engineering, and consulting, and I am open to consulting and project work.</p>
     </header>
 
-    <p><strong>Email:</strong> <a href="mailto:taewoon@humem.ai">taewoon@humem.ai</a></p>
-    <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/tae898">tae898</a></p>
-    <p><strong>GitHub:</strong> <a href="https://github.com/tae898">tae898</a></p>
-    <p><strong>X:</strong> <a href="https://twitter.com/tae898">@tae898</a></p>
-    <p><strong>YouTube:</strong> <a href="https://www.youtube.com/@tae898">@tae898</a></p>
+    <div class="social-list">
+      {site.social.map((item) => (
+        <a class="social-link" href={item.href}>{item.label}</a>
+      ))}
+    </div>
   </section>
 </BaseLayout>
