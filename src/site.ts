@@ -7,7 +7,6 @@ export const site = {
   avatar: '/assets/img/TAE.png',
   socialImage: '/assets/img/TAE.png',
   nav: [
-    { label: 'HumemAI', href: 'https://humem.ai', external: true },
     { label: 'Blog', href: '/blog/' },
     { label: 'Contact', href: '/contact/' },
     { label: 'CV', href: '/taewoon-kim-cv-2026-04-01.pdf' },
