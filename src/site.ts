@@ -9,7 +9,7 @@ export const site = {
   nav: [
     { label: 'Blog', href: '/blog/' },
     { label: 'Contact', href: '/contact/' },
-    { label: 'CV', href: '/taewoon-kim-cv-2026-04-01.pdf' },
+    { label: 'CV', href: '/taewoon-kim-cv-2026-04-22.pdf' },
   ],
   social: [
     { label: 'Email', href: 'mailto:taewoon@humem.ai' },
