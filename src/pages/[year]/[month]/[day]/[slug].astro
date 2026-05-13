@@ -29,11 +29,13 @@ const image = getPostImage(post);
         <div class="eyebrow">{formatPostDate(post.id)}</div>
         <h1>{post.data.title}</h1>
         {post.data.subtitle && <p class="lede">{post.data.subtitle}</p>}
-        <div class="meta-list">
-          <span class="tag">{post.data.author}</span>
+        <div class="post-meta">
+          <span class="meta-author">{post.data.author}</span>
+          <div class="meta-list">
           {(post.data.tags ?? []).map((tag) => (
             <a class="tag" href={`/tags/#${tag.toLowerCase().replace(/\s+/g, '-')}`}>{tag}</a>
           ))}
+          </div>
         </div>
       </div>
       {image && <img src={image} alt={post.data.title} />}

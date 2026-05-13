@@ -21,84 +21,17 @@ gtag('js', new Date());
 gtag('config', ${JSON.stringify(site.gtag)});`
   : null;
 const themeScript = `(function() {
-  const storageKey = 'theme-preference';
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-  function getStoredPreference() {
-    try {
-      return localStorage.getItem(storageKey) || 'system';
-    } catch {
-      return 'system';
-    }
-  }
-
-  function getResolvedTheme(preference) {
-    if (preference === 'light' || preference === 'dark') {
-      return preference;
-    }
-
-    return mediaQuery.matches ? 'dark' : 'light';
-  }
-
-  function applyTheme(preference) {
-    const resolvedTheme = getResolvedTheme(preference);
+  function applyTheme() {
+    const resolvedTheme = mediaQuery.matches ? 'dark' : 'light';
     document.documentElement.dataset.theme = resolvedTheme;
-    document.documentElement.dataset.themePreference = preference;
   }
 
-  function persistTheme(preference) {
-    try {
-      if (preference === 'system') {
-        localStorage.removeItem(storageKey);
-      } else {
-        localStorage.setItem(storageKey, preference);
-      }
-    } catch {}
-  }
-
-  function updateToggleLabel(preference) {
-    const toggle = document.querySelector('[data-theme-toggle]');
-    if (!toggle) return;
-
-    const status = toggle.querySelector('[data-theme-status]');
-
-    const labels = { system: 'System', light: 'Light', dark: 'Dark' };
-    toggle.setAttribute('aria-label', 'Theme: ' + (labels[preference] || labels.system));
-    toggle.setAttribute('title', 'Theme: ' + (labels[preference] || labels.system));
-    if (status) {
-      status.textContent = 'Theme: ' + (labels[preference] || labels.system);
-    }
-  }
-
-  function setTheme(preference) {
-    applyTheme(preference);
-    persistTheme(preference);
-    updateToggleLabel(preference);
-  }
-
-  const initialPreference = getStoredPreference();
-  applyTheme(initialPreference);
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const toggle = document.querySelector('[data-theme-toggle]');
-    if (!toggle) return;
-
-    const order = ['system', 'light', 'dark'];
-    updateToggleLabel(document.documentElement.dataset.themePreference || initialPreference);
-
-    toggle.addEventListener('click', function() {
-      const current = document.documentElement.dataset.themePreference || 'system';
-      const next = order[(order.indexOf(current) + 1) % order.length];
-      setTheme(next);
-    });
-  });
+  applyTheme();
 
   mediaQuery.addEventListener('change', function() {
-    const current = document.documentElement.dataset.themePreference || 'system';
-    if (current === 'system') {
-      applyTheme('system');
-      updateToggleLabel('system');
-    }
+    applyTheme();
   });
 })();`;
 ---
