@@ -48,39 +48,56 @@ service every time.
 
 ## What I built
 
-The project packages ArcadeDB in a way that is easy to use from Python. The wheel is
-self-contained and includes:
+The project packages ArcadeDB in a way that is easy to use from Python. But the current
+direction is not to recreate the whole database surface as a Python object API. The
+examples now lean much more on ArcadeDB's own DSLs from Python, especially SQL,
+SQL MATCH, and OpenCypher.
+
+The wheel is self-contained and includes:
 
 - a lightweight JRE built with `jlink`
 - the required ArcadeDB JARs
 - Python bindings built on top of `JPype`
+- prebuilt platform-specific wheels for Linux x86_64, Linux ARM64, macOS ARM64, and Windows x86_64
 
-The goal was simple: make the Python experience feel natural while still exposing the
-core parts of ArcadeDB that I actually use.
+The packaging story has also gotten much better. The wheel is now about `74MB`
+compressed, with some variation by platform and version, which is much better than the
+older numbers I had in mind when I first drafted this post.
+
+The goal was simple: make Python a good place to drive ArcadeDB without pretending that
+Python needs its own parallel query language.
 
 That includes things like:
 
-- creating databases and schemas
-- creating document, vertex, and edge types
+- creating databases and schemas through SQL
+- driving graph workflows through SQL and OpenCypher
 - transactions and batch-style operations
 - import/export utilities
-- vector search through HNSW indexing
+- vector search through `LSM_VECTOR` indexes and `vectorNeighbors(...)`
 
-## A small example
+## A couple of small examples
 
 Here is the kind of workflow I had in mind.
+
+### OpenCypher
 
 ```python
 import arcadedb_embedded as arcadedb
 
 with arcadedb.create_database("./mydb") as db:
-    db.schema.create_vertex_type("Person")
-    db.schema.create_edge_type("KNOWS")
+    db.command("sql", "CREATE VERTEX TYPE Person")
+    db.command("sql", "CREATE PROPERTY Person.name STRING")
+    db.command("sql", "CREATE EDGE TYPE KNOWS")
 
     with db.transaction():
-        alice = db.new_vertex("Person").set("name", "Alice").save()
-        bob = db.new_vertex("Person").set("name", "Bob").save()
-        alice.new_edge("KNOWS", bob).save()
+        db.command("sql", "INSERT INTO Person SET name = ?", "Alice")
+        db.command("sql", "INSERT INTO Person SET name = ?", "Bob")
+        db.command(
+            "sql",
+            "CREATE EDGE KNOWS FROM (SELECT FROM Person WHERE name = ?) TO (SELECT FROM Person WHERE name = ?)",
+            "Alice",
+            "Bob",
+        )
 
     result = db.query(
         "opencypher",
@@ -91,8 +108,50 @@ with arcadedb.create_database("./mydb") as db:
         print(row.get("from"), "->", row.get("to"))
 ```
 
-That is the experience I wanted: open a database from Python, use it directly, and keep
-the feedback loop tight.
+### Vector search
+
+```python
+import arcadedb_embedded as arcadedb
+
+with arcadedb.create_database("./mydb") as db:
+    db.command("sql", "CREATE VERTEX TYPE Doc")
+    db.command("sql", "CREATE PROPERTY Doc.name STRING")
+    db.command("sql", "CREATE PROPERTY Doc.embedding ARRAY_OF_FLOATS")
+    db.command(
+        "sql",
+        """
+        CREATE INDEX ON Doc (embedding)
+        LSM_VECTOR
+        METADATA {"dimensions": 4, "similarity": "COSINE"}
+        """,
+    )
+
+    with db.transaction():
+        db.command(
+            "sql",
+            "INSERT INTO Doc SET name = :name, embedding = :embedding",
+            {"name": "Apple", "embedding": arcadedb.to_java_float_array([1.0, 0.0, 0.0, 0.0])},
+        )
+        db.command(
+            "sql",
+            "INSERT INTO Doc SET name = :name, embedding = :embedding",
+            {"name": "Banana", "embedding": arcadedb.to_java_float_array([0.9, 0.1, 0.0, 0.0])},
+        )
+
+    result = db.query(
+        "sql",
+        "SELECT name, distance FROM (SELECT expand(vectorNeighbors(?, ?, ?))) ORDER BY distance",
+        "Doc[embedding]",
+        arcadedb.to_java_float_array([0.95, 0.05, 0.0, 0.0]),
+        2,
+    )
+
+    for row in result:
+        print(row.get("name"), row.get("distance"))
+```
+
+That is the experience I wanted: open a database from Python, drive it mostly with
+SQL/OpenCypher, use vector search when I need it, and keep the feedback loop tight.
 
 ## Why this matters to me
 
