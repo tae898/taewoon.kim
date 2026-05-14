@@ -383,6 +383,11 @@ blockquote {
   background: var(--surface);
 }
 
+.site-footer__meta {
+  display: grid;
+  gap: 0.45rem;
+}
+
 .site-footer__inner {
   align-items: center;
   padding: 1.25rem 0 1.5rem;
@@ -399,13 +404,72 @@ blockquote {
   gap: 1rem;
 }
 
+.legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
 .social-link {
   color: var(--muted);
   text-decoration: none;
   white-space: nowrap;
 }
 
+.social-link--button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
 .social-link:hover {
+  color: var(--text);
+}
+
+.cookie-banner {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  width: min(calc(100% - 2rem), 28rem);
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--surface) 92%, var(--bg));
+  box-shadow: var(--shadow);
+}
+
+.cookie-banner p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.9rem;
+}
+
+.cookie-banner__actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--brand);
+  color: #ffffff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.cookie-banner__actions .cookie-banner__secondary {
+  border-color: var(--line);
+  background: var(--surface-strong);
   color: var(--text);
 }
 
@@ -431,6 +495,10 @@ blockquote {
 
   .site-nav,
   .social-list {
+    justify-content: flex-start;
+  }
+
+  .legal-links {
     justify-content: flex-start;
   }
 

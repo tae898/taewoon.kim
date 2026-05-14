@@ -4,7 +4,13 @@ import { site } from '../site';
 
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <small>{site.author}</small>
+    <div class="site-footer__meta">
+      <small>{site.author}</small>
+      <div class="legal-links">
+        <a class="social-link" href="/privacy-policy/">Privacy</a>
+        <button class="social-link social-link--button" type="button" data-cookie-settings>Cookie settings</button>
+      </div>
+    </div>
 
     <div class="social-list">
       {site.social.map((item) => (

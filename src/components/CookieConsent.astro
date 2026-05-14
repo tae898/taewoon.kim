@@ -1,0 +1,83 @@
+---
+import { site } from '../site';
+
+const consentKey = 'taewoon-cookie-consent';
+const gaId = site.gtag;
+---
+
+{gaId && (
+  <>
+    <aside class="cookie-banner" id="cookie-banner" hidden>
+      <p>
+        This site uses analytics only if you say yes. See the <a href="/privacy-policy/">privacy policy</a> for details.
+      </p>
+      <div class="cookie-banner__actions">
+        <button type="button" data-cookie-accept>Accept analytics</button>
+        <button type="button" data-cookie-decline class="cookie-banner__secondary">Decline</button>
+      </div>
+    </aside>
+
+    <script is:inline define:vars={{ consentKey, gaId }}>
+      const ACCEPTED = 'accepted';
+      const DECLINED = 'declined';
+      const banner = document.getElementById('cookie-banner');
+      const openButtons = () => document.querySelectorAll('[data-cookie-settings]');
+      let analyticsLoaded = false;
+
+      function getConsent() {
+        const value = window.localStorage.getItem(consentKey);
+        return value === ACCEPTED || value === DECLINED ? value : null;
+      }
+
+      function loadAnalytics() {
+        if (analyticsLoaded) {
+          return;
+        }
+
+        analyticsLoaded = true;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', gaId);
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+        document.head.appendChild(script);
+      }
+
+      function updateBanner() {
+        if (!banner) {
+          return;
+        }
+
+        banner.hidden = getConsent() !== null;
+      }
+
+      function setConsent(value) {
+        window.localStorage.setItem(consentKey, value);
+        if (value === ACCEPTED) {
+          loadAnalytics();
+        }
+        updateBanner();
+      }
+
+      if (getConsent() === ACCEPTED) {
+        loadAnalytics();
+      }
+
+      updateBanner();
+
+      document.querySelector('[data-cookie-accept]')?.addEventListener('click', () => setConsent(ACCEPTED));
+      document.querySelector('[data-cookie-decline]')?.addEventListener('click', () => setConsent(DECLINED));
+
+      for (const button of openButtons()) {
+        button.addEventListener('click', () => {
+          if (banner) {
+            banner.hidden = false;
+          }
+        });
+      }
+    </script>
+  </>
+)}
