@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { formatPostDate, getPostImage, parsePostId } from '../../../../utils/blog';
+import { formatPostDate, getPostImage, getTagUrl, parsePostId } from '../../../../utils/blog';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -33,7 +33,7 @@ const image = getPostImage(post);
           <span class="meta-author">{post.data.author}</span>
           <div class="meta-list">
           {(post.data.tags ?? []).map((tag) => (
-            <a class="tag" href={`/tags/#${tag.toLowerCase().replace(/\s+/g, '-')}`}>{tag}</a>
+            <a class="tag" href={getTagUrl(tag)}>{tag}</a>
           ))}
           </div>
         </div>

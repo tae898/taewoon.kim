@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { createExcerpt, formatPostDate, getPostImage, getPostUrl } from '../utils/blog';
+import { createExcerpt, formatPostDate, getPostImage, getPostUrl, getTagUrl } from '../utils/blog';
 
 type Props = {
   post: CollectionEntry<'blog'>;
@@ -35,7 +35,7 @@ const image = getPostImage(post);
     {!!post.data.tags?.length && (
       <div class="tag-list">
         {post.data.tags.slice(0, 4).map((tag) => (
-          <a class="tag" href={`/tags/#${tag.toLowerCase().replace(/\s+/g, '-')}`}>
+          <a class="tag" href={getTagUrl(tag)}>
             {tag}
           </a>
         ))}
