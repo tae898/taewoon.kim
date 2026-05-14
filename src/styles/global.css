@@ -308,6 +308,15 @@ blockquote {
 
 .post-card {
   overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.post-card:hover,
+.post-card:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--brand);
+  background: var(--surface-strong);
 }
 
 .post-card__media {
@@ -331,6 +340,19 @@ blockquote {
 
 .post-card__body h3 {
   font-size: 1.45rem;
+}
+
+.post-card__action {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.post-card__action:hover,
+.post-card__action:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .meta {
