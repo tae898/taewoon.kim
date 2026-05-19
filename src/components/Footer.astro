@@ -1,5 +1,8 @@
 ---
 import { site } from '../site';
+import SocialIcon from './SocialIcon.astro';
+
+const socialLinks = [...site.social.filter((item) => item.label !== 'YouTube'), { label: 'CV', href: site.cv }];
 ---
 
 <footer class="site-footer">
@@ -13,8 +16,9 @@ import { site } from '../site';
     </div>
 
     <div class="social-list">
-      {site.social.map((item) => (
+      {socialLinks.map((item) => (
         <a class="social-link" href={item.href} target="_blank" rel="noreferrer">
+          <SocialIcon label={item.label} />
           {item.label}
         </a>
       ))}

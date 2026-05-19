@@ -21,7 +21,8 @@
     "astro": "^5.7.14",
     "katex": "^0.16.44",
     "rehype-katex": "^7.0.1",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "simple-icons": "^16.20.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",

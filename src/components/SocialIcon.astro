@@ -1,0 +1,90 @@
+---
+import { siGithub, siGooglescholar, siX, siYoutube } from 'simple-icons';
+
+type Props = {
+  label: string;
+  class?: string;
+};
+
+const { label, class: className = '' } = Astro.props;
+
+const brandIcons = {
+  GitHub: siGithub,
+  X: siX,
+  YouTube: siYoutube,
+  Scholar: siGooglescholar,
+} as const;
+
+const brandIcon = brandIcons[label as keyof typeof brandIcons];
+const classes = ['social-icon', label === 'CV' ? 'social-icon--cv' : '', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  brandIcon ? (
+    <svg
+      class={classes}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d={brandIcon.path}></path>
+    </svg>
+  ) : label === 'Email' ? (
+    <svg
+      class={classes}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2.5"></rect>
+      <path d="M4.5 7.5 12 13l7.5-5.5"></path>
+    </svg>
+  ) : label === 'LinkedIn' ? (
+    <svg
+      class={classes}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3.5"></rect>
+      <circle cx="8" cy="9" r="0.9" fill="currentColor" stroke="none"></circle>
+      <path d="M8 11.5v5"></path>
+      <path d="M12 16.5v-5"></path>
+      <path d="M12 13.6c0-1.4 1-2.1 2.1-2.1 1.5 0 2.4.9 2.4 2.7v2.3"></path>
+    </svg>
+  ) : label === 'CV' ? (
+    <svg
+      class={classes}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="2.5" y="4.5" width="19" height="15" rx="4" stroke="currentColor" stroke-width="1.4"></rect>
+      <text
+        x="12"
+        y="14.7"
+        fill="currentColor"
+        font-size="9.2"
+        font-weight="700"
+        font-family="Space Grotesk, Arial, sans-serif"
+        text-anchor="middle"
+      >
+        CV
+      </text>
+    </svg>
+  ) : null
+}

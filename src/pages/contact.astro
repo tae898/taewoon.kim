@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialIcon from '../components/SocialIcon.astro';
 import { site } from '../site';
+
+const socialLinks = [...site.social, { label: 'CV', href: site.cv }];
 ---
 
 <BaseLayout
@@ -15,8 +18,11 @@ import { site } from '../site';
     </header>
 
     <div class="social-list">
-      {site.social.map((item) => (
-        <a class="social-link" href={item.href}>{item.label}</a>
+      {socialLinks.map((item) => (
+        <a class="social-link" href={item.href} target="_blank" rel="noreferrer">
+          <SocialIcon label={item.label} />
+          {item.label}
+        </a>
       ))}
     </div>
   </section>

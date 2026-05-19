@@ -7,10 +7,10 @@ export const site = {
   avatar: '/assets/img/TAE.png',
   socialImage: '/assets/img/TAE.png',
   nav: [
-    { label: 'Blog', href: '/blog/' },
-    { label: 'Contact', href: '/contact/' },
-    { label: 'CV', href: '/taewoon-kim-cv-2026-04-22.pdf' },
+    { label: 'About', href: '/#intro' },
+    { label: 'Blog', href: '/#blog' },
   ],
+  cv: '/taewoon-kim-cv-2026-04-22.pdf',
   social: [
     { label: 'Email', href: 'mailto:taewoon@humem.ai' },
     { label: 'GitHub', href: 'https://github.com/tae898' },

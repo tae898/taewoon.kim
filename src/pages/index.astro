@@ -2,34 +2,113 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import { site } from '../site';
 import { sortPosts } from '../utils/blog';
 
 const posts = sortPosts(await getCollection('blog'));
-const featuredPosts = posts.slice(0, 4);
+const postsPerPage = 9;
+const totalPages = Math.max(1, Math.ceil(posts.length / postsPerPage));
+const socialLinks = [...site.social.filter((item) => item.label !== 'YouTube'), { label: 'CV', href: site.cv }];
 ---
 
 <BaseLayout title="I'm Taewoon" description="AI Researcher & Engineer">
-  <section class="hero">
+  <section id="intro" class="hero hero--home">
     <div class="eyebrow">Taewoon Kim</div>
-    <h1>AI Researcher and Engineer</h1>
-    <div class="hero__actions">
-      <a class="button" href="/blog/">Read the blog</a>
-      <a class="button button--secondary" href="/contact/">Work with me</a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <div>
-        <div class="eyebrow">Latest Writing</div>
-        <h2>Recent posts</h2>
-      </div>
+    <div class="hero__copy">
+      <h1>I'm an AI researcher and engineer.</h1>
+      <p class="lede">
+        This site is a single place for research notes, essays, and practical writing on machine
+        learning, reinforcement learning, and engineering.
+      </p>
     </div>
 
-    <div class="grid posts-grid">
-      {featuredPosts.map((post) => (
-        <PostCard post={post} />
+    <div class="hero__actions hero__actions--social" aria-label="Social links">
+      {socialLinks.map((item) => (
+        <a
+          class="button button--secondary button--icon-only"
+          href={item.href}
+          aria-label={item.label}
+          title={item.label}
+          target={item.href.startsWith('http') ? '_blank' : undefined}
+          rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+        >
+          <SocialIcon label={item.label} />
+        </a>
       ))}
     </div>
   </section>
+
+  <section id="blog" class="section section--blog">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Writing</div>
+        <h2>Blog</h2>
+        <p>Browse recent posts in pages of nine.</p>
+      </div>
+
+      {totalPages > 1 && (
+        <div class="pager" aria-label="Blog pagination">
+          <button class="button button--secondary" type="button" data-page-prev>
+            Previous
+          </button>
+          <span class="pager__status" data-page-status>Page 1 of {totalPages}</span>
+          <button class="button button--secondary" type="button" data-page-next>
+            Next
+          </button>
+        </div>
+      )}
+    </div>
+
+    <div class="blog-browser">
+      <div class="blog-browser__viewport" data-blog-viewport>
+        <div class="grid posts-grid posts-grid--paged" data-blog-grid>
+          {posts.map((post, index) => (
+            <div data-post-page={Math.floor(index / postsPerPage) + 1} hidden={index >= postsPerPage}>
+              <PostCard post={post} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ totalPages }}>
+    const pageItems = Array.from(document.querySelectorAll('[data-post-page]'));
+    const prevButton = document.querySelector('[data-page-prev]');
+    const nextButton = document.querySelector('[data-page-next]');
+    const status = document.querySelector('[data-page-status]');
+    const viewport = document.querySelector('[data-blog-viewport]');
+
+    if (pageItems.length > 0 && prevButton instanceof HTMLButtonElement && nextButton instanceof HTMLButtonElement) {
+      let currentPage = 1;
+
+      const renderPage = () => {
+        for (const item of pageItems) {
+          item.hidden = Number(item.dataset.postPage) !== currentPage;
+        }
+
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+
+        if (status) {
+          status.textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        viewport?.scrollTo({ left: 0, behavior: 'smooth' });
+      };
+
+      prevButton.addEventListener('click', () => {
+        currentPage = Math.max(1, currentPage - 1);
+        renderPage();
+      });
+
+      nextButton.addEventListener('click', () => {
+        currentPage = Math.min(totalPages, currentPage + 1);
+        renderPage();
+      });
+
+      renderPage();
+    }
+  </script>
 </BaseLayout>
