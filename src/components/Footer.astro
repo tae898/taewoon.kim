@@ -1,8 +1,8 @@
 ---
-import { site } from '../site';
-import SocialIcon from './SocialIcon.astro';
+import SocialLinks from './SocialLinks.astro';
+import { getSocialLinks, site } from '../site';
 
-const socialLinks = [...site.social.filter((item) => item.label !== 'YouTube'), { label: 'CV', href: site.cv }];
+const footerSocialLinks = getSocialLinks('footer');
 ---
 
 <footer class="site-footer">
@@ -15,19 +15,6 @@ const socialLinks = [...site.social.filter((item) => item.label !== 'YouTube'), 
       </div>
     </div>
 
-    <div class="social-list">
-      {socialLinks.map((item) => (
-        <a
-          class="social-link social-link--icon-only"
-          href={item.href}
-          aria-label={item.label}
-          title={item.label}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SocialIcon label={item.label} />
-        </a>
-      ))}
-    </div>
+    <SocialLinks links={footerSocialLinks} iconOnly={true} />
   </div>
 </footer>

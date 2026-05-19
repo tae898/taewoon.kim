@@ -1,0 +1,45 @@
+---
+import SocialIcon from './SocialIcon.astro';
+import type { SiteLink } from '../site';
+
+type Props = {
+  links: SiteLink[];
+  listClass?: string;
+  variant?: 'button' | 'link';
+  iconOnly?: boolean;
+};
+
+const {
+  links,
+  listClass = 'social-list',
+  variant = 'link',
+  iconOnly = false,
+} = Astro.props;
+
+const itemClasses = [
+  variant === 'button' ? 'button button--secondary' : 'social-link',
+  iconOnly ? (variant === 'button' ? 'button--icon-only' : 'social-link--icon-only') : '',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={listClass}>
+  {links.map((item) => {
+    const openInNewTab = item.href.startsWith('http') || item.href.endsWith('.pdf');
+
+    return (
+      <a
+        class={itemClasses}
+        href={item.href}
+        aria-label={iconOnly ? item.label : undefined}
+        title={iconOnly ? item.label : undefined}
+        target={openInNewTab ? '_blank' : undefined}
+        rel={openInNewTab ? 'noreferrer' : undefined}
+      >
+        <SocialIcon label={item.label} />
+        {!iconOnly && item.label}
+      </a>
+    );
+  })}
+</div>

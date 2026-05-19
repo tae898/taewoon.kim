@@ -2,47 +2,36 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import SocialIcon from '../components/SocialIcon.astro';
-import { site } from '../site';
+import SocialLinks from '../components/SocialLinks.astro';
+import { getSocialLinks, homePage } from '../site';
 import { sortPosts } from '../utils/blog';
 
 const posts = sortPosts(await getCollection('blog'));
 const postsPerPage = 9;
 const totalPages = Math.max(1, Math.ceil(posts.length / postsPerPage));
-const socialLinks = [...site.social.filter((item) => item.label !== 'YouTube'), { label: 'CV', href: site.cv }];
+const aboutSocialLinks = getSocialLinks('about');
 ---
 
 <BaseLayout title="I'm Taewoon" description="AI Researcher & Engineer">
-  <section id="intro" class="hero hero--home">
+  <section id={homePage.intro.id} class="hero hero--home">
     <div class="hero__copy">
-      <h1>I'm an AI researcher and engineer.</h1>
-      <p class="lede">
-        I care about building toward AGI through better memory, stronger systems, and practical
-        engineering.
-      </p>
+      <h1>{homePage.intro.title}</h1>
+      <p class="lede">{homePage.intro.lede}</p>
     </div>
 
-    <div class="hero__actions hero__actions--social" aria-label="Social links">
-      {socialLinks.map((item) => (
-        <a
-          class="button button--secondary button--icon-only"
-          href={item.href}
-          aria-label={item.label}
-          title={item.label}
-          target={item.href.startsWith('http') ? '_blank' : undefined}
-          rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-        >
-          <SocialIcon label={item.label} />
-        </a>
-      ))}
-    </div>
+    <SocialLinks
+      links={aboutSocialLinks}
+      listClass="hero__actions hero__actions--social"
+      variant="button"
+      iconOnly={true}
+    />
   </section>
 
-  <section id="blog" class="section section--blog">
+  <section id={homePage.blog.id} class="section section--blog">
     <div class="section-header">
       <div>
-        <h2>Blog</h2>
-        <p>Browse recent posts.</p>
+        <h2>{homePage.blog.label}</h2>
+        <p>{homePage.blog.description}</p>
       </div>
 
       {totalPages > 1 && (

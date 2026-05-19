@@ -43,6 +43,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-scroll-offset, 8.5rem);
 }
 
 body {
@@ -198,7 +199,8 @@ blockquote {
   border: 0;
 }
 
-.site-nav a[aria-current='page'] {
+.site-nav a[aria-current='page'],
+.site-nav a[aria-current='location'] {
   background: color-mix(in srgb, var(--brand) 12%, transparent);
   color: var(--brand-strong);
 }
@@ -377,10 +379,6 @@ blockquote {
 
 .posts-grid--paged {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.section--blog {
-  scroll-margin-top: 6rem;
 }
 
 .section--blog .section-header {
