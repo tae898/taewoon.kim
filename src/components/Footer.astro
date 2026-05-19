@@ -17,9 +17,15 @@ const socialLinks = [...site.social.filter((item) => item.label !== 'YouTube'), 
 
     <div class="social-list">
       {socialLinks.map((item) => (
-        <a class="social-link" href={item.href} target="_blank" rel="noreferrer">
+        <a
+          class="social-link social-link--icon-only"
+          href={item.href}
+          aria-label={item.label}
+          title={item.label}
+          target="_blank"
+          rel="noreferrer"
+        >
           <SocialIcon label={item.label} />
-          {item.label}
         </a>
       ))}
     </div>
