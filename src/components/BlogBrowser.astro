@@ -80,6 +80,11 @@ const pagerConfig = blogListing.pagination;
       let currentPage = 1;
       let activeTag = null;
       let compactPager = false;
+      const sectionStart = sectionId ? document.getElementById(sectionId) : browser;
+
+      const scrollToSectionStart = (behavior = 'smooth') => {
+        sectionStart?.scrollIntoView({ behavior, block: 'start' });
+      };
 
       const readActiveTag = () => {
         const value = new URLSearchParams(window.location.search).get(tagQueryParam);
@@ -240,6 +245,7 @@ const pagerConfig = blogListing.pagination;
       prevButton?.addEventListener('click', () => {
         currentPage = Math.max(1, currentPage - 1);
         render();
+        scrollToSectionStart();
       });
 
       nextButton?.addEventListener('click', () => {
@@ -247,6 +253,7 @@ const pagerConfig = blogListing.pagination;
         const totalPages = Math.max(1, Math.ceil(totalItems / postsPerPage));
         currentPage = Math.min(totalPages, currentPage + 1);
         render();
+        scrollToSectionStart();
       });
 
       pageList?.addEventListener('click', (event) => {
@@ -264,11 +271,13 @@ const pagerConfig = blogListing.pagination;
 
         currentPage = nextPage;
         render();
+        scrollToSectionStart();
       });
 
       clearButton?.addEventListener('click', () => {
         setTagInUrl(null);
         render();
+        scrollToSectionStart();
       });
 
       browser.addEventListener('click', (event) => {
@@ -297,6 +306,7 @@ const pagerConfig = blogListing.pagination;
         event.preventDefault();
         setTagInUrl(nextTag);
         render();
+        scrollToSectionStart();
       });
 
       if (typeof ResizeObserver !== 'undefined') {
@@ -305,8 +315,16 @@ const pagerConfig = blogListing.pagination;
         window.addEventListener('resize', syncPagerDensity);
       }
 
-      window.addEventListener('popstate', render);
-      window.addEventListener('hashchange', render);
+      window.addEventListener('popstate', () => {
+        render();
+        scrollToSectionStart('auto');
+      });
+      window.addEventListener('hashchange', () => {
+        render();
+        if (window.location.hash === `#${sectionId}`) {
+          scrollToSectionStart('auto');
+        }
+      });
       syncPagerDensity();
       render();
     }
