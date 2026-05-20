@@ -21,13 +21,17 @@ export const homePage = {
   intro: {
     id: 'intro',
     title: "I'm an AI researcher and engineer.",
-    lede: 'I care about building toward AGI through better memory, stronger systems, and practical engineering.',
+    lede: "I'm building toward AGI through open source, memory for AI agents, and world models.",
   },
   blog: {
     id: 'blog',
     label: 'Blog',
     description: 'Browse recent posts.',
   },
+} as const;
+
+export const blogListing = {
+  postsPerPage: 9,
 } as const;
 
 export const socialVariants = {

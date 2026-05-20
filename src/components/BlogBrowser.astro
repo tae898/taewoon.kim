@@ -1,0 +1,315 @@
+---
+import type { BlogEntry } from '../utils/blog';
+import PostCard from './PostCard.astro';
+import { BLOG_TAG_QUERY_PARAM, getAllTagGroups, slugifyTag } from '../utils/blog';
+
+type Props = {
+  posts: BlogEntry[];
+  postsPerPage?: number;
+  sectionId: string;
+  emptyMessage?: string;
+};
+
+const {
+  posts,
+  postsPerPage = 9,
+  sectionId,
+  emptyMessage = 'No posts match this tag yet.',
+} = Astro.props;
+
+const browserId = `blog-browser-${Math.random().toString(36).slice(2, 10)}`;
+const tagLabels = Object.fromEntries(getAllTagGroups(posts).map((tag) => [tag.slug, tag.name]));
+---
+
+<div id={browserId} class="blog-browser" data-blog-browser>
+  <div class="blog-browser__controls">
+    <div class="blog-filter" data-blog-filter hidden>
+      <span class="meta-copy">Filtered by</span>
+      <span class="tag" data-blog-filter-label></span>
+      <button class="button button--tertiary" type="button" data-blog-filter-clear>
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <div class="grid posts-grid posts-grid--paged" data-blog-grid>
+    {posts.map((post) => (
+      <div
+        data-post-item
+        data-post-tags={JSON.stringify((post.data.tags ?? []).map((tag) => slugifyTag(tag)))}
+      >
+        <PostCard post={post} />
+      </div>
+    ))}
+  </div>
+
+  <p class="meta-copy blog-browser__empty" data-blog-empty hidden>{emptyMessage}</p>
+
+  <div class="pager" data-blog-pager aria-label="Blog pagination">
+    <button class="pager__arrow" type="button" data-page-prev aria-label="Previous page">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M14.5 6.5L9 12l5.5 5.5" />
+      </svg>
+    </button>
+    <div class="pager__pages" data-page-list></div>
+    <button class="pager__arrow" type="button" data-page-next aria-label="Next page">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M9.5 6.5L15 12l-5.5 5.5" />
+      </svg>
+    </button>
+  </div>
+
+  <script
+    is:inline
+    define:vars={{ postsPerPage, tagLabels, sectionId, tagQueryParam: BLOG_TAG_QUERY_PARAM }}
+  >
+    const browser = document.currentScript?.parentElement;
+
+    if (browser) {
+      const items = Array.from(browser.querySelectorAll('[data-post-item]'));
+      const prevButton = browser.querySelector('[data-page-prev]');
+      const nextButton = browser.querySelector('[data-page-next]');
+      const pageList = browser.querySelector('[data-page-list]');
+      const pager = browser.querySelector('[data-blog-pager]');
+      const emptyState = browser.querySelector('[data-blog-empty]');
+      const filter = browser.querySelector('[data-blog-filter]');
+      const filterLabel = browser.querySelector('[data-blog-filter-label]');
+      const clearButton = browser.querySelector('[data-blog-filter-clear]');
+      let currentPage = 1;
+      let activeTag = null;
+      let compactPager = false;
+
+      const readActiveTag = () => {
+        const value = new URLSearchParams(window.location.search).get(tagQueryParam);
+        return value ? value.trim().toLowerCase() : null;
+      };
+
+      const setTagInUrl = (tag) => {
+        const url = new URL(window.location.href);
+
+        if (tag) {
+          url.searchParams.set(tagQueryParam, tag);
+        } else {
+          url.searchParams.delete(tagQueryParam);
+        }
+
+        url.hash = sectionId ? `#${sectionId}` : '';
+        window.history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
+      };
+
+      const getMatchingItems = (tag) => {
+        if (!tag) {
+          return items;
+        }
+
+        return items.filter((item) => {
+          try {
+            const tags = JSON.parse(item.dataset.postTags || '[]');
+            return Array.isArray(tags) && tags.includes(tag);
+          } catch {
+            return false;
+          }
+        });
+      };
+
+      const buildPageItems = (page, totalPages, compact) => {
+        if (compact) {
+          if (totalPages <= 4) {
+            return Array.from({ length: totalPages }, (_, index) => index + 1);
+          }
+
+          if (page <= 2) {
+            return [1, 2, 'ellipsis', totalPages];
+          }
+
+          if (page >= totalPages - 1) {
+            return [1, 'ellipsis', totalPages - 1, totalPages];
+          }
+
+          return [1, 'ellipsis', page, 'ellipsis', totalPages];
+        }
+
+        if (totalPages <= 5) {
+          return Array.from({ length: totalPages }, (_, index) => index + 1);
+        }
+
+        if (page <= 3) {
+          return [1, 2, 3, 'ellipsis', totalPages];
+        }
+
+        if (page >= totalPages - 2) {
+          return [1, 'ellipsis', totalPages - 2, totalPages - 1, totalPages];
+        }
+
+        return [1, 'ellipsis', page - 1, page, page + 1, 'ellipsis', totalPages];
+      };
+
+      const renderPager = (page, totalPages, hasItems) => {
+        if (!(pageList instanceof HTMLElement)) {
+          return;
+        }
+
+        pageList.replaceChildren();
+
+        if (!hasItems) {
+          return;
+        }
+
+        const pageItems = buildPageItems(page, totalPages, compactPager);
+
+        for (const item of pageItems) {
+          if (item === 'ellipsis') {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'pager__ellipsis';
+            ellipsis.textContent = '...';
+            ellipsis.setAttribute('aria-hidden', 'true');
+            pageList.append(ellipsis);
+            continue;
+          }
+
+          const pageButton = document.createElement('button');
+          pageButton.type = 'button';
+          pageButton.className = 'pager__page';
+          pageButton.textContent = String(item);
+          pageButton.dataset.page = String(item);
+
+          if (item === page) {
+            pageButton.setAttribute('aria-current', 'page');
+          } else {
+            pageButton.setAttribute('aria-label', `Go to page ${item}`);
+          }
+
+          pageList.append(pageButton);
+        }
+      };
+
+      const render = () => {
+        const nextTag = readActiveTag();
+
+        if (nextTag !== activeTag) {
+          currentPage = 1;
+          activeTag = nextTag;
+        }
+
+        const matchingItems = getMatchingItems(activeTag);
+        const totalPages = Math.max(1, Math.ceil(matchingItems.length / postsPerPage));
+        currentPage = Math.min(currentPage, totalPages);
+
+        const start = (currentPage - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const pageItems = new Set(matchingItems.slice(start, end));
+
+        for (const item of items) {
+          item.hidden = !pageItems.has(item);
+        }
+
+        if (prevButton instanceof HTMLButtonElement) {
+          prevButton.hidden = currentPage === 1 || matchingItems.length === 0;
+        }
+
+        if (nextButton instanceof HTMLButtonElement) {
+          nextButton.hidden = currentPage === totalPages || matchingItems.length === 0;
+        }
+
+        if (pager) {
+          pager.hidden = matchingItems.length <= postsPerPage;
+        }
+
+        renderPager(currentPage, totalPages, matchingItems.length > 0);
+
+        if (emptyState) {
+          emptyState.hidden = matchingItems.length > 0;
+        }
+
+        if (filter && filterLabel) {
+          filter.hidden = !activeTag;
+          filterLabel.textContent = activeTag ? tagLabels[activeTag] || activeTag : '';
+        }
+      };
+
+      const syncPagerDensity = () => {
+        const nextCompact = browser.clientWidth < 34 * 16;
+
+        if (nextCompact === compactPager) {
+          return;
+        }
+
+        compactPager = nextCompact;
+        render();
+      };
+
+      prevButton?.addEventListener('click', () => {
+        currentPage = Math.max(1, currentPage - 1);
+        render();
+      });
+
+      nextButton?.addEventListener('click', () => {
+        const totalItems = getMatchingItems(activeTag).length;
+        const totalPages = Math.max(1, Math.ceil(totalItems / postsPerPage));
+        currentPage = Math.min(totalPages, currentPage + 1);
+        render();
+      });
+
+      pageList?.addEventListener('click', (event) => {
+        const target = event.target;
+
+        if (!(target instanceof HTMLButtonElement)) {
+          return;
+        }
+
+        const nextPage = Number(target.dataset.page);
+
+        if (!Number.isFinite(nextPage) || nextPage === currentPage) {
+          return;
+        }
+
+        currentPage = nextPage;
+        render();
+      });
+
+      clearButton?.addEventListener('click', () => {
+        setTagInUrl(null);
+        render();
+      });
+
+      browser.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) {
+          return;
+        }
+
+        const link = target.closest('a[href]');
+        if (!(link instanceof HTMLAnchorElement)) {
+          return;
+        }
+
+        const url = new URL(link.href, window.location.href);
+        const nextTag = url.searchParams.get(tagQueryParam);
+        const isSamePageFilter =
+          url.origin === window.location.origin &&
+          url.pathname === window.location.pathname &&
+          url.hash === `#${sectionId}` &&
+          (nextTag !== null || new URL(window.location.href).searchParams.has(tagQueryParam));
+
+        if (!isSamePageFilter) {
+          return;
+        }
+
+        event.preventDefault();
+        setTagInUrl(nextTag);
+        render();
+      });
+
+      if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(syncPagerDensity).observe(browser);
+      } else {
+        window.addEventListener('resize', syncPagerDensity);
+      }
+
+      window.addEventListener('popstate', render);
+      window.addEventListener('hashchange', render);
+      syncPagerDensity();
+      render();
+    }
+  </script>
+</div>

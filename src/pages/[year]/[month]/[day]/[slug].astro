@@ -24,7 +24,6 @@ const image = getPostImage(post);
 <BaseLayout title={post.data.title} description={post.data.subtitle} image={image}>
   <article class="prose">
     <header class="post-hero">
-      <a class="tag" href="/blog/">Back to blog</a>
       <div>
         <div class="eyebrow">{formatPostDate(post.id)}</div>
         <h1>{post.data.title}</h1>

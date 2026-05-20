@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { homePage } from '../site';
 
 export type BlogEntry = CollectionEntry<'blog'>;
 export type BlogTagGroup = {
@@ -38,6 +39,19 @@ export function getPostUrl(id: string) {
   return `/${year}/${month}/${day}/${slug}/`;
 }
 
+export const BLOG_TAG_QUERY_PARAM = 'tag';
+
+export function getBlogUrl(options: { tag?: string } = {}) {
+  const hash = `#${homePage.blog.id}`;
+
+  if (!options.tag) {
+    return `/${hash}`;
+  }
+
+  const params = new URLSearchParams({ [BLOG_TAG_QUERY_PARAM]: slugifyTag(options.tag) });
+  return `/?${params.toString()}${hash}`;
+}
+
 export function slugifyTag(tag: string) {
   return tag
     .trim()
@@ -47,7 +61,7 @@ export function slugifyTag(tag: string) {
 }
 
 export function getTagUrl(tag: string) {
-  return `/tags/${slugifyTag(tag)}/`;
+  return getBlogUrl({ tag });
 }
 
 function getPreferredTagName(tags: string[]) {
