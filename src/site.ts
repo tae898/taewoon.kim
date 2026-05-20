@@ -32,6 +32,21 @@ export const homePage = {
 
 export const blogListing = {
   postsPerPage: 9,
+  pagination: {
+    compactBreakpointRem: 34,
+    full: {
+      maxVisiblePages: 5,
+      leadingPages: 3,
+      trailingPages: 3,
+      siblingPages: 1,
+    },
+    compact: {
+      maxVisiblePages: 4,
+      leadingPages: 2,
+      trailingPages: 2,
+      siblingPages: 0,
+    },
+  },
 } as const;
 
 export const socialVariants = {

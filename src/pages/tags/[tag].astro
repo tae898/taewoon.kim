@@ -1,8 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostCard from '../../components/PostCard.astro';
-import { getAllTagGroups, sortPosts } from '../../utils/blog';
+import { getAllTagGroups, getBlogUrl, sortPosts } from '../../utils/blog';
 
 export async function getStaticPaths() {
   const posts = sortPosts(await getCollection('blog'));
@@ -10,23 +8,22 @@ export async function getStaticPaths() {
 
   return tags.map((tag) => ({
     params: { tag: tag.slug },
-    props: { tag },
+    props: { redirectUrl: getBlogUrl({ tag: tag.slug }) },
   }));
 }
 
-const { tag } = Astro.props;
+const { redirectUrl } = Astro.props;
 ---
 
-<BaseLayout title={tag.name} description={`Posts tagged ${tag.name}.`}>
-  <header class="page-header">
-    <div class="eyebrow">Archive</div>
-    <h1>Blog</h1>
-    <p>Posts tagged {tag.name}.</p>
-  </header>
-
-  <div class="grid posts-grid">
-    {tag.posts.map((post) => (
-      <PostCard post={post} />
-    ))}
-  </div>
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+    <link rel="canonical" href={redirectUrl} />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href={redirectUrl}>the filtered blog view</a>.</p>
+  </body>
+</html>

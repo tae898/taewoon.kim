@@ -1,6 +1,7 @@
 ---
 import type { BlogEntry } from '../utils/blog';
 import PostCard from './PostCard.astro';
+import { blogListing } from '../site';
 import { BLOG_TAG_QUERY_PARAM, getAllTagGroups, slugifyTag } from '../utils/blog';
 
 type Props = {
@@ -19,6 +20,7 @@ const {
 
 const browserId = `blog-browser-${Math.random().toString(36).slice(2, 10)}`;
 const tagLabels = Object.fromEntries(getAllTagGroups(posts).map((tag) => [tag.slug, tag.name]));
+const pagerConfig = blogListing.pagination;
 ---
 
 <div id={browserId} class="blog-browser" data-blog-browser>
@@ -61,7 +63,7 @@ const tagLabels = Object.fromEntries(getAllTagGroups(posts).map((tag) => [tag.sl
 
   <script
     is:inline
-    define:vars={{ postsPerPage, tagLabels, sectionId, tagQueryParam: BLOG_TAG_QUERY_PARAM }}
+    define:vars={{ postsPerPage, tagLabels, sectionId, tagQueryParam: BLOG_TAG_QUERY_PARAM, pagerConfig }}
   >
     const browser = document.currentScript?.parentElement;
 
@@ -113,35 +115,31 @@ const tagLabels = Object.fromEntries(getAllTagGroups(posts).map((tag) => [tag.sl
       };
 
       const buildPageItems = (page, totalPages, compact) => {
-        if (compact) {
-          if (totalPages <= 4) {
-            return Array.from({ length: totalPages }, (_, index) => index + 1);
-          }
+        const config = compact ? pagerConfig.compact : pagerConfig.full;
 
-          if (page <= 2) {
-            return [1, 2, 'ellipsis', totalPages];
-          }
-
-          if (page >= totalPages - 1) {
-            return [1, 'ellipsis', totalPages - 1, totalPages];
-          }
-
-          return [1, 'ellipsis', page, 'ellipsis', totalPages];
-        }
-
-        if (totalPages <= 5) {
+        if (totalPages <= config.maxVisiblePages) {
           return Array.from({ length: totalPages }, (_, index) => index + 1);
         }
 
-        if (page <= 3) {
-          return [1, 2, 3, 'ellipsis', totalPages];
+        if (page <= config.leadingPages) {
+          const leadingPages = Array.from({ length: config.leadingPages }, (_, index) => index + 1);
+          return [...leadingPages, 'ellipsis', totalPages];
         }
 
-        if (page >= totalPages - 2) {
-          return [1, 'ellipsis', totalPages - 2, totalPages - 1, totalPages];
+        if (page >= totalPages - (config.trailingPages - 1)) {
+          const trailingPages = Array.from(
+            { length: config.trailingPages },
+            (_, index) => totalPages - config.trailingPages + index + 1,
+          );
+          return [1, 'ellipsis', ...trailingPages];
         }
 
-        return [1, 'ellipsis', page - 1, page, page + 1, 'ellipsis', totalPages];
+        const middlePages = Array.from(
+          { length: config.siblingPages * 2 + 1 },
+          (_, index) => page - config.siblingPages + index,
+        );
+
+        return [1, 'ellipsis', ...middlePages, 'ellipsis', totalPages];
       };
 
       const renderPager = (page, totalPages, hasItems) => {
@@ -228,7 +226,8 @@ const tagLabels = Object.fromEntries(getAllTagGroups(posts).map((tag) => [tag.sl
       };
 
       const syncPagerDensity = () => {
-        const nextCompact = browser.clientWidth < 34 * 16;
+        const rootFontSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        const nextCompact = browser.clientWidth < pagerConfig.compactBreakpointRem * rootFontSize;
 
         if (nextCompact === compactPager) {
           return;

@@ -5,6 +5,9 @@ import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
   site: 'https://taewoon.kim',
+  redirects: {
+    '/tags': '/#blog',
+  },
   integrations: [sitemap()],
   markdown: {
     remarkPlugins: [remarkMath],
