@@ -170,10 +170,6 @@ good embedded Python workflow around it.
 
 ## Links
 
-- Repo: [arcadedb-embedded-python](https://github.com/humemai/arcadedb-embedded-python)
+- GitHub: [arcadedb-embedded-python](https://github.com/humemai/arcadedb-embedded-python)
 - Docs: [HumemAI ArcadeDB Docs](https://docs.humem.ai/arcadedb/)
 - ArcadeDB: [ArcadeDB on GitHub](https://github.com/ArcadeData/arcadedb)
-
-I'll probably write more about this later, especially around vectors, graph modeling,
-and how I think about memory systems for agents in practice. For now, I mainly wanted to
-share the project and the motivation behind it.
