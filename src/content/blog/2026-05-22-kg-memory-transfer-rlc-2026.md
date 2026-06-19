@@ -8,9 +8,10 @@ author: Taewoon Kim
 mathjax: true
 ---
 
-Our paper, [Short-Term-to-Long-Term Memory Transfer for Knowledge Graphs under Partial
-Observability](https://arxiv.org/abs/2605.22142), was accepted at
-[RLC 2026](https://rl-conference.cc/).
+Our paper, *Short-Term-to-Long-Term Memory Transfer for Knowledge Graphs under Partial
+Observability*, was accepted at [RLC 2026](https://rl-conference.cc/). I wrote a
+structured overview on the [project page](https://humem.ai/projects/kg-memory-transfer/),
+and the paper itself is on [arXiv](https://arxiv.org/abs/2605.22142).
 
 This project sits inside a research direction I care about a lot: explicit memory for
 reinforcement learning agents. In earlier work, I focused on how an agent can represent
@@ -128,11 +129,8 @@ interested in symbolic structure only for philosophical reasons. I care about it
 gives better control, better interpretability, and a cleaner way to ask precise questions
 about agent behavior.
 
-If you want a more structured overview of the project itself, I also wrote a
-[project page on HumemAI](https://humem.ai/projects/kg-memory-transfer/).
-
 ## Links
 
-- Paper: [arXiv](https://arxiv.org/abs/2605.22142)
 - Project page: [KG Memory Transfer](https://humem.ai/projects/kg-memory-transfer/)
+- Paper: [arXiv](https://arxiv.org/abs/2605.22142)
 - GitHub: [kg-memory-transfer](https://github.com/humemai/kg-memory-transfer)
