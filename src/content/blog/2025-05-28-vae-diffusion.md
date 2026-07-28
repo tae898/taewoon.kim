@@ -335,7 +335,7 @@ $$
 The choice of $\beta_t$ schedule significantly impacts model performance:
 
 **Linear schedule** is the most straightforward one, where $\beta_t$ increases
-linearly from $\beta_{\text{min}}$ to $\beta_{\text{max}}$. It's simple but can lead
+linearly from $\beta_{\mathrm{min}}$ to $\beta_{\mathrm{max}}$. It's simple but can lead
 to either too little noise in early steps or too much in later steps
 
 The schedule directly controls how quickly information about $x_0$ is lost during the
@@ -355,19 +355,19 @@ $$
 The ELBO decomposes as
 
 $$
-\mathcal{L}_{\text{ELBO}} =
+\mathcal{L}_{\mathrm{ELBO}} =
 \underbrace{\mathbb{E}_{q(x_1 \mid x_0)} \left[ \log p_\theta(x_0 \mid x_1) \right]}_{\text{Reconstruction}}
 - \sum_{t=2}^T\mathbb{E}_{q(x_t,x_{t-1}\mid x_0)}
-\underbrace{D_{\text{KL}}(q(x_{t-1} \mid x_t, x_0) \,\|\, p_\theta(x_{t-1} \mid x_t))}_{\text{Reverse KLs}}
-- \underbrace{D_{\text{KL}}(q(x_T \mid x_0) \,\|\, p(x_T))}_{\text{Prior term}}
+\underbrace{D_{\mathrm{KL}}(q(x_{t-1} \mid x_t, x_0) \,\|\, p_\theta(x_{t-1} \mid x_t))}_{\text{Reverse KLs}}
+- \underbrace{D_{\mathrm{KL}}(q(x_T \mid x_0) \,\|\, p(x_T))}_{\text{Prior term}}
 $$
 
 This simplifies to the same **noise prediction** objective:
 
 $$
 \boxed{
-\mathcal{L}_{\text{diffusion}} =
-\mathbb{E}_{x_0 \sim p_{\text{data}}} \;
+\mathcal{L}_{\mathrm{diffusion}} =
+\mathbb{E}_{x_0 \sim p_{\mathrm{data}}} \;
 \mathbb{E}_{t \sim \text{Uniform}(1, T)} \;
 \mathbb{E}_{\epsilon \sim \mathcal{N}(0, I)} \left[
 \left\| \epsilon - \epsilon_\theta\left(x_t, t\right) \right\|^2

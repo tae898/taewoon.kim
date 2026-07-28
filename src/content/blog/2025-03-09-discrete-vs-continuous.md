@@ -59,7 +59,7 @@ In practice, we **count** how often each sequence of $$n$$ words appears in our 
 corpus. The **maximum likelihood estimate (MLE)** for the n-gram model is:
 
 $$
-P_{\text{MLE}}\bigl(w_t \mid w_{t-1}, \ldots, w_{t-(n-1)}\bigr) \;=\;
+P_{\mathrm{MLE}}\bigl(w_t \mid w_{t-1}, \ldots, w_{t-(n-1)}\bigr) \;=\;
 \frac{\text{Count}\bigl(w_{t-(n-1)}, \ldots, w_{t-1}, w_t\bigr)}
 {\text{Count}\bigl(w_{t-(n-1)}, \ldots, w_{t-1}\bigr)}.
 $$

@@ -345,19 +345,19 @@ policy in one update?**
 
 PPO solves this with **clipped probability ratios**:
 
-$$r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}$$
+$$r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\mathrm{old}}}(a_t|s_t)}$$
 
 **Clipped objective**:
 
 $$
-L^{\text{CLIP}}(\theta) = \mathbb{E}_t[\min(r_t(\theta) A_t,
+L^{\mathrm{CLIP}}(\theta) = \mathbb{E}_t[\min(r_t(\theta) A_t,
 	ext{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t)]
 $$
 
 ### 5.2 Why Clipping Works
 
 **The Problem**: Large policy updates can be destructive
-- Good data collected under old policy $$\pi_{\theta_{\text{old}}}$$
+- Good data collected under old policy $$\pi_{\theta_{\mathrm{old}}}$$
 - Large updates create new policy $$\pi_\theta$$ very different from old
 - Data becomes **off-policy** and unreliable
 

@@ -168,24 +168,24 @@ Let’s say we start with a uniform prior, $$ \text{Beta}(1, 1) $$, which reflec
 initial belief that any $$ \theta $$ between 0 and 1 is equally likely. After observing
 $$ x $$ heads out of $$ N $$ flips, we update the parameters of the Beta distribution:
 
-$$ \text{Beta}(\alpha_{\text{posterior}}, \beta_{\text{posterior}}) $$
+$$ \text{Beta}(\alpha_{\mathrm{posterior}}, \beta_{\mathrm{posterior}}) $$
 
 Where:
-- $$ \alpha_{\text{posterior}} = \alpha_{\text{prior}} + \text{heads observed} $$
-- $$ \beta_{\text{posterior}} = \beta_{\text{prior}} + \text{tails observed} $$
+- $$ \alpha_{\mathrm{posterior}} = \alpha_{\mathrm{prior}} + \text{heads observed} $$
+- $$ \beta_{\mathrm{posterior}} = \beta_{\mathrm{prior}} + \text{tails observed} $$
 
 ### Example: Bayesian Updating in Action
 
-For example, after observing $$N_{\text{heads}}$$ heads in $$N_{\text{flips}}$$ flips,
+For example, after observing $$N_{\mathrm{heads}}$$ heads in $$N_{\mathrm{flips}}$$ flips,
 we update our Beta prior as follows:
 
 - **Prior:** $$ \text{Beta}(1, 1) $$
-- **Observed heads:** $$N_{\text{heads}}$$
-- **Observed tails:** $$N_{\text{tails}}$$ = $$N_{\text{flips}}$$ - $$N_{\text{heads}}$$
+- **Observed heads:** $$N_{\mathrm{heads}}$$
+- **Observed tails:** $$N_{\mathrm{tails}}$$ = $$N_{\mathrm{flips}}$$ - $$N_{\mathrm{heads}}$$
 
 The posterior distribution becomes:
 
-$$ \text{Beta}(1 + N_{\text{heads}}, 1 + N_{\text{tails}}) $$
+$$ \text{Beta}(1 + N_{\mathrm{heads}}, 1 + N_{\mathrm{tails}}) $$
 
 This updated Beta distribution gives us a refined estimate of the probability of heads,
 $$ \theta $$, while also reflecting the uncertainty around that estimate. As we gather

@@ -38,7 +38,7 @@ Formally, if the short-term memory contains $n_t$ items at step $t$, then the tr
 action space is
 
 $$
-\mathcal{A}^{\text{tr}}_t := \{0,1\}^{n_t},
+\mathcal{A}^{\mathrm{tr}}_t := \{0,1\}^{n_t},
 $$
 
 so the agent makes one binary keep/drop decision per short-term fact. I like this
@@ -48,11 +48,11 @@ number of transfer decisions changes over time as the short-term memory changes.
 At a higher level, the internal symbolic memory evolves as
 
 $$
-M_{t+1} = U\!\left(M_t, o_{t+1}, \mathbf{a}^{\text{tr}}_t\right),
+M_{t+1} = U\!\left(M_t, o_{t+1}, \mathbf{a}^{\mathrm{tr}}_t\right),
 $$
 
 where $M_t$ is the current memory state, $o_{t+1}$ is the next local observation, and
-$\mathbf{a}^{\text{tr}}_t$ is the vector of keep/drop decisions. This viewpoint matters
+$\mathbf{a}^{\mathrm{tr}}_t$ is the vector of keep/drop decisions. This viewpoint matters
 to me because it makes transfer a first-class part of the memory dynamics rather than a
 hidden implementation detail.
 

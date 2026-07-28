@@ -61,7 +61,7 @@ StarE-GNN additionally embeds the qualifiers into its messages:
 
 $$
 \mathbf{g}^{(k)}_v = \sigma\!\left(\sum_{(u,r)\in\mathcal{N}(v)}
-W^{(k)}_{\lambda(r)}\,\phi_r\!\big(\mathbf{g}^{(k-1)}_u,\,\psi(\mathbf{g}_r,\mathbf{q}_{u,r,v})\big)\right),
+\mathbf{W}^{(k)}_{\lambda(r)}\,\phi_r\!\big(\mathbf{g}^{(k-1)}_u,\,\psi(\mathbf{g}_r,\mathbf{q}_{u,r,v})\big)\right),
 $$
 
 where $\mathbf{q}_{u,r,v}$ embeds the temporal annotations of the fact connecting $u$
@@ -73,8 +73,8 @@ exploration, one for forgetting. Each head pools the fact embeddings with its ow
 attention,
 
 $$
-\mathbf{m}^{(p)}_t = \sum_j \alpha^{(p)}_{t,j} W_V \mathbf{z}_{t,j},
-\qquad p \in \{qa, e, f\},
+\mathbf{m}^{(p)}_t = \sum_j \alpha^{(p)}_{t,j} \mathbf{W}_V \mathbf{z}_{t,j},
+\qquad p \in \{\mathrm{qa}, e, f\},
 $$
 
 so the three functions can attend to different parts of the same memory, and each head

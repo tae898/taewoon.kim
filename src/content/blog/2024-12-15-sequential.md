@@ -208,13 +208,13 @@ between the one-hot encoded ground truth actions and the predicted action probab
 from the neural network:
 
 $$
-\mathcal{L} = -\sum_{t=1}^T \sum_{k=1}^{\vert A \vert} a_{t,k}^{\text{(one-hot)}}
+\mathcal{L} = -\sum_{t=1}^T \sum_{k=1}^{\vert A \vert} a_{t,k}^{\mathrm{(one-hot)}}
 \log p(a_{t,k} \mid s_1, a_1, r_2, \dots, s_t),
 $$
 
 where:
 
-- $$a_{t,k}^{\text{(one-hot)}}$$: Ground truth action at time step $$t$$ as a one-hot
+- $$a_{t,k}^{\mathrm{(one-hot)}}$$: Ground truth action at time step $$t$$ as a one-hot
   encoded vector,
 - $$p(a_{t,k})$$: Predicted probability of action $$k$$ at time step $$t$$,
 - $$\vert A \vert$$: Size of the action space.
