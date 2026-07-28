@@ -120,7 +120,7 @@ behavior, ensuring that future tokens are masked out during training. The combin
 **masking** and **positional encodings** creates a structure where the Transformer
 attends only to past tokens, mimicking the adjacency matrix that would be used in a GNN.
 It’s important to note that masking and positional encodings are not part of the
-Transformer architecture itself—they are techniques applied in specific contexts like
+Transformer architecture itself; they are techniques applied in specific contexts like
 LLMs.
 
 Finally, like many GNNs, the **Transformer itself** is **input permutation-invariant**.

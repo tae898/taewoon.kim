@@ -21,8 +21,8 @@ architecture that integrates dropouts, batch normalization, and skip connections
 evaluate its effectiveness on age and gender classification tasks.
 
 Our architecture introduces two key building blocks: the **residual block** and the
-**downsample block**. Both blocks utilize an Independent Component (IC) layer—comprising
-batch normalization and dropout—to whiten inputs before each fully connected layer. The
+**downsample block**. Both blocks utilize an Independent Component (IC) layer, comprising
+batch normalization and dropout, to whiten inputs before each fully connected layer. The
 residual block includes skip connections to facilitate training deeper networks and is
 defined as:
 
@@ -52,5 +52,5 @@ classification. Preprocessing steps included using RetinaFace for alignment and 
 for feature extraction, resulting in 512-dimensional vectors as inputs. Our empirical
 results show that whitening inputs before every linear layer and adding skip connections
 lead to improved convergence speed and accuracy compared to variants without these
-components. Moreover, the use of MC dropout allows our MLP to estimate prediction
+components. The use of MC dropout also allows our MLP to estimate prediction
 uncertainties effectively, providing a measure of confidence in the model's predictions.

@@ -8,7 +8,7 @@ author: Taewoon Kim
 mathjax: true
 ---
 
-Modern Natural Language Processing (NLP) revolves around **language modeling**—the art
+Modern Natural Language Processing (NLP) revolves around **language modeling**: the art
 of predicting the next token given the previous ones. Formally, if we have a sequence of
 tokens $$w_1, w_2, \dots, w_{n-1}$$, we want to learn:
 
@@ -22,7 +22,7 @@ This post explores **two broad ways** to tackle this problem:
 2. **Continuous Search (e.g., neural networks)**
 
 We’ll see why discrete methods can be both intuitive and limited, and how continuous
-approaches help overcome these limits—yet still rely on discrete search **after**
+approaches help overcome these limits, yet still rely on discrete search **after**
 training for certain inference routines.
 
 ---
@@ -105,7 +105,7 @@ arbitrarily long contexts using self-attention and continuous vector representat
 #### **Data Sparsity**  
 Even with large corpora, the number of possible n-grams is so vast that most valid
 sequences **will never appear** in the training data. This creates **zero probability**
-problems—if a particular n-gram is missing from the training set, the model assigns it a
+problems: if a particular n-gram is missing from the training set, the model assigns it a
 probability of zero, even if it is a perfectly reasonable phrase.
 
 #### **Why Storing All Possible Sentences is Stupid**  
@@ -125,12 +125,12 @@ storage **wasteful** and **ineffective** for real-world language modeling.
 
 In contrast, modern deep learning models **embed words in continuous vector spaces**,
 allowing them to generalize beyond exact matches and understand meaning at a more
-abstract level. This fundamental shift—from **storing exact sequences** to **learning
-patterns in continuous space**—is why neural networks have largely replaced n-gram
+abstract level. This fundamental shift, from **storing exact sequences** to **learning
+patterns in continuous space**, is why neural networks have largely replaced n-gram
 models in NLP.
 
 In short, while **discrete search** in n-gram models is a simple and interpretable
-approach, it struggles with scale, context, and generalization—making it inadequate for
+approach, it struggles with scale, context, and generalization, making it inadequate for
 modeling the complexities of human language.
 
 ---
@@ -213,8 +213,8 @@ decision-making**.
 
 In modern computer science, **both discrete and continuous search** co-exist, and which
 approach dominates depends on the problem at hand. Sometimes, the best solution involves
-a hybrid approach—using neural networks to learn **continuous representations** and
+a hybrid approach: using neural networks to learn **continuous representations** and
 discrete algorithms for **explicit reasoning and structured decision-making**.
 
-Feel free to leave questions or thoughts in the comments section—happy language
+Feel free to leave questions or thoughts in the comments section. Happy language
 modeling!

@@ -125,7 +125,7 @@ can be costly. For graph-centric workloads, native graph stores usually perform 
 than general-purpose SQL systems.
 
 In practice, large KGs live in **persistent databases** with **declarative graph
-queries**—most often RDF triple stores or property graph systems. The next two sections
+queries**, most often RDF triple stores or property graph systems. The next two sections
 unpack why those models emerged instead of reinventing bespoke infrastructure for every
 project.
 
@@ -146,7 +146,7 @@ RDF Schema (RDFS) and the Web Ontology Language (OWL) let you publish an **ontol
 you declare class hierarchies, property domains/ranges, cardinality constraints, and
 logical characteristics such as _transitive_, _symmetric_, or _inverse_ relations. A
 description-logic reasoner consumes those axioms to check consistency and **derive new
-facts**. This is the “logic layer” that classic AI researchers love—knowledge isn’t just
+facts**. This is the “logic layer” that classic AI researchers love: knowledge isn’t just
 stored, it can be entailed.
 
 **Ontology + inference toy example:**
@@ -195,8 +195,8 @@ and that `ex:Paris` is a `ex:City`, but it never asserts that Paris belongs to t
 `ex:Capital`. Because the ontology declares the **domain** of `ex:capitalOf` to be
 `ex:Capital`, an RDFS/OWL reasoner infers the missing triple `ex:Paris a ex:Capital`
 (and, via subclass axioms, `ex:Settlement`). The SPARQL query therefore returns
-`ex:Paris` once reasoning is enabled. This ability to derive implicit knowledge—and to
-validate that an ontology is logically consistent—is a core differentiator of RDF
+`ex:Paris` once reasoning is enabled. This ability to derive implicit knowledge, and to
+validate that an ontology is logically consistent, is a core differentiator of RDF
 systems.
 
 Historically, this style of symbolic, logic-driven modeling powered much of “classic”
@@ -226,10 +226,10 @@ data-driven models discover the rest.
 - Ontology/reasoning add conceptual and operational overhead
 - Join-heavy execution for multi-hop queries can be slower at scale
 - Developer ergonomics can feel heavier for fast-moving product teams
-- Most RDF stores still evaluate SPARQL by binding variables via joins—whether triples
+- Most RDF stores still evaluate SPARQL by binding variables via joins, whether triples
   sit in relational tables (Virtuoso, Jena TDB), key–value or bitmap indexes
   (Blazegraph, RDF4J NativeStore, HDT), or hybrid adjacency layouts (gStore, AnzoGraph,
-  parts of Neptune)—so traversals step through joins instead of pointer-chasing.
+  parts of Neptune), so traversals step through joins instead of pointer-chasing.
 
 ---
 

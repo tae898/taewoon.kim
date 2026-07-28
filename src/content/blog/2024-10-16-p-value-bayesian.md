@@ -122,7 +122,7 @@ This result highlights two fundamental problems:
    \alpha = 0.01 $$. There’s no solid reason why $$ 0.05 $$ should be the magic cutoff.
    
 2. **p-Value Decreases with More Data**: As we increase the sample size, the p-value
-   decreases—even though the coin remains practically fair. This means that for large
+   decreases, even though the coin remains practically fair. This means that for large
    datasets, trivial differences can become "statistically significant" even when they
    are meaningless in the real world.
 
@@ -225,14 +225,14 @@ increasing certainty.
 ### Key Insight: Certainty Increases with More Data
 
 The crucial difference between the frequentist and Bayesian approaches is this: while
-p-values tend to drop with increasing sample sizes—sometimes leading to statistically
-significant results even for trivial effects—the Bayesian approach directly quantifies
+p-values tend to drop with increasing sample sizes, sometimes leading to statistically
+significant results even for trivial effects, the Bayesian approach directly quantifies
 our certainty about the true value of $$ \theta $$. As the number of observations
 increases, the posterior distribution narrows, signaling that we are more confident in
 our estimate of $$ \theta $$.
 
 So, after all this analysis, we might conclude that $$ \theta $$ is very close to 0.501.
-But wait—does this mean the coin is truly fair? Should we say this is a fair coin then?
+But wait: does this mean the coin is truly fair? Should we say this is a fair coin then?
 The Bayesian approach allows us to answer this with further analysis, specifically
 through **Bayesian Hypothesis Testing**, which directly compares hypotheses. However,
 that is a topic for a future post.

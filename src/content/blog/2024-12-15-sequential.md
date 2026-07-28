@@ -22,8 +22,8 @@ without any real-time exploration or direct feedback. Instead, they simply learn
 mimic the patterns in the data through **behavior cloning**, making them incredibly
 effective at generating high-quality sequences.
 
-In this post, we’ll explore how **Transformers** can be leveraged for direct **sequence
-learning** in an **offline setting**—whether it’s for LLMs or decision-making tasks—and
+In this post, we’ll explore how **Transformers** can be used for direct **sequence
+learning** in an **offline setting**, whether it’s for LLMs or decision-making tasks, and
 why behavior cloning can work surprisingly well, even when rewards are sparse or
 delayed.
 
@@ -57,7 +57,7 @@ If we visualize this as a tree:
 - Each **node** is a new state ($$s_t$$) resulting from that action.
 
 By the time you reach the final depth of the tree ($$T$$), you could have a massive
-number of possible paths—making it challenging to determine which sequence of actions
+number of possible paths, making it challenging to determine which sequence of actions
 will lead to the best reward.
 
 ![sequence tree](/assets/img/posts/2024-12-15/sequence-tree.png){: .center-image }
@@ -172,8 +172,8 @@ and trade-offs:
 Model-free methods rely on directly optimizing policies or value functions through
 experience, while model-based methods first build an approximation of the environment
 to facilitate planning. Both approaches have their strengths and weaknesses, and often
-hybrid methods that combine elements of both are employed to leverage their respective
-advantages.
+hybrid methods that combine elements of both are employed to get the advantages of
+each.
 
 ## Direct Sequence Learning with Transformers
 

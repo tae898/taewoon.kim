@@ -127,7 +127,7 @@ can actually compute.
 
 ### 1.3 Implementation: Handling Different Action Spaces
 
-Our implementation works seamlessly with both discrete and continuous action spaces:
+Our implementation works with both discrete and continuous action spaces:
 
 **Discrete Actions** (LunarLander's 4 actions):
 - Policy outputs **logits** for each action
@@ -399,7 +399,7 @@ PPO's design principles directly influence modern LLM fine-tuning:
 **GRPO** (Group Relative Policy Optimization):
 
 - A variant of PPO specifically designed for large language model (LLM) fine-tuning
-- **Removes the critic (value function)** entirely — no value network is trained
+- **Removes the critic (value function)** entirely; no value network is trained
 - This is because LLM reward signals are:
   - **Sparse**: only given at the end of a generated sequence
   - **Delayed**: no intermediate token-level rewards

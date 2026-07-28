@@ -11,7 +11,7 @@ mathjax: true
 ## Motivation: Why Do We Need Generative Models?
 
 In order to generate data, we need to sample from a distribution. But here, we are not
-talking about simply sampling from the training data distribution — instead, we want to
+talking about simply sampling from the training data distribution; instead, we want to
 **train a neural network** that can represent a distribution, and then sample *from the
 network itself*.
 
@@ -28,10 +28,10 @@ There are two dominant paradigms for this:
    where **Gaussian distributions** naturally model pixel values and latent  
    representations.
 
-These two paradigms are not mutually exclusive — there are autoregressive models for
+These two paradigms are not mutually exclusive; there are autoregressive models for
 images and latent variable models for text. However, in this post, we focus on the
-**most classical examples** of latent variable models — **VAEs** and **Diffusion
-Models** — to demonstrate how a neural network can learn to generate pixel images from
+**most classical examples** of latent variable models, **VAEs** and **Diffusion
+Models**, to demonstrate how a neural network can learn to generate pixel images from
 "noise".
 
 This journey will follow three practical stages:
@@ -258,7 +258,7 @@ $x_0$, but often leads to more stable training.
 
 One-step denoising proves challenging:
 
-1. **Jumping from noise to signal** in a single step is hard — errors compound.
+1. **Jumping from noise to signal** in a single step is hard; errors compound.
 2. **Signal vs. prior trade-off**:
   - High $\alpha$ → more signal, but $x_1$ deviates from a true Gaussian prior.
   - Low $\alpha$ → matches Gaussian prior, but little signal remains.
@@ -297,7 +297,7 @@ This demonstrates a fundamental tension: **architecture matters significantly**.
 U-Net's skip connections and multi-scale processing allow it to extract meaningful
 signal from heavy noise, while simple CNNs cannot.
 
-Moreover, there's an inherent trade-off: for the corrupted input $x_1 = \sqrt{\alpha}
+There is also an inherent trade-off: for the corrupted input $x_1 = \sqrt{\alpha}
 x_0 + \sqrt{1 - \alpha} \epsilon$, the distribution only resembles a standard Gaussian
 $\mathcal{N}(0, I)$ when $\alpha$ approaches 0, but then the model sees almost no
 signal from $x_0$.
