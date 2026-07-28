@@ -39,10 +39,10 @@ agent can trust the most recently added matching fact (MRA), the most recently u
 (MRU), or the most frequently used one (MFU). For forgetting, it can evict FIFO, LRU, or
 LFU. Exploration prioritizes frontiers using the same annotation properties.
 
-A tiny example shows why the choice matters. Say memory contains `(book, at_location,
-room_3)` with annotations $(4, 11, 5)$ and `(book, at_location, room_7)` with
-$(10, 10, 1)$. Asked where the book is, MRA answers `room_7`, while MRU and MFU answer
-`room_3`. If the book moved recently, only MRA is right. If the older fact keeps getting
+A tiny example shows why the choice matters. Say memory contains `(sarah, at_location,
+living)` with annotations $(4, 11, 5)$ and `(sarah, at_location, kitchen)` with
+$(10, 10, 1)$. Asked where Sarah is, MRA answers `kitchen`, while MRU and MFU answer
+`living`. If she has just moved, only MRA is right. If the older fact keeps getting
 confirmed, the usage-based rules are right. A fixed choice is wrong somewhere.
 
 So instead of fixing the rule, we learn a *meta-policy*: a controller that looks at the
