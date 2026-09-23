@@ -5,7 +5,7 @@ export type SiteLink = {
 
 export const cvLink: SiteLink = {
   label: 'CV',
-  href: '/taewoon-kim-cv-2026-06-29.pdf',
+  href: '/taewoon-kim-cv-2026-09-23.pdf',
 };
 
 export const socialLinks: SiteLink[] = [
@@ -21,7 +21,7 @@ export const homePage = {
   intro: {
     id: 'intro',
     title: "I'm an AI researcher and engineer.",
-    lede: "I'm building toward AGI through open source, memory for AI agents, and world models.",
+    lede: "AGI will need memory and a body. I work on both: open-source memory for AI agents, and physical AI.",
   },
   blog: {
     id: 'blog',
