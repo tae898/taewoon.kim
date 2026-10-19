@@ -12,7 +12,7 @@ Our paper, *Neuro-Symbolic Meta-Policies for Temporal Knowledge-Graph Memory und
 Partial Observability*, was accepted at [ISWC
 2026](https://iswc2026.semanticweb.org/). I worked on this with Vincent Francois-Lavet
 and Michael Cochez. I wrote a structured overview on the [project
-page](https://humem.ai/projects/roomkg-meta-policies/), and the paper itself is on
+page](https://humem.ai/research/roomkg-meta-policies/), and the paper itself is on
 [arXiv](https://arxiv.org/abs/2607.18368).
 
 This paper closes a loop I have been circling for a while. In my earlier RoomKG work, I
@@ -124,6 +124,6 @@ representation and annotation-compatible graph semantics.
 
 ## Links
 
-- Project page: [RoomKG Meta-Policies](https://humem.ai/projects/roomkg-meta-policies/)
+- Project page: [RoomKG Meta-Policies](https://humem.ai/research/roomkg-meta-policies/)
 - Paper: [arXiv](https://arxiv.org/abs/2607.18368)
 - GitHub: [roomkg-meta-policies](https://github.com/humemai/roomkg-meta-policies)

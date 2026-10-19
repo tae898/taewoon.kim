@@ -12,7 +12,7 @@ Our paper, *Improving Human-Robot Teamwork in Urban Search and Rescue Through Ep
 Memory of Prior Collaboration*, was accepted at [RO-MAN 2026](https://ro-man2026.org/). I
 worked on this together with Emma van Zoelen and Mark Neerincx, in collaboration with TNO
 and TU Delft. I wrote a structured overview on the [project
-page](https://humem.ai/projects/co-learning/), and the paper itself is on
+page](https://humem.ai/research/co-learning/), and the paper itself is on
 [arXiv](https://arxiv.org/abs/2606.18836).
 
 This project sits inside a research direction I care about a lot: explicit memory for
@@ -95,6 +95,6 @@ that way and keep the door open for the obvious next steps.
 
 ## Links
 
-- Project page: [Co-Learning](https://humem.ai/projects/co-learning/)
+- Project page: [Co-Learning](https://humem.ai/research/co-learning/)
 - Paper: [arXiv](https://arxiv.org/abs/2606.18836)
 - GitHub: [co-learning](https://github.com/humemai/co-learning)
