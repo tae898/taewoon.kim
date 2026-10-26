@@ -9,7 +9,7 @@ export const cvLink: SiteLink = {
 };
 
 export const socialLinks: SiteLink[] = [
-  { label: 'Email', href: 'mailto:tae898@gmail.com' },
+  { label: 'Email', href: 'mailto:taewoon@stateloop.ai' },
   { label: 'GitHub', href: 'https://github.com/tae898' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/tae898' },
   { label: 'X', href: 'https://twitter.com/tae898' },
