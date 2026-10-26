@@ -21,7 +21,7 @@ export const homePage = {
   intro: {
     id: 'intro',
     title: "I'm an AI researcher and engineer.",
-    lede: "AGI will need a body. I work on physical AI at Stateloop, turning web-game data into physical AI models such as VLAs, VLMs, and WAMs.",
+    lede: "AGI will need a body. I work on physical AI at Stateloop, turning data from simulated worlds into physical AI models such as VLAs, VLMs, and WAMs.",
   },
   blog: {
     id: 'blog',
