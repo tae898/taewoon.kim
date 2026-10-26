@@ -5,7 +5,7 @@ export type SiteLink = {
 
 export const cvLink: SiteLink = {
   label: 'CV',
-  href: '/taewoon-kim-cv-2026-10-26.pdf',
+  href: '/assets/taewoon-kim-cv-2026-10-26.pdf',
 };
 
 export const socialLinks: SiteLink[] = [
