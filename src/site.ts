@@ -5,11 +5,11 @@ export type SiteLink = {
 
 export const cvLink: SiteLink = {
   label: 'CV',
-  href: '/taewoon-kim-cv-2026-09-23.pdf',
+  href: '/assets/taewoon-kim-cv-2026-10-26.pdf',
 };
 
 export const socialLinks: SiteLink[] = [
-  { label: 'Email', href: 'mailto:taewoon@humem.ai' },
+  { label: 'Email', href: 'mailto:taewoon@stateloop.ai' },
   { label: 'GitHub', href: 'https://github.com/tae898' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/tae898' },
   { label: 'X', href: 'https://twitter.com/tae898' },
@@ -21,7 +21,7 @@ export const homePage = {
   intro: {
     id: 'intro',
     title: "I'm an AI researcher and engineer.",
-    lede: "AGI will need memory and a body. I work on both: open-source memory for AI agents, and physical AI.",
+    lede: "AGI will need a body. I work on physical AI at Stateloop, turning data from simulated worlds into physical AI models such as VLAs, VLMs, and WAMs.",
   },
   blog: {
     id: 'blog',
