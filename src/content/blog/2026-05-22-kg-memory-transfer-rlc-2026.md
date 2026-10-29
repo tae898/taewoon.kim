@@ -20,8 +20,7 @@ more specific and, I think, more fundamental: once an agent has both short-term
 observation memory and long-term symbolic memory, how should information move from one
 to the other?
 
-That may sound like a small systems question, but under partial observability it is not
-small at all. An agent cannot keep everything forever. It has to decide which facts are
+An agent cannot keep everything forever. It has to decide which facts are
 worth preserving and which ones should be dropped. I wanted to study that transfer step
 directly instead of hiding it inside a recurrent latent state.
 
@@ -74,8 +73,7 @@ Q_\theta(M_t) \to \{\mathbf{q}_{t,i}\}_{i=1}^{n_t},
 $$
 
 So for each short-term fact $i$, the agent gets two values: one for **drop** and one
-for **keep**. That is the part I find elegant. A single shared network can score a
-variable-size short-term set without pretending the action space has fixed size.
+for **keep**. A single shared network can score a variable-size short-term set.
 
 With the notation simplified a bit, the per-item TD target looks like
 
@@ -95,10 +93,9 @@ with $\ell$ equal to the number of matched pairs available in that transition. I
 this is a neat example of how standard DQN ideas can be adapted to a variable-cardinality
 symbolic memory problem without giving up interpretability.
 
-## Why I find the result interesting
+## Results
 
-What I like about this formulation is not only that it is interpretable, but that it
-works. In the controlled RoomKG setting at long-term memory capacity 128, the best
+The formulation is interpretable, and it works. In the controlled RoomKG setting at long-term memory capacity 128, the best
 configuration is a DQN temporal-RDF agent with a GCN encoder and a Local-STM transfer
 policy. It reaches **38.920** test QA accuracy. That is meaningfully higher than the
 strongest symbolic baseline, **Novel-Only** at **31.960**, and far above the
@@ -119,15 +116,7 @@ been building. First I asked whether explicit memory helps. Then I asked whether
 memory management can be learned. Now I am asking whether short-term-to-long-term
 transfer itself can be isolated as the learning problem.
 
-That progression is important to me. I do not think of memory as a single monolithic
-module. I think of it as a collection of concrete subproblems: storage, retrieval,
-forgetting, exploration, and transfer. If memory is explicit enough, each of those can
-be studied directly rather than absorbed into one opaque hidden state.
-
-More broadly, this is how I think about neuro-symbolic reinforcement learning. I am not
-interested in symbolic structure only for philosophical reasons. I care about it when it
-gives better control, better interpretability, and a cleaner way to ask precise questions
-about agent behavior.
+I think of memory as separate problems: storage, retrieval, forgetting, exploration, and transfer. If memory is explicit, I can study each one directly.
 
 ## Links
 

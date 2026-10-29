@@ -535,10 +535,8 @@ $$
 
 This resembles a standard supervised learning setup with MSE loss. By removing the need
 for a learned encoder, diffusion models avoid many complexities of traditional VAEs,
-including the reparameterization trick. The model simply learns to denoise, step by
-step, which proves to be both powerful and conceptually elegant. You'll often be
-surprised by this kind of simple training objectives, e.g., next token prediction, to
-build surprisingly well performing AI systems.
+including the reparameterization trick. The model just learns to denoise, step by
+step. Next token prediction is similar: a simple objective that works well.
 
 [**The full implementation of the code is on
 GitHub**](https://github.com/tae898/vae-diffusion)

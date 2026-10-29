@@ -13,9 +13,8 @@ Check out the paper [https://arxiv.org/abs/2108.08186](https://arxiv.org/abs/210
 and the
 code [https://github.com/tae898/age-gender/](https://github.com/tae898/age-gender/)
 
-Multilayer Perceptrons (MLPs) are foundational neural network architectures composed of
-stacked fully connected layers with nonlinear activation functions. Despite numerous
-attempts to enhance MLPs for faster convergence and improved performance, systematic
+MLPs are stacks of fully connected layers with nonlinear activations. Many people have
+tried to improve them for faster convergence and improved performance, but systematic
 testing methods are often lacking. In our work, we propose a generalized MLP
 architecture that integrates dropouts, batch normalization, and skip connections, and we
 evaluate its effectiveness on age and gender classification tasks.
@@ -33,8 +32,7 @@ $$
 \right)
 $$
 
-By incorporating dropouts, our MLP not only benefits from regularization but also
-enables uncertainty estimation through **Monte Carlo (MC) dropout**. In a Bayesian
+Dropout regularizes the MLP. It also lets me estimate uncertainty with **Monte Carlo (MC) dropout**. In a Bayesian
 framework, the posterior predictive distribution is obtained by marginalizing over the
 neural network weights $$\mathbf{w}$$:
 
@@ -52,5 +50,4 @@ classification. Preprocessing steps included using RetinaFace for alignment and 
 for feature extraction, resulting in 512-dimensional vectors as inputs. Our empirical
 results show that whitening inputs before every linear layer and adding skip connections
 lead to improved convergence speed and accuracy compared to variants without these
-components. The use of MC dropout also allows our MLP to estimate prediction
-uncertainties effectively, providing a measure of confidence in the model's predictions.
+components. MC dropout also lets the MLP estimate how confident it is in each prediction.

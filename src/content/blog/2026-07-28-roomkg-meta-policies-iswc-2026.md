@@ -51,7 +51,7 @@ heuristics are then executed by deterministic symbolic procedures. The neural pa
 ever chooses among named options. It never replaces symbolic control with an opaque
 latent action.
 
-## The part I find elegant
+## The encoder
 
 The controller has to read a variable-size annotated RDF graph, and the annotations are
 the whole point: the heuristics it chooses among are rankings over those annotation
@@ -81,7 +81,7 @@ so the three functions can attend to different parts of the same memory, and eac
 scores its own named candidates with Q-values trained by standard temporal-difference
 learning. At test time, selection is greedy.
 
-## Why I find the result interesting
+## Results
 
 At long-term memory capacity 512, the qualifier-aware StarE-GNN configuration reaches
 **47.28** test QA accuracy, the best held-out result among everything we compared. The
@@ -95,8 +95,7 @@ and every learned configuration beats every fixed one. The end-to-end neural bas
 sit at **11.40** (Transformer) and **9.40** (LSTM) on the same splits. The symbolic
 memory substrate does the heavy lifting; the meta-policy refines it.
 
-But the number is not my favorite part. My favorite part is that the controller's
-behavior can be read. Because the choices are named, we can plot the Q-values of the QA
+The controller's behavior can also be read. Because the choices are named, we can plot the Q-values of the QA
 head over an episode and watch the preference shift from MRU early on, when recently
 accessed facts are still likely relevant, toward MRA later, when the newest observations
 carry the decisive evidence. That switching is the adaptivity we wanted, and it is
@@ -104,8 +103,7 @@ visible precisely because the actions are named heuristics rather than latent ve
 
 One ablation is worth mentioning. Replacing the three per-function heads with a single
 learned 27-way head over all heuristic combinations performs clearly worse on train.
-Factoring the decision by function is the right structure, which I find satisfying: the
-architecture mirrors how the memory operations are actually organized.
+Factoring the decision by function is the right structure.
 
 ## Why this fits the broader project
 
@@ -114,13 +112,7 @@ knowledge-graph memory help at all? Then, which facts deserve to enter long-term
 And now, which rules should govern the memory at each moment? Storage, transfer, and now
 rule selection, each isolated and studied as its own concrete problem.
 
-To me this paper is also the clearest statement so far of why I care about
-neuro-symbolic designs. It is not symbolic structure for its own sake. The result shows
-that adaptivity and inspectability do not need to be traded off: the learned part makes
-the agent better, and the symbolic part keeps every decision attributable to a named
-rule over explicit annotations. Getting to present this at ISWC, the Semantic Web
-community's home venue, feels right, because the whole construction rests on RDF
-representation and annotation-compatible graph semantics.
+Getting to present this at ISWC feels right, because the whole construction rests on RDF representation and annotation-compatible graph semantics.
 
 ## Links
 
