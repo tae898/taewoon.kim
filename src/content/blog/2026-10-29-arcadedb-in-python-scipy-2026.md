@@ -31,8 +31,7 @@ Chroma on a Q&A corpus. Each specialist wins on its own model. ArcadeDB is compe
 all three, and what it costs is memory and loading time.
 
 The ArcadeDB project wrote the engine. I wrote the Python bindings and the packaging. The
-paper calls the package `arcadedb-embedded`; from the 26.11.1 release it is named
-`arcadedb`.
+package is named `arcadedb` from the 26.11.1 release on.
 
 ## Links
 
@@ -42,7 +41,7 @@ paper calls the package `arcadedb-embedded`; from the 26.11.1 release it is name
 - Python docs: [docs.arcadedb.com](https://docs.arcadedb.com/arcadedb-python/)
 - GitHub: [ArcadeData/arcadedb-python](https://github.com/ArcadeData/arcadedb-python)
 - Benchmark suite and results:
-  [humemai/arcadedb-embedded-python](https://github.com/humemai/arcadedb-embedded-python/tree/main/benchmarks/python-bindings)
+  [humemai/arcadedb-embedded-python](https://github.com/humemai/arcadedb-embedded-python/tree/6463877445125f745f317356f32fb6ba086ebe17/benchmarks/python-bindings)
 
 ## Cite
 

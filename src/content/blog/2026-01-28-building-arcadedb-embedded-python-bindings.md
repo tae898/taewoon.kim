@@ -7,6 +7,8 @@ tags: [ArcadeDB, Python, open source, databases, graphs, embeddings, JVM, humema
 author: Taewoon Kim
 ---
 
+*Update, October 2026: the bindings now live in the ArcadeData organization and the package is named `arcadedb`. The code and links below are updated to match; the [SciPy paper](/2026/10/29/arcadedb-in-python-scipy-2026/) describes the current package.*
+
 I've been spending a lot of time thinking about memory systems for AI agents. A big part
 of that work is the storage layer underneath the model. I want
 something that can represent structured relationships, support fast retrieval, and still
@@ -79,7 +81,7 @@ Here is the kind of workflow I had in mind.
 ### OpenCypher
 
 ```python
-import arcadedb_embedded as arcadedb
+import arcadedb
 
 with arcadedb.create_database("./mydb") as db:
     db.command("sql", "CREATE VERTEX TYPE Person")
@@ -108,7 +110,7 @@ with arcadedb.create_database("./mydb") as db:
 ### Vector search
 
 ```python
-import arcadedb_embedded as arcadedb
+import arcadedb
 
 with arcadedb.create_database("./mydb") as db:
     db.command("sql", "CREATE VERTEX TYPE Doc")
@@ -164,6 +166,6 @@ retrieval happened.
 
 ## Links
 
-- GitHub: [arcadedb-embedded-python](https://github.com/humemai/arcadedb-embedded-python)
-- Docs: [HumemAI ArcadeDB Docs](https://docs.humem.ai/arcadedb/)
+- GitHub: [ArcadeData/arcadedb-python](https://github.com/ArcadeData/arcadedb-python)
+- Docs: [ArcadeDB in Python](https://docs.arcadedb.com/arcadedb-python/)
 - ArcadeDB: [ArcadeDB on GitHub](https://github.com/ArcadeData/arcadedb)
