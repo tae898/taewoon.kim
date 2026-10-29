@@ -9,7 +9,7 @@ author: Taewoon Kim
 
 My paper, *ArcadeDB in Python: An In-Process Multi-Model Database*, was accepted at SciPy
 2026 and is now in the [SciPy Proceedings](https://proceedings.scipy.org/articles/fwvt2525).
-I wrote it alone. The [research page](https://humem.ai/research/arcadedb-python) on
+The [research page](https://humem.ai/research/arcadedb-python) on
 humem.ai has the method and the benchmark tables.
 
 ## What it is
