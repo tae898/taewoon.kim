@@ -13,6 +13,9 @@ on:
       - "package-lock.json"
       - "astro.config.mjs"
       - "tsconfig.json"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "README.md"
       - ".github/workflows/precheck.yml"
   workflow_dispatch:
 
