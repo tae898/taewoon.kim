@@ -10,7 +10,7 @@ mathjax: true
 
 Our paper, *Short-Term-to-Long-Term Memory Transfer for Knowledge Graphs under Partial
 Observability*, was accepted at [RLC 2026](https://rl-conference.cc/). I wrote a
-structured overview on the [project page](https://humem.ai/research/kg-memory-transfer/),
+structured overview on the [research page](https://humem.ai/research/kg-memory-transfer/),
 and the paper itself is on [arXiv](https://arxiv.org/abs/2605.22142).
 
 This project sits inside a research direction I care about a lot: explicit memory for
@@ -120,6 +120,6 @@ I think of memory as separate problems: storage, retrieval, forgetting, explorat
 
 ## Links
 
-- Project page: [KG Memory Transfer](https://humem.ai/research/kg-memory-transfer/)
+- Research page: [KG Memory Transfer](https://humem.ai/research/kg-memory-transfer/)
 - Paper: [arXiv](https://arxiv.org/abs/2605.22142)
 - GitHub: [kg-memory-transfer](https://github.com/humemai/kg-memory-transfer)

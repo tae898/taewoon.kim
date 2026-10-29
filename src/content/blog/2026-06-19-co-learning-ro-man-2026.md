@@ -92,6 +92,6 @@ The limitations: a simulation, a small sample, a heuristic single-CP selection, 
 
 ## Links
 
-- Project page: [Co-Learning](https://humem.ai/research/co-learning/)
+- Research page: [Co-Learning](https://humem.ai/research/co-learning/)
 - Paper: [arXiv](https://arxiv.org/abs/2606.18836)
 - GitHub: [co-learning](https://github.com/humemai/co-learning)

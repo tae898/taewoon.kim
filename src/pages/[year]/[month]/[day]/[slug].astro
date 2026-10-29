@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { formatPostDate, getPostImage, getTagUrl, parsePostId } from '../../../../utils/blog';
+import { formatPostDate, getPostCover, getTagUrl, parsePostId } from '../../../../utils/blog';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const image = getPostImage(post);
+const image = getPostCover(post);
 ---
 
 <BaseLayout title={post.data.title} description={post.data.subtitle} image={image}>
