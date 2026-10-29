@@ -95,6 +95,11 @@ export function getPostImage(post: BlogEntry) {
   return post.data['thumbnail-img'] ?? post.data['cover-img'];
 }
 
+// The post page shows the full cover; the card thumbnail is a 2:1 crop made for the card.
+export function getPostCover(post: BlogEntry) {
+  return post.data['cover-img'] ?? post.data['thumbnail-img'];
+}
+
 export function createExcerpt(source: string, length = 180) {
   const text = source
     .replace(/```[\s\S]*?```/g, ' ')

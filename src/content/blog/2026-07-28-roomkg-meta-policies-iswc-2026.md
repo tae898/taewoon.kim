@@ -116,6 +116,6 @@ Getting to present this at ISWC feels right, because the whole construction rest
 
 ## Links
 
-- Project page: [RoomKG Meta-Policies](https://humem.ai/research/roomkg-meta-policies/)
+- Research page: [RoomKG Meta-Policies](https://humem.ai/research/roomkg-meta-policies/)
 - Paper: [arXiv](https://arxiv.org/abs/2607.18368)
 - GitHub: [roomkg-meta-policies](https://github.com/humemai/roomkg-meta-policies)

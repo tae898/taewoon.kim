@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { createExcerpt, formatPostDate, getPostImage, getPostUrl, getTagUrl } from '../utils/blog';
+import { createExcerpt, formatPostDate, getPostImage, getPostUrl } from '../utils/blog';
 
 type Props = {
   post: CollectionEntry<'blog'>;
@@ -12,6 +12,12 @@ const image = getPostImage(post);
 
 <article class="post-card">
   <div class="post-card__body">
+    {image && (
+      <a class="post-card__media" href={getPostUrl(post.id)}>
+        <img src={image} alt={post.data.title} loading="lazy" />
+      </a>
+    )}
+
     <div class="meta">
       <span>{formatPostDate(post.id)}</span>
       <span>{post.data.author}</span>
@@ -25,22 +31,6 @@ const image = getPostImage(post);
     </div>
 
     <p>{createExcerpt(post.body)}</p>
-
-    {image && (
-      <a class="post-card__media" href={getPostUrl(post.id)}>
-        <img src={image} alt={post.data.title} loading="lazy" />
-      </a>
-    )}
-
-    {!!post.data.tags?.length && (
-      <div class="tag-list">
-        {post.data.tags.slice(0, 4).map((tag) => (
-          <a class="tag" href={getTagUrl(tag)}>
-            {tag}
-          </a>
-        ))}
-      </div>
-    )}
 
     <a class="post-card__action" href={getPostUrl(post.id)}>
       Read post

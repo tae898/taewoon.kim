@@ -2,7 +2,7 @@
 title: "Promptsource: An integrated development environment and repository for natural language prompts"
 subtitle: A tool for writing and sharing prompts
 cover-img: /assets/img/posts/2022-02-02/PromptSource.png
-thumbnail-img: /assets/img/posts/2022-02-02/PromptSource.png
+thumbnail-img: /assets/img/posts/2022-02-02/PromptSource-thumb.png
 tags: [llm, prompt, gpt, promptsource]
 author: Taewoon Kim
 mathjax: true
