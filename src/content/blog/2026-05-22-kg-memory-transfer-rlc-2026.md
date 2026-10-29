@@ -2,7 +2,7 @@
 title: My KG Memory Transfer paper was accepted at RLC 2026
 subtitle: Why I care about learning which symbolic facts should persist
 cover-img: /assets/img/posts/2026-05-22/memory_state_099.png
-thumbnail-img: /assets/img/posts/2026-05-22/memory_state_099.png
+thumbnail-img: /assets/img/posts/2026-05-22/memory_state_099-thumb.png
 tags: [reinforcement learning, knowledge graph, neuro-symbolic AI]
 author: Taewoon Kim
 mathjax: true

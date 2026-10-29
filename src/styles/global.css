@@ -911,3 +911,40 @@ blockquote {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+/* Long content stays inside the page on a phone. A grid item cannot shrink below its content unless it says so, which let a
+   wide code block or equation stretch the whole page; code and display math scroll inside their own box, and inline code
+   and links wrap. */
+.section--document > *,
+.prose {
+  min-width: 0;
+}
+
+.prose :not(pre) > code,
+.prose a {
+  overflow-wrap: anywhere;
+}
+
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* A long inline formula cannot wrap, so it scrolls inside its own box instead of stretching the page. */
+.prose .katex {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: bottom;
+}
+
+.prose .katex-display > .katex {
+  display: block;
+}

@@ -2,7 +2,7 @@
 title: My Neuro-Symbolic Meta-Policies paper was accepted at ISWC 2026
 subtitle: Why I want agents to choose their memory rules, not hide them
 cover-img: /assets/img/posts/2026-07-28/q_values_qa.png
-thumbnail-img: /assets/img/posts/2026-07-28/q_values_qa.png
+thumbnail-img: /assets/img/posts/2026-07-28/q_values_qa-thumb.png
 tags: [neuro-symbolic AI, knowledge graph, reinforcement learning]
 author: Taewoon Kim
 mathjax: true
