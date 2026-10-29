@@ -1,6 +1,6 @@
 ---
 title: "Promptsource: An integrated development environment and repository for natural language prompts"
-subtitle: Revolutionizing NLP with a collaborative hub for crafting and sharing prompts
+subtitle: A tool for writing and sharing prompts
 cover-img: /assets/img/posts/2022-02-02/PromptSource.png
 thumbnail-img: /assets/img/posts/2022-02-02/PromptSource.png
 tags: [llm, prompt, gpt, promptsource]

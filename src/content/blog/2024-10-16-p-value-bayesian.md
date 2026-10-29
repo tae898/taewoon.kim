@@ -247,9 +247,5 @@ allows us to continuously update our understanding of the coin’s fairness base
 observed data, and as we gather more flips, we get closer to the true probability of
 heads.
 
-Bayesian methods offer a richer and more nuanced interpretation of data, free from the
-arbitrary thresholds and misleading binary decisions that p-values impose. Instead of
-focusing on binary outcomes (significant vs. not significant), the Bayesian approach
-allows us to quantify our uncertainty and increase our confidence as more data is
-gathered. It's time to move beyond p-values and embrace methods that allow us to learn
-from data in a more flexible and informative way.
+Bayesian methods give a posterior instead of a yes or no, so there is no threshold to
+argue about. I would use them over p-values here.

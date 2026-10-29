@@ -215,6 +215,3 @@ In modern computer science, **both discrete and continuous search** co-exist, an
 approach dominates depends on the problem at hand. Sometimes, the best solution involves
 a hybrid approach: using neural networks to learn **continuous representations** and
 discrete algorithms for **explicit reasoning and structured decision-making**.
-
-Feel free to leave questions or thoughts in the comments section. Happy language
-modeling!

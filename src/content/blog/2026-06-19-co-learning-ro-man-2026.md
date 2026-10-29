@@ -60,7 +60,7 @@ The part I want to stress is that the transferred prior stays a readable situati
 structure. It is not an opaque policy update. An operator could look at it, discuss it, or
 switch it off before it is ever used.
 
-## Why I find the result interesting
+## Results
 
 We then ran a study with 20 participants. Initializing the robot with that one
 automatically selected prior CP raised rescue success from **25.7% to 41.3%** and reduced
@@ -88,10 +88,7 @@ subproblems, and "what should a robot remember about its past teammates and brin
 next collaboration" is one I had not touched before. It also pushes me past single-agent
 settings into human-robot teaming, which is where a lot of this eventually has to land.
 
-This is also not a grand new theory of memory transfer. It is one concrete mechanism, in
-one environment, with clear limitations: a simulation, a small sample, a heuristic
-single-CP selection, and no random or multi-CP baselines yet. I would rather present it
-that way and keep the door open for the obvious next steps.
+The limitations: a simulation, a small sample, a heuristic single-CP selection, and no random or multi-CP baselines yet.
 
 ## Links
 

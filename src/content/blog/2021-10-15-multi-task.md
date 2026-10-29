@@ -1,6 +1,6 @@
 ---
 title: Multitask prompted training enables zero-shot task generalization
-subtitle: Achieving superior zero-shot generalization through explicit multitask prompting
+subtitle: Training on many prompted tasks so a model can do new tasks zero-shot
 cover-img: /assets/img/posts/2021-10-15/Octopus.png
 thumbnail-img: /assets/img/posts/2021-10-15/Octopus.png
 tags: [llm, prompt, gpt]

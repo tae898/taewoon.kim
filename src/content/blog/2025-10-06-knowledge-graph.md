@@ -77,16 +77,11 @@ had already standardized RDF, RDFS/OWL, and SPARQL.
 - A pragmatic, product-first graph with selective semantics, built for speed and
   coverage rather than formal inference.
 
-Taken together, Google’s rollout illustrates the tension between rich semantics and
-pragmatic delivery. Before choosing a data model, it’s worth grounding where teams
-actually implement knowledge graphs.
-
 ---
 
 ## 3) Implementation Choices Before Picking a Model
 
-Before comparing RDF and property graph tooling, it’s helpful to see where the
-abstraction can live. The KG definition is model-agnostic; you can represent it in any
+The KG definition is model-agnostic; you can represent it in any
 language or storage engine, and many teams prototype with lightweight structures before
 committing to dedicated databases.
 
@@ -125,9 +120,7 @@ can be costly. For graph-centric workloads, native graph stores usually perform 
 than general-purpose SQL systems.
 
 In practice, large KGs live in **persistent databases** with **declarative graph
-queries**, most often RDF triple stores or property graph systems. The next two sections
-unpack why those models emerged instead of reinventing bespoke infrastructure for every
-project.
+queries**, most often RDF triple stores or property graph systems.
 
 ---
 

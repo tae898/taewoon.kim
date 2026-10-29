@@ -16,11 +16,8 @@ techniques for fine-tuning LLMs to follow human preferences. But did you know th
 is actually a direct descendant of algorithms developed decades ago for teaching robots
 to walk and play video games?
 
-The journey from **REINFORCE** (1992) to **PPO** (2017) to **GRPO** (2024) represents
-one of the most important evolutionary paths in modern AI. Every time ChatGPT gives you
-a helpful response instead of generating gibberish, it's thanks to policy gradient
-methods that can trace their lineage back to the fundamental algorithms we'll explore in
-this post.
+**GRPO** (2024) grew out of **PPO** (2017), which grew out of **REINFORCE** (1992). This
+post walks through that line.
 
 **Why does this matter now?**
 
@@ -55,11 +52,8 @@ be less stable and harder to tune. For this reason, modern LLM fine-tuning with 
 predominantly uses **on-policy methods** like PPO, which provide more reliable and
 predictable training dynamics - crucial when working with billion-parameter models.
 
-This post will take you on a **step-by-step journey** through five fundamental on-policy
-RL algorithms, each building on the previous one's insights while solving its core
-limitations. By the end, you'll understand not just *how* these algorithms work, but
-*why* they evolved the way they did - and why that evolution led directly to the
-techniques powering today's AI breakthroughs.
+This post covers five fundamental on-policy RL algorithms. Each one builds on the
+previous one and fixes its main problem. I explain how each works and what it fixes.
 
 ---
 
@@ -81,9 +75,7 @@ each algorithm emerged to solve specific problems with its predecessors:
 - [**PPO**](https://github.com/tae898/on-policy-rl/blob/main/05.ppo.ipynb): Trust
   regions for robust optimization
 
-Each algorithm represents a **major breakthrough** that solved critical problems
-preventing practical deployment. Understanding this progression isn't just academic -
-it's essential for anyone working with modern AI systems.
+Each algorithm fixes a specific problem of the one before it.
 
 ---
 
@@ -538,15 +530,11 @@ Rather than overwhelming you with experimental numbers and charts, I encourage y
 **The Fundamental Insight**: Understanding how we got from REINFORCE to PPO provides the
 conceptual foundation for understanding where AI is heading next.
 
-The algorithms we've explored aren't just historical curiosities - they're the **living
-foundation** of modern AI. Every time you interact with ChatGPT, watch a robot learn to
-walk, or see an AI system master a new task, you're witnessing these principles in
-action.
+These algorithms are still what modern RL fine-tuning of language models builds on. GRPO
+is a direct descendant of PPO.
 
-Perhaps most importantly, the **debugging intuition** and **implementation insights**
-from these foundational algorithms remain directly applicable to cutting-edge AI
-research. The variance problems we solved in LunarLander are the same ones engineers
-face when training language models with trillions of parameters.
+The variance problems we hit in LunarLander are the same ones people hit when training
+large language models.
 
 **[The complete implementation and detailed notebooks are available on
 GitHub](https://github.com/tae898/on-policy-rl)**

@@ -8,7 +8,7 @@ author: Taewoon Kim
 ---
 
 I've been spending a lot of time thinking about memory systems for AI agents. A big part
-of that work is not just the model, but the storage layer underneath it. I want
+of that work is the storage layer underneath the model. I want
 something that can represent structured relationships, support fast retrieval, and still
 be practical to use in day-to-day experimentation. That led me to
 [ArcadeDB](https://github.com/ArcadeData/arcadedb).
@@ -64,10 +64,7 @@ The packaging story has also gotten much better. The wheel is now about `74MB`
 compressed, with some variation by platform and version, which is much better than the
 older numbers I had in mind when I first drafted this post.
 
-The goal was simple: make Python a good place to drive ArcadeDB without pretending that
-Python needs its own parallel query language.
-
-That includes things like:
+The bindings cover things like:
 
 - creating databases and schemas through SQL
 - driving graph workflows through SQL and OpenCypher
@@ -155,7 +152,7 @@ SQL/OpenCypher, use vector search when I need it, and keep the feedback loop tig
 
 ## Why this matters to me
 
-This is not just a packaging exercise for me. It is part of a broader direction I've
+This is part of a broader direction I've
 been pushing for a while: making memory-heavy AI systems more explicit, inspectable, and
 practical.
 
@@ -164,9 +161,6 @@ knowledge representation, and retrieval. I don't think everything should disappe
 model weights or a black-box vector store. Sometimes you really do want explicit
 structure. Sometimes you want to see the graph, inspect the edges, and understand why a
 retrieval happened.
-
-That is why a multi-model database is interesting to me, and that is why I wanted a
-good embedded Python workflow around it.
 
 ## Links
 

@@ -331,23 +331,18 @@ Such capabilities can only be achieved through **full reinforcement learning**, 
 the agent learns not just from human data but also through exploration in a simulated or
 real-world environment.
 
-## Conclusion: Bridging the Gap Between Imitation and Innovation
+## Behavior cloning versus reinforcement learning
 
-Sequential decision-making is a challenging yet fascinating problem, with applications
-ranging from robotics to natural language processing. While **behavior cloning** offers
-a practical and efficient way to learn from offline data, it is inherently limited by
+While **behavior cloning** offers a practical and efficient way to learn from offline data, it is inherently limited by
 the quality and scope of the training dataset. On the other hand, **reinforcement
 learning**, though computationally intensive, opens the door to surpassing human
 capabilities by enabling agents to explore and discover novel strategies.
 
-Transformers, with their exceptional sequence modeling capabilities, have emerged as a
-powerful tool in this domain. Whether it's driving a car, planning a trip, or generating
-human-like text, their ability to learn from and condition on sequences has
-revolutionized how we approach sequential decision-making.
+Transformers model sequences well. That holds whether the sequence is a drive, a trip, or
+a piece of text.
 
 Looking ahead, hybrid approaches that combine the strengths of behavior cloning and
 reinforcement learning hold immense promise, e.g., RLHF (reinforcement learning from
 human feedback). By starting with high-quality offline data and refining through
 exploration, we can build systems that not only imitate human behavior but also push the
-boundaries of what is possible. The journey is just beginning, and the potential for
-innovation is boundless.
+boundaries of what is possible.

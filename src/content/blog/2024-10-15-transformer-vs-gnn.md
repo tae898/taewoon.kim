@@ -209,12 +209,8 @@ them as the input length grows.
 
 ### Conclusion
 
-In summary, **Transformers** can be viewed as a special case of **Graph Neural
-Networks**, particularly **attention-based GNNs**. Natural language, in this context, is
-a specific type of graph data, where masking and positional embeddings replace the need
-for explicit adjacency matrices. This allows Transformers to model sequential data
-efficiently without requiring the edge-specific representations used in GNNs like
-**R-GCN**.
+So a Transformer is an attention-based GNN on a graph where masking and positional
+embeddings stand in for the adjacency matrix.
 
 
 ### References:
