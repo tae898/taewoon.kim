@@ -2,7 +2,7 @@
 title: Building embedded Python bindings for ArcadeDB
 subtitle: Why I wanted a lightweight, local-first way to use ArcadeDB from Python
 cover-img: /assets/img/posts/2026-01-28/arcadedb-embedded-python-bindings.png
-thumbnail-img: /assets/img/posts/2026-01-28/arcadedb-embedded-python-bindings.png
+thumbnail-img: /assets/img/posts/2026-01-28/arcadedb-embedded-python-bindings-thumb.png
 tags: [ArcadeDB, Python, open source, databases, graphs, embeddings, JVM, humemai]
 author: Taewoon Kim
 ---
