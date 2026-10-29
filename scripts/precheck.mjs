@@ -42,6 +42,7 @@ const server = spawn("node_modules/.bin/astro", ["preview", "--host", "127.0.0.1
   stdio: "ignore",
   detached: true,
 });
+server.unref();
 const stop = () => {
   try {
     process.kill(-server.pid);
@@ -75,7 +76,7 @@ console.log("\n== devices, light and dark");
 const render = spawnSync(
   "uv",
   ["run", "--no-project", "--with", "playwright==1.55.0", "python", "scripts/precheck-render.py", BASE],
-  { stdio: "inherit" },
+  { stdio: "inherit", timeout: 900000 },
 );
 if (render.status !== 0) fail("the rendered check failed");
 
@@ -84,3 +85,5 @@ if (failures.length) {
   process.exit(1);
 }
 console.log("\nprecheck: ok. Say in the PR which steps ran.");
+// the preview server is stopped by the exit hook; exit explicitly so a lingering handle cannot hang CI
+process.exit(0);
