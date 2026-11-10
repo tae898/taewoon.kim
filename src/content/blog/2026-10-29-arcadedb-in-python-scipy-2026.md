@@ -34,5 +34,5 @@ package is named `arcadedb` from the 26.11.1 release on.
 ## Links
 
 - Research page: [ArcadeDB in Python](https://humem.ai/research/arcadedb-python/)
-- Paper: [SciPy Proceedings](https://proceedings.scipy.org/articles/fwvt2525)
+- Read paper: [arXiv](https://arxiv.org/abs/2611.07971)
 - GitHub: [ArcadeData/arcadedb-python](https://github.com/ArcadeData/arcadedb-python)
